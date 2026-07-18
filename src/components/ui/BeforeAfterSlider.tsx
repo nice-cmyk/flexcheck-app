@@ -54,4 +54,17 @@ export default function BeforeAfterSlider({
         style={{ left: `${position}%` }}
         onMouseDown={() => (dragging.current = true)}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white flex items-center justify-center text-bg text-xs">
+          ↔
+        </div>
+      </div>
+
+      <div className="absolute top-3 left-3 bg-primary/20 text-primary-light text-xs font-semibold px-3 py-1.5 rounded-full">
+        {beforeLabel}
+      </div>
+      <div className="absolute top-3 right-3 bg-white/10 text-white/60 text-xs font-semibold px-3 py-1.5 rounded-full">
+        {afterLabel}
+      </div>
+    </div>
+  )
+}

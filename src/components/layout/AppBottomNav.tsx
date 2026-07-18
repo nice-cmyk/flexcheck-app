@@ -20,4 +20,16 @@ export default function AppBottomNav() {
             end={end}
             title={label}
             className={({ isActive }) =>
-              `flex-none flex items-center gap-1.5 text-xs font-medium px-2.5 sm:px-3 py-2.5 rounded-
+              `flex-none flex items-center gap-1.5 text-xs font-medium px-2.5 sm:px-3 py-2.5 rounded-full transition-colors ${
+                isActive ? 'bg-primary text-white' : 'text-white/50 hover:text-white'
+              }`
+            }
+          >
+            <Icon size={16} className="flex-none" />
+            <span className="hidden sm:inline">{label}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </div>
+  )
+}

@@ -136,4 +136,13 @@ export default function LuxuryCar() {
         </div>
 
         <Button fullWidth className="mt-5" onClick={handleSubmit}>
-          
+          Generate my video →
+        </Button>
+        <div className="text-center text-white/40 text-xs mt-2">
+          Uses {formatCredits(videoTotalCost('short'))} credit · ~60 seconds
+        </div>
+      </div>
+    </div>
+    </AppLayout>
+  )
+}

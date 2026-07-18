@@ -17,4 +17,11 @@ export default function TopNav() {
         </Link>
         <Link
           to="/signup"
-          className="bg-primary rounded-lg text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 
+          className="bg-primary rounded-lg text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 whitespace-nowrap"
+        >
+          Start for free
+        </Link>
+      </div>
+    </div>
+  )
+}

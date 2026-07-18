@@ -18,3 +18,45 @@
   50% { opacity: .3; }
 }
 .animate-pulse-dot { animation: pulse 1.2s infinite; }
+
+@keyframes scene-highlight {
+  0%, 20% { opacity: 1; transform: scale(1); }
+  25%, 100% { opacity: .25; transform: scale(.92); }
+}
+@keyframes upload-float {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-8px); opacity: .5; }
+}
+@keyframes upload-ring {
+  0% { stroke-dashoffset: 88; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes render-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes render-glow {
+  0%, 100% { opacity: .5; }
+  50% { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float-y 4s ease-in-out infinite; }
+
+@keyframes cta-glow-move {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .5; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: .8; }
+}
+.animate-cta-glow { animation: cta-glow-move 5s ease-in-out infinite; }

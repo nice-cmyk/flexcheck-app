@@ -39,4 +39,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/app/credits" element={<AuthGuard><Credits /></AuthGuard>} />
         <Route path="/app/account" element={<AuthGuard><Account /></AuthGuard>} />
         <Route path="/app/affiliate" element={<AuthGuard><Affiliate /></AuthGuard>} />
-        <Route path="/app/generating/:id" element={<AuthGuar
+        <Route path="/app/generating/:id" element={<AuthGuard><Generating /></AuthGuard>} />
+        <Route path="/app/result/:id" element={<AuthGuard><Result /></AuthGuard>} />
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>,
+)

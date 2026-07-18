@@ -193,4 +193,154 @@ export default function Landing() {
           <div className="text-white/45 font-light text-base mt-4">
             Your first photo is on us — try it now and see your life, upgraded.
           </div>
-      
+          <div className="flex flex-wrap gap-4 justify-center items-center mt-8">
+            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-7 py-4">
+              Start for free →
+            </Link>
+          </div>
+        </div>
+      </Reveal>
+
+      <Footer />
+    </div>
+  )
+}
+
+function Reveal({
+  children,
+  className,
+  delayMs = 0,
+}: {
+  children: React.ReactNode
+  className?: string
+  delayMs?: number
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal ${inView ? 'in-view' : ''} ${className ?? ''}`}
+      style={{ transitionDelay: `${delayMs}ms` }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function AutoVideo({ src, className }: { src: string; className?: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    el.muted = true
+    el.defaultMuted = true
+    const tryPlay = () => el.play().catch(() => {})
+    tryPlay()
+    document.addEventListener('touchstart', tryPlay, { once: true })
+    document.addEventListener('click', tryPlay, { once: true })
+    return () => {
+      document.removeEventListener('touchstart', tryPlay)
+      document.removeEventListener('click', tryPlay)
+    }
+  }, [])
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      className={className}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+    />
+  )
+}
+
+function SceneMotion() {
+  const tiles = [0, 1, 2, 3]
+  return (
+    <div className="grid grid-cols-2 gap-2 p-4 w-full h-full box-border">
+      {tiles.map((i) => (
+        <div
+          key={i}
+          className="rounded-lg bg-gradient-to-br from-primary/50 to-accent/30"
+          style={{ animation: `scene-highlight 3.2s ${i * 0.8}s infinite` }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function UploadMotion() {
+  return (
+    <div className="relative flex items-center justify-center w-full h-full">
+      <svg width="64" height="64" viewBox="0 0 64 64" className="absolute" style={{ animation: 'render-spin 6s linear infinite' }}>
+        <circle
+          cx="32"
+          cy="32"
+          r="14"
+          fill="none"
+          stroke="#7C3AED"
+          strokeWidth="2"
+          strokeDasharray="88"
+          strokeDashoffset="0"
+          strokeLinecap="round"
+          opacity="0.4"
+        />
+      </svg>
+      <div style={{ animation: 'upload-float 1.8s ease-in-out infinite' }}>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3v12M12 3l-5 5M12 3l5 5" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      </div>
+    </div>
+  )
+}
+
+function RenderMotion() {
+  return (
+    <div className="relative flex items-center justify-center w-full h-full">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="36" r="28" fill="none" stroke="rgba(124,58,237,0.15)" strokeWidth="4" />
+        <circle
+          cx="36"
+          cy="36"
+          r="28"
+          fill="none"
+          stroke="#A855F7"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeDasharray="176"
+          strokeDashoffset="120"
+          style={{ animation: 'render-spin 2.4s linear infinite', transformOrigin: '36px 36px' }}
+        />
+      </svg>
+      <div
+        className="absolute w-3 h-3 rounded-full bg-primary-light"
+        style={{ animation: 'render-glow 1.2s ease-in-out infinite' }}
+      />
+    </div>
+  )
+}

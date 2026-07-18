@@ -80,4 +80,6 @@ export default function EditVideo() {
           </div>
         </div>
       </div>
-    </AppLayo
+    </AppLayout>
+  )
+}

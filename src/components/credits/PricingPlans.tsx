@@ -49,4 +49,6 @@ export default function PricingPlans({ userId }: { userId?: string }) {
           </Card>
         )
       })}
-  
+    </div>
+  )
+}

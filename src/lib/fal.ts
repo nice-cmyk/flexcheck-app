@@ -37,3 +37,30 @@ export async function uploadToFalStorage(file: Blob): Promise<string> {
 
 /**
  * Composes the final photo: places the person from the user's photo into the
+ * described luxury scene, using Nano Banana (Gemini 2.5 Flash Image edit).
+ * Returns a hosted image URL.
+ */
+export async function composeImage(userPhotoUrl: string, sceneDescription: string): Promise<string> {
+  const { url } = await postJson<{ url: string }>('/api/fal-compose', {
+    userPhotoUrl,
+    sceneDescription,
+  })
+  return url
+}
+
+export type KlingVideoInput = {
+  compositeImageUrl: string
+  sceneDescription: string
+}
+
+export type KlingVideoResult = {
+  requestId: string
+  videoUrl: string
+}
+
+export async function generateVideo({ compositeImageUrl, sceneDescription }: KlingVideoInput): Promise<KlingVideoResult> {
+  return postJson<KlingVideoResult>('/api/fal-video', {
+    compositeImageUrl,
+    sceneDescription,
+  })
+}

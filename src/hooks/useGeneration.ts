@@ -80,4 +80,12 @@ export function useGeneration(userId: string | undefined) {
         setProgress(100)
         setStep('complete')
       } catch (e: any) {
-        setError(e?.message ?? 'An erro
+        setError(e?.message ?? 'An error occurred during generation.')
+        setStep('failed')
+      }
+    },
+    [userId]
+  )
+
+  return { step, progress, resultUrl, error, run }
+}

@@ -88,3 +88,6 @@ function Toggle({
           }`}
         />
       </button>
+    </div>
+  )
+}

@@ -40,4 +40,11 @@ export default function Credits() {
             Credits never expire
           </div>
           <div className="bg-primary/15 text-primary-light text-xs font-semibold px-3.5 py-2 rounded-full">
-            Includes a tutorial to send as 
+            Includes a tutorial to send as a native Snapchat snap
+          </div>
+          <div className="text-white/40 text-xs px-3.5 py-2">Apple Pay · Google Pay · Credit card</div>
+        </div>
+      </div>
+    </AppLayout>
+  )
+}

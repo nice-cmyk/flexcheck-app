@@ -75,3 +75,4 @@ function Row({ label, value, last }: { label: string; value: string; last?: bool
       <span className="text-white">{value}</span>
     </div>
   )
+}

@@ -21,4 +21,7 @@ export default function CreditPacks({ userId }: { userId?: string }) {
             </button>
           </Card>
         )
-   
+      })}
+    </div>
+  )
+}

@@ -34,4 +34,11 @@ export default function AppTopBar() {
         <button
           onClick={handleLogout}
           aria-label="Log out"
-          className="w-9 h-9 rounded-full border border-white/15 text-white
+          className="w-9 h-9 rounded-full border border-white/15 text-white/70 hover:text-white flex items-center justify-center"
+        >
+          <LogOut size={16} />
+        </button>
+      </div>
+    </div>
+  )
+}
