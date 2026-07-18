@@ -20,40 +20,21 @@ export function formatCredits(amount: number) {
 /**
  * Consomme des crédits : priorité aux crédits d'abonnement, puis aux crédits de pack.
  * Retourne false si le solde est insuffisant.
+ *
+ * Passe par la fonction Postgres sécurisée `consume_credits` (security definer)
+ * plutôt que par un UPDATE direct sur `profiles` : les policies RLS n'autorisent
+ * que la lecture pour les utilisateurs, donc c'est la seule voie d'écriture
+ * possible. Ça empêche un utilisateur de s'auto-créditer depuis la console du
+ * navigateur en appelant directement le SDK Supabase.
  */
 export async function useCredits(userId: string, amount: number): Promise<boolean> {
-  const { data: profile, error } = await supabase
-    .from('profiles')
-    .select('subscription_credits_remaining, pack_credits')
-    .eq('id', userId)
-    .single()
-
-  if (error || !profile) return false
-
-  const totalCredits = profile.subscription_credits_remaining + profile.pack_credits
-  if (totalCredits < amount) return false
-
-  const subCreditsToUse = Math.min(profile.subscription_credits_remaining, amount)
-  const packCreditsToUse = amount - subCreditsToUse
-
-  const { error: updateError } = await supabase
-    .from('profiles')
-    .update({
-      subscription_credits_remaining: profile.subscription_credits_remaining - subCreditsToUse,
-      pack_credits: profile.pack_credits - packCreditsToUse,
-    })
-    .eq('id', userId)
-
-  if (updateError) return false
-
-  await supabase.from('credit_transactions').insert({
-    user_id: userId,
-    amount: -amount,
-    type: 'generation_use',
-    description: `Used ${amount} credit(s)`,
+  const { data, error } = await supabase.rpc('consume_credits', {
+    p_user_id: userId,
+    p_amount: amount,
   })
 
-  return true
+  if (error) return false
+  return data === true
 }
 
 export function totalCredits(profile: { subscription_credits_remaining: number; pack_credits: number }) {
