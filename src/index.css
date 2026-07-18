@@ -60,3 +60,9 @@
   50% { transform: translate(-50%, -50%) scale(1.15); opacity: .8; }
 }
 .animate-cta-glow { animation: cta-glow-move 5s ease-in-out infinite; }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 22s linear infinite; }

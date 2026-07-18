@@ -77,7 +77,7 @@ export default function Landing() {
 
       {/* MARQUEE */}
       <div className="relative border-y border-white/[0.06] py-4 overflow-hidden whitespace-nowrap">
-        <div className="inline-flex gap-3.5 text-white/40 text-sm font-light pl-4 sm:pl-14">
+        <div className="inline-flex gap-3.5 text-white/40 text-sm font-light pl-4 sm:pl-14 animate-marquee">
           {[...marqueeItems, ...marqueeItems].map((item, i) => (
             <span key={i} className="flex items-center gap-3.5">
               {item} <span className="text-primary">◆</span>
