@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bg text-white font-body;
+    margin: 0;
+  }
+  ::-webkit-scrollbar { height: 10px; width: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.4); border-radius: 8px; }
+  a { color: #A855F7; text-decoration: none; }
+  a:hover { color: #C084FC; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}
+.animate-pulse-dot { animation: pulse 1.2s infinite; }
