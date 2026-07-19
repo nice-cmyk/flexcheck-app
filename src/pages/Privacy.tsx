@@ -15,7 +15,7 @@ export default function Privacy() {
             and generation history).
           </p>
           <p>
-            Uploaded photos and generated results are processed by our AI providers (OpenAI and fal.ai)
+            Uploaded photos and generated results are processed by our AI provider (fal.ai)
             solely to create your requested content, and are stored temporarily so you can download your
             results before they expire.
           </p>
