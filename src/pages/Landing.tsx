@@ -79,6 +79,9 @@ export default function Landing() {
           </div>
         </div>
         <DemoMotion />
+        <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+          Start for free →
+        </Link>
       </Reveal>
 
       {/* MARQUEE */}
@@ -112,9 +115,14 @@ export default function Landing() {
               </span>
             ))}
           </div>
-          <a href="#examples" className="block text-accent font-medium text-sm mt-6">
-            Try it →
-          </a>
+          <div className="flex flex-wrap items-center gap-5 mt-6">
+            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+              Start for free →
+            </Link>
+            <a href="#examples" className="text-accent font-medium text-sm">
+              Try it →
+            </a>
+          </div>
         </div>
         <div className="flex-1 relative flex justify-center gap-4 sm:gap-6 w-full">
           <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] -rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.2s' }}>
@@ -157,9 +165,14 @@ export default function Landing() {
               </span>
             ))}
           </div>
-          <a href="#examples" className="block text-accent font-medium text-sm mt-6">
-            Try it →
-          </a>
+          <div className="flex flex-wrap items-center gap-5 mt-6">
+            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+              Start for free →
+            </Link>
+            <a href="#examples" className="text-accent font-medium text-sm">
+              Try it →
+            </a>
+          </div>
         </div>
       </Reveal>
 
@@ -192,6 +205,11 @@ export default function Landing() {
             </div>
           </Reveal>
         ))}
+        <Reveal className="flex justify-center px-4 sm:px-6 lg:px-14">
+          <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+            Start for free →
+          </Link>
+        </Reveal>
       </div>
 
       {/* GALLERY */}
@@ -216,6 +234,11 @@ export default function Landing() {
               afterSlot={<img src="/gallery-avant2.jpg" alt="Luxury result" className="w-full h-full object-cover" />}
             />
           </div>
+        </div>
+        <div className="flex justify-center mt-10">
+          <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+            Start for free →
+          </Link>
         </div>
         </div>
       </Reveal>
