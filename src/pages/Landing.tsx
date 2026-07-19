@@ -32,12 +32,20 @@ export default function Landing() {
       <TopNav />
 
       {/* HERO */}
-      <Reveal className="relative flex flex-col lg:flex-row px-4 sm:px-6 lg:px-14 py-12 lg:py-20 gap-10 items-center overflow-hidden">
-        <div
-          className="absolute top-16 left-1/2 -translate-x-1/2 w-[85vw] max-w-[560px] h-[85vw] max-h-[560px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', filter: 'blur(20px)' }}
-        />
-        <div className="flex-1 relative z-10 w-full">
+      <Reveal className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-14 py-20 lg:py-28 min-h-[560px] lg:min-h-[680px] overflow-hidden text-center">
+        <div className="absolute inset-0 flex flex-col justify-center gap-3 sm:gap-4 opacity-50">
+          <PhotoRow
+            images={['/apres.jpg', '/gallery-avant1.jpg', '/avant.jpg', '/gallery-left-after.jpg']}
+            className="animate-marquee"
+          />
+          <PhotoRow
+            images={['/gallery-avant2.jpg', '/gallery-left-before.jpg', '/apres.jpg', '/avant.jpg']}
+            className="animate-marquee-reverse"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/60 to-bg" />
+
+        <div className="relative z-10 max-w-2xl">
           <div className="inline-block bg-white/[0.06] text-white text-xs font-medium px-3.5 py-1.5 rounded-full">
             Powered by AI · Results in 60s
           </div>
@@ -47,30 +55,16 @@ export default function Landing() {
           <div className="font-display font-extrabold italic text-5xl sm:text-6xl lg:text-8xl text-primary leading-none -tracking-wide">
             Upgraded.
           </div>
-          <div className="text-white/45 font-light text-base lg:text-lg leading-relaxed mt-6 max-w-md">
+          <div className="text-white/60 font-light text-base lg:text-lg leading-relaxed mt-6 max-w-md mx-auto">
             Turn any photo into a luxury lifestyle photo or video, ready to post in 60 seconds.
           </div>
-          <div className="flex flex-wrap gap-4 sm:gap-6 items-center mt-8">
+          <div className="flex flex-wrap gap-4 sm:gap-6 items-center justify-center mt-8">
             <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-4">
               Start for free →
             </Link>
             <a href="#examples" className="text-accent font-medium text-sm">
               See examples →
             </a>
-          </div>
-        </div>
-        <div className="flex-1 relative z-10 flex justify-center items-center gap-3 sm:gap-4 w-full">
-          <div className="w-full max-w-[160px] aspect-[160/285] rounded-2xl shadow-[0_0_40px_rgba(124,58,237,0.2)] relative overflow-hidden">
-            <AutoVideo src="/hero-after.mp4" className="w-full h-full object-cover bg-gradient-to-br from-[#2a1a3d] to-[#0f0a18]" />
-            <div className="absolute top-3 left-3 bg-white/10 text-white/70 text-xs font-semibold px-3 py-1.5 rounded-full">
-              Before
-            </div>
-          </div>
-          <div className="w-full max-w-[160px] aspect-[160/285] rounded-2xl shadow-[0_0_50px_rgba(124,58,237,0.3)] relative overflow-hidden">
-            <AutoVideo src="/hero-before.mp4" className="w-full h-full object-cover bg-[#15151d] scale-125" />
-            <div className="absolute top-3 left-3 bg-primary/20 text-primary-light text-xs font-semibold px-3 py-1.5 rounded-full">
-              After
-            </div>
           </div>
         </div>
       </Reveal>
@@ -245,35 +239,21 @@ function Reveal({
   )
 }
 
-function AutoVideo({ src, className }: { src: string; className?: string }) {
-  const ref = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    el.muted = true
-    el.defaultMuted = true
-    const tryPlay = () => el.play().catch(() => {})
-    tryPlay()
-    document.addEventListener('touchstart', tryPlay, { once: true })
-    document.addEventListener('click', tryPlay, { once: true })
-    return () => {
-      document.removeEventListener('touchstart', tryPlay)
-      document.removeEventListener('click', tryPlay)
-    }
-  }, [])
-
+function PhotoRow({ images, className }: { images: string[]; className?: string }) {
+  const doubled = [...images, ...images]
   return (
-    <video
-      ref={ref}
-      src={src}
-      className={className}
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="auto"
-    />
+    <div className="w-full overflow-hidden whitespace-nowrap">
+      <div className={`inline-flex gap-3 sm:gap-4 ${className ?? ''}`}>
+        {doubled.map((src, i) => (
+          <div
+            key={i}
+            className="flex-none w-[120px] sm:w-[160px] lg:w-[190px] h-24 sm:h-32 lg:h-40 rounded-2xl overflow-hidden"
+          >
+            <img src={src} alt="" className="w-full h-full object-cover" />
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
 

@@ -66,3 +66,4 @@
   100% { transform: translateX(-50%); }
 }
 .animate-marquee { animation: marquee 22s linear infinite; }
+.animate-marquee-reverse { animation: marquee 26s linear infinite reverse; }
