@@ -15,7 +15,7 @@ export default function AppTopBar() {
   }
 
   return (
-    <div className="flex-none flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 sm:py-4 border-b border-white/[0.06] bg-gradient-to-b from-primary/10 to-transparent gap-2">
+    <div className="sticky top-0 z-40 flex-none flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 sm:py-4 border-b border-white/[0.06] bg-bg/90 backdrop-blur-md gap-2">
       <Link to="/app" className="flex items-center gap-2 sm:gap-2.5 min-w-0">
         <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-primary flex items-center justify-center flex-none">
           <Sparkles size={16} className="text-white" />

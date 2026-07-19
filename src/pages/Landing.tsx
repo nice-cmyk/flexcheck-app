@@ -27,10 +27,40 @@ const steps = [
 
 const channels = ['Snapchat', 'Instagram', 'TikTok', 'iMessage']
 
+const notifNames = ['Sophie', 'Lucas', 'Emma', 'Nathan', 'Chloé', 'Maxime', 'Léa', 'Hugo', 'Sarah', 'Yanis', 'Camille', 'Adam', 'Zoé', 'Malik']
+const notifActions = [
+  'just generated a photo',
+  'just generated a video',
+  'just created a Ferrari scene',
+  'just posted a luxury photo',
+  'just tried the Tokyo penthouse scene',
+  'just generated a Monaco yacht photo',
+]
+
 export default function Landing() {
+  const demoSectionRef = useRef<HTMLDivElement>(null)
+  const [notifEnabled, setNotifEnabled] = useState(false)
+
+  useEffect(() => {
+    const el = demoSectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNotifEnabled(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -20% 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="bg-bg min-h-screen overflow-x-hidden">
       <TopNav />
+      <LiveNotifications enabled={notifEnabled} />
 
       {/* HERO */}
       <Reveal className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-14 py-20 lg:py-28 min-h-[560px] lg:min-h-[680px] overflow-hidden text-center">
@@ -45,6 +75,14 @@ export default function Landing() {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/60 to-bg" />
+        <div
+          className="absolute top-[10%] left-[8%] w-[40vw] max-w-[380px] h-[40vw] max-h-[380px] rounded-full pointer-events-none opacity-70"
+          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.35), transparent 70%)', filter: 'blur(40px)' }}
+        />
+        <div
+          className="absolute bottom-[5%] right-[6%] w-[35vw] max-w-[320px] h-[35vw] max-h-[320px] rounded-full pointer-events-none opacity-60"
+          style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.3), transparent 70%)', filter: 'blur(40px)' }}
+        />
 
         <div className="relative z-10 max-w-2xl">
           <div className="inline-block bg-white/[0.06] text-white text-xs font-medium px-3.5 py-1.5 rounded-full">
@@ -60,26 +98,34 @@ export default function Landing() {
             Turn any photo into a luxury lifestyle photo or video, ready to post in 60 seconds.
           </div>
           <div className="flex flex-wrap gap-4 sm:gap-6 items-center justify-center mt-8">
-            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-4">
+            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-4 shadow-[0_0_35px_rgba(124,58,237,0.55)] hover:shadow-[0_0_50px_rgba(124,58,237,0.75)] transition-shadow">
               Start for free →
             </Link>
             <a href="#examples" className="text-accent font-medium text-sm">
               See examples →
             </a>
           </div>
+          <LiveCounter />
         </div>
       </Reveal>
 
       {/* LIVE DEMO */}
-      <Reveal className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20 flex flex-col items-center text-center gap-7">
-        <div>
+      <Reveal
+        refProp={demoSectionRef}
+        className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20 flex flex-col items-center text-center gap-7 overflow-hidden"
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[460px] h-[60vw] max-h-[460px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', filter: 'blur(50px)' }}
+        />
+        <div className="relative">
           <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">See it happen live.</div>
           <div className="text-white/45 font-light text-sm mt-2 max-w-md mx-auto">
             Your photo, your request, your result — one continuous flow.
           </div>
         </div>
         <DemoMotion />
-        <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+        <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
           Start for free →
         </Link>
       </Reveal>
@@ -97,7 +143,11 @@ export default function Landing() {
 
       {/* SNAP SECTION */}
       <Reveal className="relative flex flex-col lg:flex-row px-4 sm:px-6 lg:px-14 py-16 lg:py-20 gap-10 items-center overflow-hidden">
-        <div className="flex-1 w-full">
+        <div
+          className="absolute top-1/2 right-[10%] -translate-y-1/2 w-[45vw] max-w-[380px] h-[45vw] max-h-[380px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.2), transparent 70%)', filter: 'blur(50px)' }}
+        />
+        <div className="flex-1 w-full relative">
           <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
             Send insane snaps
           </div>
@@ -116,7 +166,7 @@ export default function Landing() {
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-5 mt-6">
-            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
               Start for free →
             </Link>
             <a href="#examples" className="text-accent font-medium text-sm">
@@ -139,6 +189,10 @@ export default function Landing() {
 
       {/* INSTAGRAM SECTION */}
       <Reveal className="relative flex flex-col-reverse lg:flex-row px-4 sm:px-6 lg:px-14 py-16 lg:py-20 gap-10 items-center overflow-hidden">
+        <div
+          className="absolute top-1/2 left-[10%] -translate-y-1/2 w-[45vw] max-w-[380px] h-[45vw] max-h-[380px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)', filter: 'blur(50px)' }}
+        />
         <div className="flex-1 relative flex justify-center gap-4 sm:gap-6 w-full">
           <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.1s' }}>
             <InstagramMockup src="/lux9.png" caption="Feeling like this today ✨" />
@@ -166,7 +220,7 @@ export default function Landing() {
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-5 mt-6">
-            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
               Start for free →
             </Link>
             <a href="#examples" className="text-accent font-medium text-sm">
@@ -206,14 +260,18 @@ export default function Landing() {
           </Reveal>
         ))}
         <Reveal className="flex justify-center px-4 sm:px-6 lg:px-14">
-          <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+          <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
             Start for free →
           </Link>
         </Reveal>
       </div>
 
       {/* GALLERY */}
-      <Reveal className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20">
+      <Reveal className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20 overflow-hidden">
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] max-w-[500px] h-[40vw] max-h-[320px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.15), transparent 70%)', filter: 'blur(50px)' }}
+        />
         <div id="examples" className="relative">
         <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">See the difference.</div>
         <div className="text-white/45 font-light text-sm mt-2">Drag each slider to compare before and after.</div>
@@ -236,7 +294,7 @@ export default function Landing() {
           </div>
         </div>
         <div className="flex justify-center mt-10">
-          <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5">
+          <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
             Start for free →
           </Link>
         </div>
@@ -257,7 +315,7 @@ export default function Landing() {
             Your first photo is on us — try it now and see your life, upgraded.
           </div>
           <div className="flex flex-wrap gap-4 justify-center items-center mt-8">
-            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-7 py-4">
+            <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-7 py-4 shadow-[0_0_40px_rgba(124,58,237,0.6)] hover:shadow-[0_0_55px_rgba(124,58,237,0.8)] transition-shadow">
               Start for free →
             </Link>
           </div>
@@ -269,14 +327,85 @@ export default function Landing() {
   )
 }
 
+function LiveCounter() {
+  const [count, setCount] = useState(32586)
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>
+    function tick() {
+      setCount((c) => c + Math.floor(Math.random() * 3) + 1)
+      timeout = setTimeout(tick, 4000 + Math.random() * 5000)
+    }
+    timeout = setTimeout(tick, 4000 + Math.random() * 5000)
+    return () => clearTimeout(timeout)
+  }, [])
+
+  return (
+    <div className="inline-flex items-center gap-2 text-white/50 text-xs sm:text-sm mt-6">
+      <span className="relative flex h-2 w-2 flex-none">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
+      </span>
+      <span>
+        <span className="text-white font-semibold">{count.toLocaleString('en-US')}</span> photos & videos generated
+        today
+      </span>
+    </div>
+  )
+}
+
+function LiveNotifications({ enabled }: { enabled: boolean }) {
+  const [current, setCurrent] = useState<{ name: string; action: string } | null>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (!enabled) return
+    let timeout: ReturnType<typeof setTimeout>
+    function showNext() {
+      const name = notifNames[Math.floor(Math.random() * notifNames.length)]
+      const action = notifActions[Math.floor(Math.random() * notifActions.length)]
+      setCurrent({ name, action })
+      setVisible(true)
+      timeout = setTimeout(() => {
+        setVisible(false)
+        timeout = setTimeout(showNext, 4000 + Math.random() * 4000)
+      }, 4200)
+    }
+    timeout = setTimeout(showNext, 800)
+    return () => clearTimeout(timeout)
+  }, [enabled])
+
+  if (!current) return null
+
+  return (
+    <div
+      className={`fixed bottom-5 left-4 sm:left-5 z-10 flex items-center gap-2.5 bg-surface/70 backdrop-blur-sm border border-white/5 rounded-xl px-3 py-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.4)] max-w-[190px] transition-all duration-500 ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
+      }`}
+    >
+      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-bold flex-none">
+        {current.name[0]}
+      </div>
+      <div className="text-left min-w-0">
+        <div className="text-white/80 text-[11px] font-semibold leading-snug">
+          {current.name} {current.action}
+        </div>
+        <div className="text-white/35 text-[10px] mt-0.5">Just now</div>
+      </div>
+    </div>
+  )
+}
+
 function Reveal({
   children,
   className,
   delayMs = 0,
+  refProp,
 }: {
   children: React.ReactNode
   className?: string
   delayMs?: number
+  refProp?: React.RefObject<HTMLDivElement>
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [inView, setInView] = useState(false)
@@ -299,7 +428,10 @@ function Reveal({
 
   return (
     <div
-      ref={ref}
+      ref={(node) => {
+        ;(ref as React.MutableRefObject<HTMLDivElement | null>).current = node
+        if (refProp) (refProp as React.MutableRefObject<HTMLDivElement | null>).current = node
+      }}
       className={`reveal ${inView ? 'in-view' : ''} ${className ?? ''}`}
       style={{ transitionDelay: `${delayMs}ms` }}
     >

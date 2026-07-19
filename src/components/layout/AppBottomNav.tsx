@@ -11,8 +11,8 @@ const items = [
 
 export default function AppBottomNav() {
   return (
-    <div className="flex-none flex justify-center pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3 px-3">
-      <nav className="flex items-center gap-0.5 sm:gap-1 bg-surface/95 border border-white/10 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.4)] max-w-full overflow-x-auto">
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3 px-3 bg-gradient-to-t from-bg via-bg/90 to-transparent pointer-events-none">
+      <nav className="pointer-events-auto flex items-center gap-0.5 sm:gap-1 bg-surface/95 border border-white/10 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.4)] max-w-full overflow-x-auto">
         {items.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
