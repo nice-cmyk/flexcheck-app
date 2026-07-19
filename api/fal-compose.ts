@@ -27,7 +27,10 @@ what the person is wearing or doing. Keep the person's face and identity clearly
 consistent with the original photo. Make it photorealistic, ${formatLabel}, cinematic lighting,
 ultra realistic, high detail.`
 
-    const imageSize = ratio === '1:1' ? 'square_hd' : 'portrait_16_9'
+    // Explicit pixel dimensions instead of a named preset: the model is more
+    // reliable at actually respecting a concrete {width, height} than the
+    // "portrait_16_9" preset, which was coming back square regardless.
+    const imageSize = ratio === '1:1' ? { width: 1024, height: 1024 } : { width: 1024, height: 1824 }
 
     const result = await fal.subscribe('openai/gpt-image-2/edit', {
       input: {

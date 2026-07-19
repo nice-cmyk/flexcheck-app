@@ -1,4 +1,3 @@
-import BeforeAfterSlider from '../ui/BeforeAfterSlider'
 import Button from '../ui/Button'
 import { formatCredits } from '../../lib/credits'
 
@@ -26,23 +25,31 @@ export default function ResultView({
   return (
     <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
       <div className="flex-none w-full lg:w-[700px] p-4 sm:p-8 box-border">
-        <div className="h-[70vh] lg:h-full rounded-2xl overflow-hidden">
-          {isVideo ? (
-            <video
-              src={afterUrl}
-              className="w-full h-full object-contain bg-black"
-              autoPlay
-              loop
-              muted
-              controls
-              playsInline
-            />
-          ) : (
-            <BeforeAfterSlider
-              beforeSlot={<img src={beforeUrl} alt="Before" className="w-full h-full object-cover" />}
-              afterSlot={<img src={afterUrl} alt="After" className="w-full h-full object-cover" />}
-            />
-          )}
+        <div className="h-[70vh] lg:h-full flex gap-3">
+          <div className="flex-1 relative rounded-2xl overflow-hidden bg-black">
+            <img src={beforeUrl} alt="Before" className="w-full h-full object-cover" />
+            <div className="absolute top-2.5 left-2.5 bg-black/60 text-white text-[11px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">
+              Before
+            </div>
+          </div>
+          <div className="flex-1 relative rounded-2xl overflow-hidden bg-black">
+            {isVideo ? (
+              <video
+                src={afterUrl}
+                className="w-full h-full object-contain bg-black"
+                autoPlay
+                loop
+                muted
+                controls
+                playsInline
+              />
+            ) : (
+              <img src={afterUrl} alt="After" className="w-full h-full object-cover" />
+            )}
+            <div className="absolute top-2.5 left-2.5 bg-primary/80 text-white text-[11px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">
+              After
+            </div>
+          </div>
         </div>
       </div>
       <div className="flex-1 p-4 sm:p-8 box-border">
