@@ -1,5 +1,6 @@
-// Vercel Serverless Function — runs the Nano Banana (Gemini 2.5 Flash Image edit)
-// photo composition step server-side, keeping the fal.ai API key off the client.
+// Vercel Serverless Function — runs the GPT Image 2 (OpenAI's latest image model,
+// the same one powering ChatGPT's free-tier image generation) photo composition
+// step server-side, keeping the fal.ai API key off the client.
 // Required env var (Vercel Project Settings > Environment Variables): FAL_API_KEY
 
 import type { VercelRequest, VercelResponse } from '@vercel/node'
@@ -26,11 +27,14 @@ what the person is wearing or doing. Keep the person's face and identity clearly
 consistent with the original photo. Make it photorealistic, ${formatLabel}, cinematic lighting,
 ultra realistic, high detail.`
 
-    const result = await fal.subscribe('fal-ai/nano-banana/edit', {
+    const imageSize = ratio === '1:1' ? 'square_hd' : 'portrait_16_9'
+
+    const result = await fal.subscribe('openai/gpt-image-2/edit', {
       input: {
         image_urls: [userPhotoUrl],
         prompt,
-        aspect_ratio: ratio,
+        image_size: imageSize,
+        quality: 'high',
         num_images: 1,
       },
     })
