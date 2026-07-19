@@ -35,11 +35,11 @@ export default function Landing() {
       <Reveal className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-14 py-20 lg:py-28 min-h-[560px] lg:min-h-[680px] overflow-hidden text-center">
         <div className="absolute inset-0 flex flex-col justify-center gap-3 sm:gap-4 opacity-50">
           <PhotoRow
-            images={['/apres.jpg', '/gallery-avant1.jpg', '/avant.jpg', '/gallery-left-after.jpg']}
+            images={['/lux1.png', '/lux2.png', '/lux4.png', '/lux6.png', '/lux8.png']}
             className="animate-marquee"
           />
           <PhotoRow
-            images={['/gallery-avant2.jpg', '/gallery-left-before.jpg', '/apres.jpg', '/avant.jpg']}
+            images={['/lux3.png', '/lux5a.png', '/lux5b.png', '/lux7.png']}
             className="animate-marquee-reverse"
           />
         </div>
@@ -258,7 +258,7 @@ function PhotoRow({ images, className }: { images: string[]; className?: string 
         {doubled.map((src, i) => (
           <div
             key={i}
-            className="flex-none w-[120px] sm:w-[160px] lg:w-[190px] h-24 sm:h-32 lg:h-40 rounded-2xl overflow-hidden"
+            className="flex-none w-[90px] sm:w-[110px] lg:w-[130px] aspect-[9/16] rounded-2xl overflow-hidden"
           >
             <img src={src} alt="" className="w-full h-full object-cover" />
           </div>
