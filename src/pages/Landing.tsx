@@ -133,7 +133,7 @@ export default function Landing() {
       <Reveal className="relative flex flex-col-reverse lg:flex-row px-4 sm:px-6 lg:px-14 py-16 lg:py-20 gap-10 items-center overflow-hidden">
         <div className="flex-1 relative flex justify-center gap-4 sm:gap-6 w-full">
           <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.1s' }}>
-            <InstagramMockup src="/lux3.png" caption="Feeling like this today ✨" />
+            <InstagramMockup src="/lux9.png" caption="Feeling like this today ✨" />
           </div>
           <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] -rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.4s' }}>
             <InstagramMockup src="/lux8.png" caption="No caption needed" />
