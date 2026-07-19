@@ -268,6 +268,38 @@ function PhotoRow({ images, className }: { images: string[]; className?: string 
   )
 }
 
+function DemoVideo({ src, className }: { src: string; className?: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    el.muted = true
+    el.defaultMuted = true
+    const tryPlay = () => el.play().catch(() => {})
+    tryPlay()
+    document.addEventListener('touchstart', tryPlay, { once: true })
+    document.addEventListener('click', tryPlay, { once: true })
+    return () => {
+      document.removeEventListener('touchstart', tryPlay)
+      document.removeEventListener('click', tryPlay)
+    }
+  }, [])
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      className={className}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+    />
+  )
+}
+
 const DEMO_PROMPT = 'Change the seat back and interior'
 const DEMO_PHOTO_MS = 2200
 const DEMO_TYPE_MS = 2600
@@ -299,15 +331,13 @@ function DemoMotion() {
 
   return (
     <div className="relative w-[220px] sm:w-[240px] aspect-[220/390] rounded-[28px] overflow-hidden mx-auto shadow-[0_0_60px_rgba(124,58,237,0.25)] border border-white/10">
-      <img
-        src="/apres.jpg"
-        alt="Before"
+      <DemoVideo
+        src="/hero-after.mp4"
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isResult ? 'opacity-0' : 'opacity-100'}`}
       />
-      <img
-        src="/avant.jpg"
-        alt="After"
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isResult ? 'opacity-100' : 'opacity-0'}`}
+      <DemoVideo
+        src="/hero-before.mp4"
+        className={`absolute inset-0 w-full h-full object-cover scale-125 transition-opacity duration-700 ${isResult ? 'opacity-100' : 'opacity-0'}`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
