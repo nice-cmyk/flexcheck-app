@@ -35,15 +35,27 @@ export async function uploadToFalStorage(file: Blob): Promise<string> {
   return data.url as string
 }
 
+export type OutputFormat = 'vertical' | 'square'
+
+/** vertical -> 9:16 (Stories/Reels/Snap), square -> 1:1 (Instagram feed post) */
+function toAspectRatio(format: OutputFormat = 'vertical'): '9:16' | '1:1' {
+  return format === 'square' ? '1:1' : '9:16'
+}
+
 /**
  * Composes the final photo: places the person from the user's photo into the
  * described luxury scene, using Nano Banana (Gemini 2.5 Flash Image edit).
  * Returns a hosted image URL.
  */
-export async function composeImage(userPhotoUrl: string, sceneDescription: string): Promise<string> {
+export async function composeImage(
+  userPhotoUrl: string,
+  sceneDescription: string,
+  format: OutputFormat = 'vertical'
+): Promise<string> {
   const { url } = await postJson<{ url: string }>('/api/fal-compose', {
     userPhotoUrl,
     sceneDescription,
+    aspectRatio: toAspectRatio(format),
   })
   return url
 }
@@ -51,6 +63,7 @@ export async function composeImage(userPhotoUrl: string, sceneDescription: strin
 export type KlingVideoInput = {
   compositeImageUrl: string
   sceneDescription: string
+  format?: OutputFormat
 }
 
 export type KlingVideoResult = {
@@ -58,9 +71,10 @@ export type KlingVideoResult = {
   videoUrl: string
 }
 
-export async function generateVideo({ compositeImageUrl, sceneDescription }: KlingVideoInput): Promise<KlingVideoResult> {
+export async function generateVideo({ compositeImageUrl, sceneDescription, format }: KlingVideoInput): Promise<KlingVideoResult> {
   return postJson<KlingVideoResult>('/api/fal-video', {
     compositeImageUrl,
     sceneDescription,
+    aspectRatio: toAspectRatio(format),
   })
 }

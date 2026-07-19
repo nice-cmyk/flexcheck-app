@@ -13,22 +13,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { userPhotoUrl, sceneDescription } = req.body ?? {}
+    const { userPhotoUrl, sceneDescription, aspectRatio } = req.body ?? {}
     if (!userPhotoUrl || !sceneDescription) {
       return res.status(400).json({ error: 'Missing userPhotoUrl or sceneDescription' })
     }
+    const ratio = aspectRatio === '1:1' ? '1:1' : '9:16'
 
+    const formatLabel = ratio === '1:1' ? 'square 1:1 format' : 'portrait 9:16 format'
     const prompt = `Edit this photo based on this request: ${sceneDescription}. Apply any requested
 changes to the scene, background, outfit, or pose exactly as described, even if that means changing
 what the person is wearing or doing. Keep the person's face and identity clearly recognizable and
-consistent with the original photo. Make it photorealistic, portrait 9:16 format, cinematic lighting,
+consistent with the original photo. Make it photorealistic, ${formatLabel}, cinematic lighting,
 ultra realistic, high detail.`
 
     const result = await fal.subscribe('fal-ai/nano-banana/edit', {
       input: {
         image_urls: [userPhotoUrl],
         prompt,
-        aspect_ratio: '9:16',
+        aspect_ratio: ratio,
         num_images: 1,
       },
     })

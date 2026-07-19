@@ -3,12 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import GeneratingScreen from '../components/generation/GeneratingScreen'
 import { useAuth } from '../hooks/useAuth'
 import { useGeneration, GenerationType, VideoDuration } from '../hooks/useGeneration'
+import { OutputFormat } from '../lib/fal'
 
 interface LocationState {
   type: GenerationType
   photoUrl: string
   prompt: string
   duration?: VideoDuration
+  format?: OutputFormat
 }
 
 export default function Generating() {
@@ -26,7 +28,7 @@ export default function Generating() {
     }
     if (started.current) return
     started.current = true
-    run(state.type, state.photoUrl, state.prompt, state.duration ?? 'short')
+    run(state.type, state.photoUrl, state.prompt, state.duration ?? 'short', state.format ?? 'vertical')
   }, [state, run, navigate])
 
   useEffect(() => {

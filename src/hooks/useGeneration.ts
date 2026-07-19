@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { composeImage, generateVideo, uploadToFalStorage } from '../lib/fal'
+import { composeImage, generateVideo, uploadToFalStorage, OutputFormat } from '../lib/fal'
 import { useCredits as useCreditsLib, COSTS, videoTotalCost } from '../lib/credits'
 
 export type GenerationType = 'photo' | 'video'
@@ -23,7 +23,13 @@ export function useGeneration(userId: string | undefined) {
   const [error, setError] = useState<string | null>(null)
 
   const run = useCallback(
-    async (type: GenerationType, userPhotoUrl: string, prompt: string, videoDuration: VideoDuration = 'short') => {
+    async (
+      type: GenerationType,
+      userPhotoUrl: string,
+      prompt: string,
+      videoDuration: VideoDuration = 'short',
+      format: OutputFormat = 'vertical'
+    ) => {
       if (!userId) {
         setError('You must be logged in.')
         return
@@ -52,14 +58,14 @@ export function useGeneration(userId: string | undefined) {
 
         setStep('composing')
         setProgress(55)
-        const compositeUrl = await composeImage(hostedPhotoUrl, prompt)
+        const compositeUrl = await composeImage(hostedPhotoUrl, prompt, format)
 
         let finalUrl = compositeUrl
 
         if (type === 'video') {
           setStep('rendering_video')
           setProgress(80)
-          const video = await generateVideo({ compositeImageUrl: compositeUrl, sceneDescription: prompt })
+          const video = await generateVideo({ compositeImageUrl: compositeUrl, sceneDescription: prompt, format })
           finalUrl = video.videoUrl
         }
 

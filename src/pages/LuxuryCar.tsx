@@ -4,6 +4,7 @@ import AppLayout from '../components/layout/AppLayout'
 import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/useAuth'
 import { formatCredits, videoTotalCost } from '../lib/credits'
+import type { OutputFormat } from '../lib/fal'
 
 const brands = [
   { name: 'Ferrari', color: '#EF4444' },
@@ -38,10 +39,19 @@ export default function LuxuryCar() {
   const [color, setColor] = useState('Nero')
   const [details, setDetails] = useState('')
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
+  const [format, setFormat] = useState<OutputFormat>('vertical')
 
   function handleSubmit() {
     if (!user) return
-    navigate('/app/generating/new', { state: { type: 'video', photoUrl, prompt: `${car}, ${color} interior${details ? ', ' + details : ''}`, duration: 'short' } })
+    navigate('/app/generating/new', {
+      state: {
+        type: 'video',
+        photoUrl,
+        prompt: `${car}, ${color} interior${details ? ', ' + details : ''}`,
+        duration: 'short',
+        format,
+      },
+    })
   }
 
   return (
@@ -133,6 +143,30 @@ export default function LuxuryCar() {
           <div className="flex-1 h-[130px] rounded-2xl bg-gradient-to-br from-[#2a1a3d] to-[#0f0a18] border border-primary/20 flex items-center justify-center text-white/30 text-xs overflow-hidden">
             {photoUrl ? <img src={photoUrl} alt="Preview" className="w-full h-full object-cover" /> : 'preview expected'}
           </div>
+        </div>
+
+        <div className="text-white/70 text-[13px] font-semibold mt-4.5">Format</div>
+        <div className="flex gap-2.5 mt-2">
+          <button
+            type="button"
+            onClick={() => setFormat('vertical')}
+            className={`flex-1 rounded-xl border py-2.5 text-xs text-center ${
+              format === 'vertical' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
+            }`}
+          >
+            Vertical
+            <div className="text-[10px] mt-0.5 opacity-70">Stories · Reels · Snap</div>
+          </button>
+          <button
+            type="button"
+            onClick={() => setFormat('square')}
+            className={`flex-1 rounded-xl border py-2.5 text-xs text-center ${
+              format === 'square' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
+            }`}
+          >
+            Square
+            <div className="text-[10px] mt-0.5 opacity-70">Instagram post</div>
+          </button>
         </div>
 
         <Button fullWidth className="mt-5" onClick={handleSubmit}>

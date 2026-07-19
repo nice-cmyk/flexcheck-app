@@ -7,6 +7,7 @@ import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/useAuth'
 import { videoTotalCost, formatCredits } from '../lib/credits'
 import type { VideoDuration } from '../hooks/useGeneration'
+import type { OutputFormat } from '../lib/fal'
 
 const quickPrompts = ['Ferrari 488 cockpit', 'Monaco yacht', 'Dubai rooftop', 'Private jet']
 
@@ -16,10 +17,11 @@ export default function EditVideo() {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [prompt, setPrompt] = useState('')
   const [duration, setDuration] = useState<VideoDuration>('short')
+  const [format, setFormat] = useState<OutputFormat>('vertical')
 
   function handleSubmit() {
     if (!user || !photoUrl || !prompt) return
-    navigate('/app/generating/new', { state: { type: 'video', photoUrl, prompt, duration } })
+    navigate('/app/generating/new', { state: { type: 'video', photoUrl, prompt, duration, format } })
   }
 
   return (
@@ -59,6 +61,30 @@ export default function EditVideo() {
             >
               Long (6-8s)
               <div className="text-xs mt-0.5 opacity-70">+{formatCredits(1.5)} credit</div>
+            </button>
+          </div>
+
+          <div className="text-white/70 text-sm font-semibold mt-6">Format</div>
+          <div className="flex gap-2.5 mt-2.5">
+            <button
+              type="button"
+              onClick={() => setFormat('vertical')}
+              className={`flex-1 rounded-xl border py-3 text-sm text-center ${
+                format === 'vertical' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
+              }`}
+            >
+              Vertical
+              <div className="text-xs mt-0.5 opacity-70">Stories · Reels · Snap</div>
+            </button>
+            <button
+              type="button"
+              onClick={() => setFormat('square')}
+              className={`flex-1 rounded-xl border py-3 text-sm text-center ${
+                format === 'square' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
+              }`}
+            >
+              Square
+              <div className="text-xs mt-0.5 opacity-70">Instagram post</div>
             </button>
           </div>
 

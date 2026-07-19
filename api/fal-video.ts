@@ -18,10 +18,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { compositeImageUrl, sceneDescription } = req.body ?? {}
+    const { compositeImageUrl, sceneDescription, aspectRatio } = req.body ?? {}
     if (!compositeImageUrl || !sceneDescription) {
       return res.status(400).json({ error: 'Missing compositeImageUrl or sceneDescription' })
     }
+    const ratio = aspectRatio === '1:1' ? '1:1' : '9:16'
 
     const result = await fal.subscribe('fal-ai/kling-video/v2.5/pro/image-to-video', {
       input: {
@@ -29,7 +30,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         prompt: `ultra realistic subtle human motion, natural micro-movements, gentle chest breathing visible, eyes blink naturally, small involuntary head micro-movements, ${sceneDescription} ambient motion, cinematic 24fps film grain, photorealistic`,
         negative_prompt: 'jerky motion, unnatural movement, distorted face, morphing, glitching, artifacts',
         duration: '5',
-        aspect_ratio: '9:16',
+        aspect_ratio: ratio,
         motion_strength: 0.35,
       },
     })

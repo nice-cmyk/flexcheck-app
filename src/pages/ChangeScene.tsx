@@ -6,6 +6,7 @@ import PromptInput from '../components/generation/PromptInput'
 import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/useAuth'
 import { COSTS, formatCredits } from '../lib/credits'
+import type { OutputFormat } from '../lib/fal'
 
 const scenes = ['Tokyo Penthouse', 'Paris Suite', 'Maldives Resort', 'Monaco Yacht', 'NYC Loft', 'Dubai Rooftop']
 
@@ -14,10 +15,11 @@ export default function ChangeScene() {
   const navigate = useNavigate()
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [prompt, setPrompt] = useState('')
+  const [format, setFormat] = useState<OutputFormat>('vertical')
 
   function handleSubmit() {
     if (!user || !photoUrl || !prompt) return
-    navigate('/app/generating/new', { state: { type: 'photo', photoUrl, prompt } })
+    navigate('/app/generating/new', { state: { type: 'photo', photoUrl, prompt, format } })
   }
 
   return (
@@ -34,6 +36,30 @@ export default function ChangeScene() {
           <div className="text-white/70 text-sm font-semibold mt-6">Choose a destination</div>
           <div className="mt-2.5">
             <PromptInput value={prompt} onChange={setPrompt} quickPrompts={scenes} placeholder="e.g. on a Dubai rooftop at sunset..." />
+          </div>
+
+          <div className="text-white/70 text-sm font-semibold mt-6">Format</div>
+          <div className="flex gap-2.5 mt-2.5">
+            <button
+              type="button"
+              onClick={() => setFormat('vertical')}
+              className={`flex-1 rounded-xl border py-3 text-sm text-center ${
+                format === 'vertical' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
+              }`}
+            >
+              Vertical
+              <div className="text-xs mt-0.5 opacity-70">Stories · Reels · Snap</div>
+            </button>
+            <button
+              type="button"
+              onClick={() => setFormat('square')}
+              className={`flex-1 rounded-xl border py-3 text-sm text-center ${
+                format === 'square' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
+              }`}
+            >
+              Square
+              <div className="text-xs mt-0.5 opacity-70">Instagram post</div>
+            </button>
           </div>
 
           <Button fullWidth className="mt-6" onClick={handleSubmit}>
