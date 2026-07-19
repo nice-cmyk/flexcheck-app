@@ -20,28 +20,31 @@ import Result from './pages/Result'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
 import AuthGuard from './components/layout/AuthGuard'
+import { AuthProvider } from './hooks/useAuth'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/app" element={<AuthGuard><Dashboard /></AuthGuard>} />
-        <Route path="/app/edit-photo" element={<AuthGuard><EditPhoto /></AuthGuard>} />
-        <Route path="/app/edit-video" element={<AuthGuard><EditVideo /></AuthGuard>} />
-        <Route path="/app/luxury-car" element={<AuthGuard><LuxuryCar /></AuthGuard>} />
-        <Route path="/app/change-scene" element={<AuthGuard><ChangeScene /></AuthGuard>} />
-        <Route path="/app/creations" element={<AuthGuard><Creations /></AuthGuard>} />
-        <Route path="/app/credits" element={<AuthGuard><Credits /></AuthGuard>} />
-        <Route path="/app/account" element={<AuthGuard><Account /></AuthGuard>} />
-        <Route path="/app/affiliate" element={<AuthGuard><Affiliate /></AuthGuard>} />
-        <Route path="/app/generating/:id" element={<AuthGuard><Generating /></AuthGuard>} />
-        <Route path="/app/result/:id" element={<AuthGuard><Result /></AuthGuard>} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/app" element={<AuthGuard><Dashboard /></AuthGuard>} />
+          <Route path="/app/edit-photo" element={<AuthGuard><EditPhoto /></AuthGuard>} />
+          <Route path="/app/edit-video" element={<AuthGuard><EditVideo /></AuthGuard>} />
+          <Route path="/app/luxury-car" element={<AuthGuard><LuxuryCar /></AuthGuard>} />
+          <Route path="/app/change-scene" element={<AuthGuard><ChangeScene /></AuthGuard>} />
+          <Route path="/app/creations" element={<AuthGuard><Creations /></AuthGuard>} />
+          <Route path="/app/credits" element={<AuthGuard><Credits /></AuthGuard>} />
+          <Route path="/app/account" element={<AuthGuard><Account /></AuthGuard>} />
+          <Route path="/app/affiliate" element={<AuthGuard><Affiliate /></AuthGuard>} />
+          <Route path="/app/generating/:id" element={<AuthGuard><Generating /></AuthGuard>} />
+          <Route path="/app/result/:id" element={<AuthGuard><Result /></AuthGuard>} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>,
 )
