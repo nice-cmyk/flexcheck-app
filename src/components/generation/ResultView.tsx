@@ -26,17 +26,23 @@ export default function ResultView({
   return (
     <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
       <div className="flex-none w-full lg:w-[700px] p-4 sm:p-8 box-border">
-        <div className="h-[70vh] lg:h-full">
-          <BeforeAfterSlider
-            beforeSlot={<img src={beforeUrl} alt="Before" className="w-full h-full object-cover" />}
-            afterSlot={
-              isVideo ? (
-                <video src={afterUrl} className="w-full h-full object-cover" autoPlay loop muted />
-              ) : (
-                <img src={afterUrl} alt="After" className="w-full h-full object-cover" />
-              )
-            }
-          />
+        <div className="h-[70vh] lg:h-full rounded-2xl overflow-hidden">
+          {isVideo ? (
+            <video
+              src={afterUrl}
+              className="w-full h-full object-contain bg-black"
+              autoPlay
+              loop
+              muted
+              controls
+              playsInline
+            />
+          ) : (
+            <BeforeAfterSlider
+              beforeSlot={<img src={beforeUrl} alt="Before" className="w-full h-full object-cover" />}
+              afterSlot={<img src={afterUrl} alt="After" className="w-full h-full object-cover" />}
+            />
+          )}
         </div>
       </div>
       <div className="flex-1 p-4 sm:p-8 box-border">
