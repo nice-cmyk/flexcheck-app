@@ -24,8 +24,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const prompt = `Edit this photo based on this request: ${sceneDescription}. Apply any requested
 changes to the scene, background, outfit, or pose exactly as described, even if that means changing
 what the person is wearing or doing. Keep the person's face and identity clearly recognizable and
-consistent with the original photo. Make it photorealistic, ${formatLabel}, cinematic lighting,
-ultra realistic, high detail.`
+consistent with the original photo.
+
+Render the ENTIRE scene completely and coherently - every part of the background, the vehicle
+interior/exterior or environment mentioned in the request, and all surfaces must be fully drawn in
+with no missing, blank, blurry, cropped-off, or unfinished areas. Do not leave any part of the frame
+incomplete, generic, or empty. All objects and materials described (seats, dashboard, controls,
+furniture, architecture, etc.) must be fully rendered with correct proportions and realistic detail
+from edge to edge of the image.
+
+Make it photorealistic, ${formatLabel}, cinematic lighting, ultra realistic, high detail, no artifacts,
+no distortions.`
 
     // Explicit pixel dimensions instead of a named preset: the model is more
     // reliable at actually respecting a concrete {width, height} than the
