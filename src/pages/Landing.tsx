@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Heart, Send } from 'lucide-react'
 import TopNav from '../components/layout/TopNav'
 import Footer from '../components/layout/Footer'
 import BeforeAfterSlider from '../components/ui/BeforeAfterSlider'
@@ -128,6 +129,40 @@ export default function Landing() {
         </div>
       </Reveal>
 
+      {/* INSTAGRAM SECTION */}
+      <Reveal className="relative flex flex-col-reverse lg:flex-row px-4 sm:px-6 lg:px-14 py-16 lg:py-20 gap-10 items-center overflow-hidden">
+        <div className="flex-1 relative flex justify-center gap-4 sm:gap-6 w-full">
+          <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.1s' }}>
+            <InstagramMockup src="/lux1.png" caption="Feeling like this today ✨" />
+          </div>
+          <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] -rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.4s' }}>
+            <InstagramMockup src="/lux6.png" caption="No caption needed" />
+          </div>
+        </div>
+        <div className="flex-1 w-full">
+          <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
+            Post it straight
+          </div>
+          <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight">
+            to Instagram.
+          </div>
+          <div className="text-white/45 font-light text-base mt-5 max-w-md">
+            One photo, one request, and your everyday moment becomes scroll-stopping
+            Stories, Reels or feed content — ready to post in seconds.
+          </div>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {['Stories', 'Reels', 'Feed post', 'Close friends'].map((c) => (
+              <span key={c} className="bg-white/[0.06] text-white/50 text-xs px-3 py-1.5 rounded-full">
+                {c}
+              </span>
+            ))}
+          </div>
+          <a href="#examples" className="block text-accent font-medium text-sm mt-6">
+            Try it →
+          </a>
+        </div>
+      </Reveal>
+
       {/* HOW IT WORKS */}
       <div className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20 flex flex-col gap-10 lg:gap-14">
         {steps.map((s, i) => (
@@ -246,6 +281,41 @@ function Reveal({
       style={{ transitionDelay: `${delayMs}ms` }}
     >
       {children}
+    </div>
+  )
+}
+
+function InstagramMockup({ src, caption }: { src: string; caption: string }) {
+  return (
+    <div className="relative w-full h-full">
+      <img src={src} alt="" className="w-full h-full object-cover" />
+
+      {/* top gradient + story progress bars + avatar */}
+      <div className="absolute top-0 left-0 right-0 p-2.5 bg-gradient-to-b from-black/60 to-transparent">
+        <div className="flex gap-1 mb-2">
+          <div className="h-[2px] flex-1 rounded-full bg-white/90" />
+          <div className="h-[2px] flex-1 rounded-full bg-white/30" />
+          <div className="h-[2px] flex-1 rounded-full bg-white/30" />
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1.5px]">
+            <div className="w-full h-full rounded-full bg-bg" />
+          </div>
+          <span className="text-white text-[10px] font-medium">you</span>
+          <span className="text-white/60 text-[10px]">2h</span>
+        </div>
+      </div>
+
+      {/* bottom message bar + icons */}
+      <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-gradient-to-t from-black/70 to-transparent">
+        <div className="flex items-center gap-1.5">
+          <div className="flex-1 border border-white/50 rounded-full px-2.5 py-1.5 text-white/70 text-[9px] truncate">
+            {caption}
+          </div>
+          <Heart className="w-3.5 h-3.5 text-white shrink-0" />
+          <Send className="w-3.5 h-3.5 text-white shrink-0" />
+        </div>
+      </div>
     </div>
   )
 }
