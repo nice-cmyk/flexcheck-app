@@ -10,6 +10,7 @@ create table profiles (
   stripe_subscription_id text,
   subscription_credits_remaining numeric(6,2) default 0,
   pack_credits numeric(6,2) default 0, -- n'expirent jamais
+  unlimited_credits boolean default false, -- comptes internes/VIP : bypass total de la déduction
   referral_code text unique,
   referred_by uuid references auth.users(id),
   created_at timestamptz default now()
@@ -119,6 +120,7 @@ as $$
 declare
   v_sub numeric;
   v_pack numeric;
+  v_unlimited boolean;
   v_sub_use numeric;
   v_pack_use numeric;
 begin
@@ -126,14 +128,21 @@ begin
     raise exception 'not authorized';
   end if;
 
-  select subscription_credits_remaining, pack_credits
-    into v_sub, v_pack
+  select subscription_credits_remaining, pack_credits, coalesce(unlimited_credits, false)
+    into v_sub, v_pack, v_unlimited
   from profiles
   where id = p_user_id
   for update;
 
   if v_sub is null then
     return false;
+  end if;
+
+  -- Comptes VIP/internes : jamais de déduction, jamais de blocage.
+  if v_unlimited then
+    insert into credit_transactions (user_id, amount, type, description)
+    values (p_user_id, 0, 'generation_use', 'Used ' || p_amount || ' credit(s) (unlimited account)');
+    return true;
   end if;
 
   if (v_sub + v_pack) < p_amount then

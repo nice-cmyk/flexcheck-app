@@ -26,6 +26,7 @@ export type Profile = {
   stripe_subscription_id: string | null
   subscription_credits_remaining: number
   pack_credits: number
+  unlimited_credits: boolean
   created_at: string
 }
 

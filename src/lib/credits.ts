@@ -14,6 +14,7 @@ export function videoTotalCost(duration: 'short' | 'long') {
 
 /** Displays a credit amount without trailing zeros (1 instead of 1.00, 1.25 otherwise) */
 export function formatCredits(amount: number) {
+  if (amount === Infinity) return '∞'
   return Number(amount.toFixed(2)).toString()
 }
 
@@ -37,6 +38,11 @@ export async function useCredits(userId: string, amount: number): Promise<boolea
   return data === true
 }
 
-export function totalCredits(profile: { subscription_credits_remaining: number; pack_credits: number }) {
+export function totalCredits(profile: {
+  subscription_credits_remaining: number
+  pack_credits: number
+  unlimited_credits?: boolean
+}) {
+  if (profile.unlimited_credits) return Infinity
   return profile.subscription_credits_remaining + profile.pack_credits
 }
