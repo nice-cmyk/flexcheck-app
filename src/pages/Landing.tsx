@@ -300,7 +300,7 @@ function DemoVideo({ src, className }: { src: string; className?: string }) {
   )
 }
 
-const DEMO_PROMPT = 'Change the seat back and interior'
+const DEMO_PROMPT = 'Change the interior and exterior'
 const DEMO_PHOTO_MS = 2200
 const DEMO_TYPE_MS = 2600
 const DEMO_TRANSITION_MS = 500
