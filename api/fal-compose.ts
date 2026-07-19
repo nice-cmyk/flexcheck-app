@@ -18,9 +18,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Missing userPhotoUrl or sceneDescription' })
     }
 
-    const prompt = `Place the person from this photo into: ${sceneDescription}. Keep the person exactly
-as they appear - same face, same clothes, same expression, same pose. Make the scene photorealistic,
-portrait 9:16 format, cinematic lighting, ultra realistic, high detail.`
+    const prompt = `Edit this photo based on this request: ${sceneDescription}. Apply any requested
+changes to the scene, background, outfit, or pose exactly as described, even if that means changing
+what the person is wearing or doing. Keep the person's face and identity clearly recognizable and
+consistent with the original photo. Make it photorealistic, portrait 9:16 format, cinematic lighting,
+ultra realistic, high detail.`
 
     const result = await fal.subscribe('fal-ai/nano-banana/edit', {
       input: {
