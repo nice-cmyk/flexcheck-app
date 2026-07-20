@@ -12,14 +12,13 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { fal } from '@fal-ai/client'
+import { KLING_ENDPOINT, extractErrorMessage } from './_kling'
 
 export const config = {
   maxDuration: 30,
 }
 
 fal.config({ credentials: process.env.FAL_API_KEY })
-
-export const KLING_ENDPOINT = 'fal-ai/kling-video/v2.5-turbo/pro/image-to-video'
 
 // Auto-expand the user's short, often vague description into a detailed
 // 10+ line cinematic motion prompt via an LLM (fal-ai/any-llm, same
@@ -132,6 +131,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ requestId: request_id })
   } catch (err: any) {
     console.error('fal-video submit error', err)
-    return res.status(500).json({ error: err.message ?? 'Server error' })
+    return res.status(500).json({ error: extractErrorMessage(err) })
   }
 }
