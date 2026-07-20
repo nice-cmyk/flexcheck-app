@@ -25,10 +25,14 @@ export const PLANS: Record<
   pro: { label: 'Pro', priceLabel: '39.99/mo', credits: 35, extraCreditPrice: '$0.99/video', snapTutorial: true },
 }
 
+// Same >=$9 worst-case margin floor as PLANS (all credits spent on photos,
+// the most expensive generation type per credit, after Stripe's ~2.9%+$0.30
+// one-time payment fee). Per-credit price still drops as pack size grows to
+// keep a volume-discount incentive.
 export const PACKS: Record<PackId, { label: string; priceLabel: string; credits: number; perCredit: string }> = {
-  pack5: { label: '5 credits', priceLabel: '$7.99', credits: 5, perCredit: '$1.60' },
-  pack15: { label: '15 credits', priceLabel: '$17.99', credits: 15, perCredit: '$1.20' },
-  pack40: { label: '40 credits', priceLabel: '$39.99', credits: 40, perCredit: '$1.00' },
+  pack5: { label: '5 credits', priceLabel: '$14.99', credits: 5, perCredit: '$3.00' },
+  pack15: { label: '15 credits', priceLabel: '$22.99', credits: 15, perCredit: '$1.53' },
+  pack40: { label: '40 credits', priceLabel: '$44.99', credits: 40, perCredit: '$1.12' },
 }
 
 /**

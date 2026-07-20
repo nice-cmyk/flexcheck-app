@@ -46,9 +46,9 @@ const ITEMS = [
   { key: 'PRICE_STARTER', name: 'FlexCheck Starter', amount: 1399, recurring: true },
   { key: 'PRICE_FLEX', name: 'FlexCheck Flex', amount: 2299, recurring: true },
   { key: 'PRICE_PRO', name: 'FlexCheck Pro', amount: 3999, recurring: true },
-  { key: 'PRICE_PACK5', name: 'FlexCheck Pack 5 crédits', amount: 799, recurring: false },
-  { key: 'PRICE_PACK15', name: 'FlexCheck Pack 15 crédits', amount: 1799, recurring: false },
-  { key: 'PRICE_PACK40', name: 'FlexCheck Pack 40 crédits', amount: 3999, recurring: false },
+  { key: 'PRICE_PACK5', name: 'FlexCheck Pack 5 crédits', amount: 1499, recurring: false },
+  { key: 'PRICE_PACK15', name: 'FlexCheck Pack 15 crédits', amount: 2299, recurring: false },
+  { key: 'PRICE_PACK40', name: 'FlexCheck Pack 40 crédits', amount: 4499, recurring: false },
 ]
 
 async function findExistingPrice(name) {
