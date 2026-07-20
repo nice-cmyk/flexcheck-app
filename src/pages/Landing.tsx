@@ -588,7 +588,15 @@ function InstagramMockup({ src, caption }: { src: string; caption: string }) {
 }
 
 function PhotoRow({ images, className }: { images: string[]; className?: string }) {
-  const doubled = [...images, ...images]
+  // Repeat the source images enough times that a single half of the track
+  // (before the seamless -50% loop point) always spans well past the widest
+  // realistic viewport (ultra-wide monitors included) - otherwise on wide
+  // screens the row runs out of images before looping and shows a black gap.
+  const minPerHalf = 24
+  const repeats = Math.max(2, Math.ceil(minPerHalf / images.length))
+  const half: string[] = []
+  for (let r = 0; r < repeats; r++) half.push(...images)
+  const doubled = [...half, ...half]
   return (
     <div className="w-full overflow-hidden whitespace-nowrap">
       <div className={`inline-flex gap-3 sm:gap-4 ${className ?? ''}`}>
