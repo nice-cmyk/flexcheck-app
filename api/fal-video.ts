@@ -38,7 +38,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ? `POV from inside the car: the car is actually moving and driving through the scene exactly as described - ${sceneDescription}. Show real forward motion, the environment (walls, pillars, other cars, road markings) passing by and receding realistically, the steering wheel turning in sync with any turn described, hands adjusting on the wheel, subtle body sway from acceleration and steering. Cinematic 24fps film grain, photorealistic, ultra realistic motion, smooth and continuous, no teleporting or static freeze.`
       : `ultra realistic subtle human motion, natural micro-movements, gentle chest breathing visible, eyes blink naturally, small involuntary head micro-movements, ${sceneDescription} ambient motion, cinematic 24fps film grain, photorealistic`
 
-    const result = await fal.subscribe('fal-ai/kling-video/v2.5/pro/image-to-video', {
+    // Note: 'fal-ai/kling-video/v2.5/pro/image-to-video' (without "-turbo")
+    // does not exist on fal.ai and was returning a 404 "Not Found" error on
+    // every video generation - the turbo variant is the real v2.5 Pro endpoint.
+    const result = await fal.subscribe('fal-ai/kling-video/v2.5-turbo/pro/image-to-video', {
       input: {
         image_url: compositeImageUrl,
         prompt,
