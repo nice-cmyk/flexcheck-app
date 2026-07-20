@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Heart, Send } from 'lucide-react'
+import { Heart, Send, MessageCircle, X } from 'lucide-react'
 import TopNav from '../components/layout/TopNav'
 import Footer from '../components/layout/Footer'
 import BeforeAfterSlider from '../components/ui/BeforeAfterSlider'
@@ -37,6 +37,30 @@ const notifActions = [
   'just generated a Monaco yacht photo',
 ]
 
+const chatNames = ['Yanis_', 'kenzaa', 'bilal.mp4', 'ines__', 'raywan', 'lina.x', 'zack__', 'nawel_', 'sofiane', 'sarah.jpg', 'medox', 'jjade__']
+const chatMessages = [
+  "wesh c'est trop stylé ce truc jsp comment ils font 🔥🔥",
+  "j'ai généré ma photo en genre 40 secs c'est ouf",
+  "quelqu'un sait si ça marche pour des vidéos tiktok aussi ?",
+  "le rendu Ferrari c'est trop clean franchement 😭",
+  "c'est vraiment gratuit le premier essai ou c'est un piège",
+  "j'suis grave hype je test ce soir avec les gars",
+  "les gars c'est validé sérieux, testez direct",
+  "ça prend combien de temps pour une vidéo au final ?",
+  "meilleur outil que j'ai vu cette année sans mentir",
+  "j'ai mis ma photo dessus et wesh c'est bluffant",
+  "ça capte bien le visage au moins ou c'est flou ?",
+  "trop bien pour les stories insta jvous jure",
+  "j'kiff trop le rendu Lambo 🤩🤩",
+  "ça marche sur iphone aussi ou juste web ?",
+  "franchement 10/10 aucun soucis pour moi",
+  "on dirait une vraie photo de ouf sérieux",
+  "ça coûte combien après le premier essai ?",
+  "j'ai montré à mes potes ils ont pas cru que c'était généré",
+  "le mode yacht monaco il déchire tout 🛥️",
+  "quelqu'un a essayé le format carré pour insta ?",
+]
+
 export default function Landing() {
   const demoSectionRef = useRef<HTMLDivElement>(null)
   const [notifEnabled, setNotifEnabled] = useState(false)
@@ -61,6 +85,7 @@ export default function Landing() {
     <div className="bg-bg min-h-screen overflow-x-hidden">
       <TopNav />
       <LiveNotifications enabled={notifEnabled} />
+      <PublicChatWidget />
 
       {/* HERO */}
       <Reveal className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-14 py-20 lg:py-28 min-h-[560px] lg:min-h-[680px] overflow-hidden text-center">
@@ -392,6 +417,93 @@ function LiveNotifications({ enabled }: { enabled: boolean }) {
         </div>
         <div className="text-white/35 text-[10px] mt-0.5">Just now</div>
       </div>
+    </div>
+  )
+}
+
+type ChatMsg = { id: number; name: string; text: string }
+
+function PublicChatWidget() {
+  const [open, setOpen] = useState(false)
+  const [messages, setMessages] = useState<ChatMsg[]>([])
+  const [unread, setUnread] = useState(0)
+  const [online, setOnline] = useState(328)
+  const idRef = useRef(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>
+    function pushMessage() {
+      const name = chatNames[Math.floor(Math.random() * chatNames.length)]
+      const text = chatMessages[Math.floor(Math.random() * chatMessages.length)]
+      idRef.current += 1
+      setMessages((prev) => [...prev.slice(-24), { id: idRef.current, name, text }])
+      setUnread((u) => u + 1)
+      timeout = setTimeout(pushMessage, 3500 + Math.random() * 4500)
+    }
+    timeout = setTimeout(pushMessage, 1800)
+    return () => clearTimeout(timeout)
+  }, [])
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setOnline((o) => Math.max(180, o + Math.floor(Math.random() * 7) - 3))
+    }, 6000)
+    return () => clearInterval(id)
+  }, [])
+
+  useEffect(() => {
+    if (open) {
+      setUnread(0)
+      scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
+    }
+  }, [open, messages])
+
+  return (
+    <div className="fixed bottom-5 right-4 sm:right-6 z-40">
+      {open && (
+        <div className="mb-3 w-[280px] sm:w-[300px] h-[360px] bg-surface/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden">
+          <div className="flex-none flex items-center justify-between px-3.5 py-3 border-b border-white/[0.06] bg-gradient-to-b from-primary/10 to-transparent">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2 flex-none">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
+              </span>
+              <span className="text-white text-xs font-semibold">Live chat</span>
+              <span className="text-white/40 text-[11px]">· {online} online</span>
+            </div>
+            <button onClick={() => setOpen(false)} className="text-white/50 hover:text-white">
+              <X size={16} />
+            </button>
+          </div>
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-3.5 py-3 flex flex-col gap-3">
+            {messages.length === 0 && <div className="text-white/30 text-xs text-center mt-6">Loading chat…</div>}
+            {messages.map((m) => (
+              <div key={m.id} className="flex items-start gap-2">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-[10px] font-bold flex-none">
+                  {m.name[0].toUpperCase()}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-primary-light text-[11px] font-semibold">{m.name}</div>
+                  <div className="text-white/75 text-[12px] leading-snug break-words">{m.text}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="relative w-14 h-14 rounded-full bg-primary shadow-[0_0_30px_rgba(124,58,237,0.5)] flex items-center justify-center text-white"
+      >
+        {open ? <X size={22} /> : <MessageCircle size={22} />}
+        {!open && unread > 0 && (
+          <span className="absolute -top-1 -right-1 bg-accent text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-bg">
+            {unread > 9 ? '9+' : unread}
+          </span>
+        )}
+      </button>
     </div>
   )
 }
