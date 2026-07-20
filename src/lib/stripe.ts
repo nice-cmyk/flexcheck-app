@@ -12,10 +12,17 @@ export function getStripe() {
 export type PlanId = 'starter' | 'flex' | 'pro'
 export type PackId = 'pack5' | 'pack15' | 'pack40'
 
-export const PLANS: Record<PlanId, { label: string; priceLabel: string; credits: number; extraCreditPrice: string }> = {
-  starter: { label: 'Starter', priceLabel: '9.99/mo', credits: 7, extraCreditPrice: '$1.60/video' },
-  flex: { label: 'Flex', priceLabel: '19.99/mo', credits: 20, extraCreditPrice: '$1.25/video' },
-  pro: { label: 'Pro', priceLabel: '39.99/mo', credits: 50, extraCreditPrice: '$0.99/video' },
+export const PLANS: Record<
+  PlanId,
+  { label: string; priceLabel: string; credits: number; extraCreditPrice: string; snapTutorial: boolean }
+> = {
+  // Pricing/credits below are set so that even in the worst case (a user who
+  // spends every credit on photo edits only - the most expensive generation
+  // type per credit) the plan still nets at least ~$9-10 margin after the
+  // real fal.ai API cost and Stripe fees (~2.9% + $0.30). See margin notes.
+  starter: { label: 'Starter', priceLabel: '13.99/mo', credits: 4, extraCreditPrice: '$1.60/video', snapTutorial: false },
+  flex: { label: 'Flex', priceLabel: '22.99/mo', credits: 15, extraCreditPrice: '$1.25/video', snapTutorial: true },
+  pro: { label: 'Pro', priceLabel: '39.99/mo', credits: 35, extraCreditPrice: '$0.99/video', snapTutorial: true },
 }
 
 export const PACKS: Record<PackId, { label: string; priceLabel: string; credits: number; perCredit: string }> = {

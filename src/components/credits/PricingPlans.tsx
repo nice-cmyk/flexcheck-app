@@ -35,6 +35,7 @@ export default function PricingPlans({ userId }: { userId?: string }) {
             </div>
             <div className="text-white/45 text-sm mt-3.5">✓ {plan.credits} {t('credits.creditsPerMonth')}</div>
             <div className="text-white/45 text-sm mt-1.5">✓ {t('credits.extraCredits')} {plan.extraCreditPrice}</div>
+            {plan.snapTutorial && <div className="text-primary-light text-sm mt-1.5">✓ {t('credits.snapTutorial')}</div>}
             {isPro && <div className="text-gold text-sm mt-1.5">✓ {t('credits.hdUnlocked')}</div>}
             <button
               onClick={() => userId && startSubscriptionCheckout(id, userId)}

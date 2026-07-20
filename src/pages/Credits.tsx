@@ -41,9 +41,6 @@ export default function Credits() {
           <div className="bg-success/15 text-success text-xs font-semibold px-3.5 py-2 rounded-full">
             {t('credits.neverExpire')}
           </div>
-          <div className="bg-primary/15 text-primary-light text-xs font-semibold px-3.5 py-2 rounded-full">
-            {t('credits.snapTutorial')}
-          </div>
           <div className="text-white/40 text-xs px-3.5 py-2">{t('credits.paymentMethods')}</div>
         </div>
       </div>

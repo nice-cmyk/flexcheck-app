@@ -36,9 +36,15 @@ if (!secretKey || secretKey.includes('YOUR_')) {
 
 const stripe = new Stripe(secretKey)
 
+// Montants alignés avec src/lib/stripe.ts (PLANS). Ne pas les faire diverger :
+// c'est ce script (ou une modif manuelle des Price Stripe) qui définit le
+// montant RÉELLEMENT facturé - la valeur affichée dans PLANS n'est qu'un
+// libellé côté front. Si tu changes un prix dans PLANS, relance ce script
+// (il crée un nouveau Price, l'ancien reste actif tant que non archivé) et
+// mets à jour la variable d'env correspondante sur Vercel.
 const ITEMS = [
-  { key: 'PRICE_STARTER', name: 'FlexCheck Starter', amount: 999, recurring: true },
-  { key: 'PRICE_FLEX', name: 'FlexCheck Flex', amount: 1999, recurring: true },
+  { key: 'PRICE_STARTER', name: 'FlexCheck Starter', amount: 1399, recurring: true },
+  { key: 'PRICE_FLEX', name: 'FlexCheck Flex', amount: 2299, recurring: true },
   { key: 'PRICE_PRO', name: 'FlexCheck Pro', amount: 3999, recurring: true },
   { key: 'PRICE_PACK5', name: 'FlexCheck Pack 5 crédits', amount: 799, recurring: false },
   { key: 'PRICE_PACK15', name: 'FlexCheck Pack 15 crédits', amount: 1799, recurring: false },
