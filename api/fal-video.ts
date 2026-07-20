@@ -31,8 +31,9 @@ Mandatory rules:
 - Calibrate the car's speed REALISTICALLY based on the context and state it explicitly: underground parking garage or tight maneuvering ≈ 5-15 km/h (slow, careful), city street ≈ 30-50 km/h, open road ≈ 60-90 km/h, highway ≈ 110-140 km/h. Describe how that speed actually looks: how fast the environment (pillars, walls, other cars, road markings, buildings) passes by and recedes, the amount of motion blur on the sides, the sense of inertia.
 - Describe the steering wheel turning in sync with any turn, hands adjusting naturally on the wheel.
 - Describe subtle driver body sway from acceleration, braking, and steering.
+- Explicitly state that the driver's hand position/count, the interior, and every other vehicle or object visible must stay exactly as in the original photo - only their position/perspective should change naturally with the camera motion. Do not let the model invent extra hands, extra vehicles, or change any object's shape.
 - Mention cinematic 24fps film grain, photorealistic lighting, ultra realistic detail.
-- End with smooth and continuous motion, no teleporting, no freezing, no jerky or unnatural movement.
+- End with smooth and continuous motion, no teleporting, no freezing, no jerky or unnatural movement, no warping or morphing objects.
 Reply with ONLY the final prompt in English, no preamble, no quotes, no markdown, no explanations.`
       : `You are a cinematography director writing motion prompts for an AI image-to-video model (Kling), applied to a mostly still photo (portrait/lifestyle shot).
 Rewrite the user's short request into a highly detailed English prompt of 10 to 15 lines describing exactly how the video should look and move.
@@ -87,9 +88,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const drivingRegex = /voiture|conduit|conduir|roul|virage|tourn|gara|parking|route|autoroute|acc[ée]l[ée]r|vitesse|freine?|d[ée]marr|avanc|recul|\bcar\b|drive|driving|turn|road|highway|accelerat|speed|reverse|moving|move/i
     const isDrivingScene = drivingRegex.test(sceneDescription)
 
+    // "Keep everything else exactly as in the original photo" is added
+    // explicitly - at higher motion_strength Kling was hallucinating things
+    // that don't exist in the source image (a second hand appearing on the
+    // wheel, a warped/melting car in the mirror, a car in front that changes
+    // shape between frames) because it has to invent off-camera content to
+    // fill the requested motion. Keeping it in the prompt (not just negative)
+    // reduces that.
     const fallbackPrompt = isDrivingScene
-      ? `POV from inside the car: the car is actually moving and driving through the scene exactly as described - ${sceneDescription}. Show real forward motion, the environment (walls, pillars, other cars, road markings) passing by and receding realistically, the steering wheel turning in sync with any turn described, hands adjusting on the wheel, subtle body sway from acceleration and steering. Cinematic 24fps film grain, photorealistic, ultra realistic motion, smooth and continuous, no teleporting or static freeze.`
-      : `ultra realistic subtle human motion, natural micro-movements, gentle chest breathing visible, eyes blink naturally, small involuntary head micro-movements, ${sceneDescription} ambient motion, cinematic 24fps film grain, photorealistic`
+      ? `POV from inside the car: the car is actually moving and driving through the scene exactly as described - ${sceneDescription}. Show real forward motion, the environment (walls, pillars, other cars, road markings) passing by and receding realistically, the steering wheel turning in sync with any turn described, hands adjusting on the wheel, subtle body sway from acceleration and steering. Keep the driver's hand position and grip exactly as in the original photo - do not add a second hand or change hand count. Keep every other vehicle, object and surface exactly as they appear in the original photo, only their position/perspective should change naturally with the camera motion. Cinematic 24fps film grain, photorealistic, ultra realistic motion, smooth and continuous, no teleporting or static freeze.`
+      : `ultra realistic subtle human motion, natural micro-movements, gentle chest breathing visible, eyes blink naturally, small involuntary head micro-movements, ${sceneDescription} ambient motion, cinematic 24fps film grain, photorealistic. Keep everything else exactly as in the original photo.`
 
     const expanded = await expandPrompt(sceneDescription, isDrivingScene)
     const prompt = expanded ?? fallbackPrompt
@@ -101,10 +109,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       input: {
         image_url: compositeImageUrl,
         prompt,
-        negative_prompt: 'jerky motion, unnatural movement, distorted face, morphing, glitching, artifacts, static image, no movement, frozen, unrealistic speed, inconsistent speed',
+        negative_prompt: 'jerky motion, unnatural movement, distorted face, morphing, glitching, artifacts, static image, no movement, frozen, unrealistic speed, inconsistent speed, extra hand, extra limb, additional hand appearing, changing number of hands, warped vehicle, melting car, deformed car, morphing car, car changing shape, invented vehicle not in original photo, inconsistent objects between frames, hallucinated details, flickering geometry',
         duration: '5',
         aspect_ratio: ratio,
-        motion_strength: isDrivingScene ? 0.8 : 0.35,
+        // Lowered from 0.8: at 0.8 the model was hallucinating extra content
+        // (see negative_prompt additions above) to fill the amount of motion
+        // requested. 0.6 still reads as clearly moving/driving but gives the
+        // model less "unseen space" to invent and warp.
+        motion_strength: isDrivingScene ? 0.6 : 0.35,
       },
     })
 
