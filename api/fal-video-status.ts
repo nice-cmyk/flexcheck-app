@@ -5,7 +5,7 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { fal } from '@fal-ai/client'
-import { KLING_ENDPOINT, extractErrorMessage } from './_kling'
+import { KLING_ENDPOINT, extractErrorMessage } from './_kling.js'
 
 export const config = {
   maxDuration: 30,
