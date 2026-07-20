@@ -80,15 +80,26 @@ export function useGeneration(userId: string | undefined) {
         setStep('finalizing')
         setProgress(95)
 
-        await supabase.from('generations').insert({
-          user_id: userId,
-          type,
-          user_prompt: prompt,
-          composite_image_url: compositeUrl,
-          final_url: finalUrl,
-          status: 'complete',
-          credits_used: creditsNeeded,
-        })
+        // Log the generation to Supabase, but don't let it block showing the
+        // result: this used to be `await`-ed before marking the generation
+        // 'complete', so if this insert ever hung (network blip, RLS policy
+        // issue, Supabase outage) the user was stuck staring at a frozen
+        // progress screen despite the photo/video already being fully ready.
+        // The insert still happens, it just can't hold up the UI anymore.
+        supabase
+          .from('generations')
+          .insert({
+            user_id: userId,
+            type,
+            user_prompt: prompt,
+            composite_image_url: compositeUrl,
+            final_url: finalUrl,
+            status: 'complete',
+            credits_used: creditsNeeded,
+          })
+          .then(({ error: insertError }) => {
+            if (insertError) console.error('generations insert failed (non-blocking)', insertError)
+          })
 
         setResultUrl(finalUrl)
         setProgress(100)
