@@ -1,10 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Sparkles, Link2, LogOut } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
 import { useCredits } from '../../hooks/useCredits'
 import { formatCredits } from '../../lib/credits'
+import LanguageSwitcher from '../ui/LanguageSwitcher'
 
 export default function AppTopBar() {
+  const { t } = useTranslation()
   const { user, signOut } = useAuth()
   const { credits } = useCredits(user?.id)
   const navigate = useNavigate()
@@ -24,12 +27,13 @@ export default function AppTopBar() {
       </Link>
 
       <div className="flex items-center gap-2 sm:gap-3 flex-none">
+        <LanguageSwitcher variant="light" />
         <Link
           to="/app/credits"
           className="flex items-center gap-1.5 bg-primary/15 border border-primary/25 text-primary-light text-xs sm:text-sm font-semibold px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full whitespace-nowrap"
         >
           <Link2 size={14} />
-          {formatCredits(credits)} credits
+          {formatCredits(credits)} {t('common.credits')}
         </Link>
         <button
           onClick={handleLogout}

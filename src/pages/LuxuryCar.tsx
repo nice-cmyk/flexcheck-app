@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import AppLayout from '../components/layout/AppLayout'
 import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/useAuth'
@@ -32,6 +33,7 @@ const colors = [
 ]
 
 export default function LuxuryCar() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const navigate = useNavigate()
   const [brand, setBrand] = useState('Ferrari')
@@ -58,7 +60,7 @@ export default function LuxuryCar() {
     <AppLayout>
     <div className="flex-1 flex flex-col lg:flex-row lg:overflow-hidden">
       <div className="flex-none lg:w-[200px] border-b lg:border-b-0 lg:border-r border-white/[0.06] p-4 sm:p-6 box-border">
-        <div className="text-white text-[15px] font-semibold mb-3 lg:mb-3.5">Brands</div>
+        <div className="text-white text-[15px] font-semibold mb-3 lg:mb-3.5">{t('luxuryCar.brands')}</div>
         <div className="flex lg:flex-col gap-2 lg:gap-0 overflow-x-auto lg:overflow-visible -mx-4 px-4 sm:mx-0 sm:px-0">
           {brands.map((b) => (
             <button
@@ -77,9 +79,9 @@ export default function LuxuryCar() {
 
       <div className="flex-none lg:w-[340px] border-b lg:border-b-0 lg:border-r border-white/[0.06] p-4 sm:p-6 box-border lg:overflow-y-auto">
         <div className="flex gap-2 mb-4">
-          <div className="bg-primary/15 text-primary-light text-xs px-3 py-1.5 rounded-full">All</div>
-          <div className="text-white/40 text-xs px-3 py-1.5">Coupe</div>
-          <div className="text-white/40 text-xs px-3 py-1.5">SUV</div>
+          <div className="bg-primary/15 text-primary-light text-xs px-3 py-1.5 rounded-full">{t('luxuryCar.all')}</div>
+          <div className="text-white/40 text-xs px-3 py-1.5">{t('luxuryCar.coupe')}</div>
+          <div className="text-white/40 text-xs px-3 py-1.5">{t('luxuryCar.suv')}</div>
         </div>
         <div className="flex flex-col gap-3">
           {(carsByBrand[brand] ?? carsByBrand.Ferrari).map((c) => (
@@ -102,9 +104,9 @@ export default function LuxuryCar() {
 
       <div className="flex-1 p-4 sm:p-8 box-border lg:overflow-y-auto">
         <div className="text-white text-xl font-semibold">{car}</div>
-        <div className="text-white/45 text-[13px] mt-0.5">Coupe · 2023</div>
+        <div className="text-white/45 text-[13px] mt-0.5">{t('luxuryCar.coupe')} · 2023</div>
 
-        <div className="text-white/70 text-[13px] font-semibold mt-5.5">Interior color</div>
+        <div className="text-white/70 text-[13px] font-semibold mt-5.5">{t('luxuryCar.interiorColor')}</div>
         <div className="flex gap-4 mt-2.5">
           {colors.map((c) => (
             <button key={c.name} className="text-center" onClick={() => setColor(c.name)}>
@@ -117,9 +119,9 @@ export default function LuxuryCar() {
           ))}
         </div>
 
-        <div className="text-white/70 text-[13px] font-semibold mt-5.5">Your photo</div>
+        <div className="text-white/70 text-[13px] font-semibold mt-5.5">{t('luxuryCar.yourPhoto')}</div>
         <label className="block border-2 border-dashed border-primary/35 rounded-xl p-4 text-center mt-2 text-white/40 text-[13px] cursor-pointer">
-          Drop a photo or browse
+          {t('luxuryCar.dropPhoto')}
           <input
             type="file"
             accept="image/*"
@@ -131,21 +133,21 @@ export default function LuxuryCar() {
           />
         </label>
 
-        <div className="text-white/70 text-[13px] font-semibold mt-4.5">Add details (optional)</div>
+        <div className="text-white/70 text-[13px] font-semibold mt-4.5">{t('luxuryCar.addDetails')}</div>
         <textarea
           value={details}
           onChange={(e) => setDetails(e.target.value)}
-          placeholder="e.g. at night, in the rain..."
+          placeholder={t('luxuryCar.detailsPlaceholder')}
           className="w-full h-10 bg-surface/80 border border-primary/15 rounded-lg p-2.5 text-white/70 text-xs mt-2 outline-none focus:border-primary resize-none"
         />
 
         <div className="flex gap-5 mt-5.5">
           <div className="flex-1 h-[130px] rounded-2xl bg-gradient-to-br from-[#2a1a3d] to-[#0f0a18] border border-primary/20 flex items-center justify-center text-white/30 text-xs overflow-hidden">
-            {photoUrl ? <img src={photoUrl} alt="Preview" className="w-full h-full object-cover" /> : 'preview expected'}
+            {photoUrl ? <img src={photoUrl} alt="Preview" className="w-full h-full object-cover" /> : t('luxuryCar.previewExpected')}
           </div>
         </div>
 
-        <div className="text-white/70 text-[13px] font-semibold mt-4.5">Format</div>
+        <div className="text-white/70 text-[13px] font-semibold mt-4.5">{t('common.format')}</div>
         <div className="flex gap-2.5 mt-2">
           <button
             type="button"
@@ -154,8 +156,8 @@ export default function LuxuryCar() {
               format === 'vertical' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
             }`}
           >
-            Vertical
-            <div className="text-[10px] mt-0.5 opacity-70">Stories · Reels · Snap</div>
+            {t('common.vertical')}
+            <div className="text-[10px] mt-0.5 opacity-70">{t('common.verticalDesc')}</div>
           </button>
           <button
             type="button"
@@ -164,16 +166,16 @@ export default function LuxuryCar() {
               format === 'square' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
             }`}
           >
-            Square
-            <div className="text-[10px] mt-0.5 opacity-70">Instagram post</div>
+            {t('common.square')}
+            <div className="text-[10px] mt-0.5 opacity-70">{t('common.squareDesc')}</div>
           </button>
         </div>
 
         <Button fullWidth className="mt-5" onClick={handleSubmit}>
-          Generate my video →
+          {t('luxuryCar.generateVideo')}
         </Button>
         <div className="text-center text-white/40 text-xs mt-2">
-          Uses {formatCredits(videoTotalCost('short'))} credit · ~60 seconds
+          {t('luxuryCar.usesCredit', { n: formatCredits(videoTotalCost('short')) })}
         </div>
       </div>
     </div>

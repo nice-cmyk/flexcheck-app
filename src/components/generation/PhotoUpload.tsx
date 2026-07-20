@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface PhotoUploadProps {
   onFileSelected: (file: File, previewUrl: string) => void
 }
 
 export default function PhotoUpload({ onFileSelected }: PhotoUploadProps) {
+  const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [dragOver, setDragOver] = useState(false)
@@ -44,9 +46,9 @@ export default function PhotoUpload({ onFileSelected }: PhotoUploadProps) {
         <img src={previewUrl} alt="Selected photo" className="max-h-48 mx-auto rounded-lg" />
       ) : (
         <>
-          <div className="text-white text-sm font-medium">Drop your photo here</div>
-          <div className="text-primary-light text-sm mt-1.5">or browse files</div>
-          <div className="text-white/35 text-xs mt-2">JPG, PNG · Max 20MB</div>
+          <div className="text-white text-sm font-medium">{t('photoUpload.drop')}</div>
+          <div className="text-primary-light text-sm mt-1.5">{t('photoUpload.browse')}</div>
+          <div className="text-white/35 text-xs mt-2">{t('photoUpload.specs')}</div>
         </>
       )}
     </div>

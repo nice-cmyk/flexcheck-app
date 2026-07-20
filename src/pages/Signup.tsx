@@ -1,10 +1,12 @@
 import { FormEvent, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../hooks/useAuth'
 import { registerReferral } from '../lib/referrals'
 import Button from '../components/ui/Button'
 
 export default function Signup() {
+  const { t } = useTranslation()
   const { signUp } = useAuth()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -21,7 +23,7 @@ export default function Signup() {
     const { data, error } = await signUp(email, password)
     setLoading(false)
     if (error) {
-      setError("Unable to create account.")
+      setError(t('signup.error'))
       return
     }
     if (refCode && data.user) {
@@ -36,17 +38,17 @@ export default function Signup() {
         <Link to="/" className="font-display font-extrabold text-xl bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent">
           FlexCheck
         </Link>
-        <div className="text-white text-2xl font-display font-bold mt-6">Create an account</div>
+        <div className="text-white text-2xl font-display font-bold mt-6">{t('signup.title')}</div>
         {refCode && (
           <div className="bg-primary/15 border border-primary/30 text-primary-light text-xs rounded-xl px-3.5 py-2.5 mt-4">
-            You were invited by a friend · code {refCode.toUpperCase()}
+            {t('signup.invited', { code: refCode.toUpperCase() })}
           </div>
         )}
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <input
             type="email"
             required
-            placeholder="Email address"
+            placeholder={t('login.email')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="bg-surface border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary"
@@ -55,18 +57,18 @@ export default function Signup() {
             type="password"
             required
             minLength={6}
-            placeholder="Password"
+            placeholder={t('login.password')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="bg-surface border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary"
           />
           {error && <div className="text-red-400 text-sm">{error}</div>}
           <Button type="submit" fullWidth disabled={loading}>
-            {loading ? 'Creating...' : 'Start for free'}
+            {loading ? t('signup.creating') : t('common.startForFree')}
           </Button>
         </form>
         <div className="text-white/40 text-sm mt-6 text-center">
-          Already have an account? <Link to="/login" className="text-accent">Log in</Link>
+          {t('signup.haveAccount')} <Link to="/login" className="text-accent">{t('common.login')}</Link>
         </div>
       </div>
     </div>

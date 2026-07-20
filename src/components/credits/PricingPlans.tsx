@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { PLANS, PlanId, startSubscriptionCheckout } from '../../lib/stripe'
 import Card from '../ui/Card'
 
 const order: PlanId[] = ['starter', 'flex', 'pro']
 
 export default function PricingPlans({ userId }: { userId?: string }) {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col sm:flex-row gap-5 mt-9 sm:items-end">
       {order.map((id) => {
@@ -18,12 +20,12 @@ export default function PricingPlans({ userId }: { userId?: string }) {
           >
             {isFlex && (
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary text-white text-[11px] font-bold px-3.5 py-1 rounded-full">
-                Most popular
+                {t('credits.mostPopular')}
               </div>
             )}
             {isPro && (
               <div className="absolute top-4 right-4 bg-gold text-bg text-[11px] font-bold px-2.5 py-1 rounded-full">
-                Pro
+                {t('credits.pro')}
               </div>
             )}
             <div className="text-white font-semibold text-base">{plan.label}</div>
@@ -31,9 +33,9 @@ export default function PricingPlans({ userId }: { userId?: string }) {
               ${plan.priceLabel.split('/')[0]}
               <span className="text-sm text-white/40 font-normal">/mo</span>
             </div>
-            <div className="text-white/45 text-sm mt-3.5">✓ {plan.credits} credits/month</div>
-            <div className="text-white/45 text-sm mt-1.5">✓ Extra credits {plan.extraCreditPrice}</div>
-            {isPro && <div className="text-gold text-sm mt-1.5">✓ HD rendering unlocked</div>}
+            <div className="text-white/45 text-sm mt-3.5">✓ {plan.credits} {t('credits.creditsPerMonth')}</div>
+            <div className="text-white/45 text-sm mt-1.5">✓ {t('credits.extraCredits')} {plan.extraCreditPrice}</div>
+            {isPro && <div className="text-gold text-sm mt-1.5">✓ {t('credits.hdUnlocked')}</div>}
             <button
               onClick={() => userId && startSubscriptionCheckout(id, userId)}
               className={`mt-5 w-full rounded-xl text-center py-3 text-sm ${
@@ -44,7 +46,7 @@ export default function PricingPlans({ userId }: { userId?: string }) {
                   : 'border border-white/20 text-white'
               }`}
             >
-              Choose {plan.label}
+              {t('credits.choose', { plan: plan.label })}
             </button>
           </Card>
         )

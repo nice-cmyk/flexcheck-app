@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Gift, Copy, Check } from 'lucide-react'
 import AppLayout from '../components/layout/AppLayout'
 import { useAuth } from '../hooks/useAuth'
@@ -6,6 +7,7 @@ import { getReferralCode, getReferralLink, listMyReferrals, referralStats, Refer
 import { formatCredits } from '../lib/credits'
 
 export default function Affiliate() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const [code, setCode] = useState<string | null>(null)
   const [referrals, setReferrals] = useState<Referral[]>([])
@@ -39,15 +41,15 @@ export default function Affiliate() {
             <Gift size={20} className="text-primary-light" />
           </div>
           <div>
-            <div className="font-display font-extrabold text-2xl text-white">Referral program</div>
+            <div className="font-display font-extrabold text-2xl text-white">{t('affiliate.title')}</div>
             <div className="text-white/50 text-sm mt-0.5">
-              Invite your friends, you both earn free credits.
+              {t('affiliate.subtitle')}
             </div>
           </div>
         </div>
 
         <div className="bg-surface/80 border border-primary/20 rounded-2xl p-5 mt-7">
-          <div className="text-white/60 text-xs font-semibold uppercase tracking-wide">Your referral link</div>
+          <div className="text-white/60 text-xs font-semibold uppercase tracking-wide">{t('affiliate.yourLink')}</div>
           <div className="flex items-center gap-2 mt-3">
             <div className="flex-1 bg-bg border border-white/10 rounded-xl px-4 py-3 text-white/80 text-sm truncate">
               {loading ? '...' : link}
@@ -62,23 +64,22 @@ export default function Affiliate() {
             </button>
           </div>
           <div className="text-white/40 text-xs mt-3">
-            Every friend who signs up with your link and makes their first purchase earns you{' '}
-            {formatCredits(1)} free credit.
+            {t('affiliate.everyFriend', { n: formatCredits(1) })}
           </div>
         </div>
 
         <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-5">
-          <StatCard label="Invited" value={String(stats.invited)} />
-          <StatCard label="Converted" value={String(stats.rewardedCount)} />
-          <StatCard label="Credits earned" value={formatCredits(stats.creditsEarned)} />
+          <StatCard label={t('affiliate.invited')} value={String(stats.invited)} />
+          <StatCard label={t('affiliate.converted')} value={String(stats.rewardedCount)} />
+          <StatCard label={t('affiliate.creditsEarned')} value={formatCredits(stats.creditsEarned)} />
         </div>
 
-        <div className="text-white font-semibold text-base mt-8">Your referrals</div>
+        <div className="text-white font-semibold text-base mt-8">{t('affiliate.yourReferrals')}</div>
         <div className="flex flex-col gap-2.5 mt-3">
-          {loading && <div className="text-white/40 text-sm">Loading...</div>}
+          {loading && <div className="text-white/40 text-sm">{t('common.loading')}</div>}
           {!loading && referrals.length === 0 && (
             <div className="text-white/40 text-sm">
-              No one yet — share your link to start earning credits.
+              {t('affiliate.noOneYet')}
             </div>
           )}
           {referrals.map((r) => (
@@ -87,7 +88,7 @@ export default function Affiliate() {
               className="flex items-center justify-between bg-surface/60 border border-white/10 rounded-xl px-4 py-3"
             >
               <div>
-                <div className="text-white text-sm">{r.referred_email ?? 'User'}</div>
+                <div className="text-white text-sm">{r.referred_email ?? t('affiliate.user')}</div>
                 <div className="text-white/40 text-xs mt-0.5">
                   {new Date(r.created_at).toLocaleDateString('en-US')}
                 </div>
@@ -97,7 +98,7 @@ export default function Affiliate() {
                   r.status === 'rewarded' ? 'bg-success/15 text-success' : 'bg-white/10 text-white/50'
                 }`}
               >
-                {r.status === 'rewarded' ? `+${formatCredits(r.reward_credits)} credit` : 'Pending'}
+                {r.status === 'rewarded' ? `+${formatCredits(r.reward_credits)} ${t('common.credit')}` : t('affiliate.pending')}
               </div>
             </div>
           ))}

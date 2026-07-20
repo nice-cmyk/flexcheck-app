@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Mic, Square } from 'lucide-react'
 
 interface PromptInputProps {
@@ -12,8 +13,9 @@ export default function PromptInput({
   value,
   onChange,
   quickPrompts = [],
-  placeholder = 'e.g. Put me in a luxury Tokyo apartment with a skyline view and an iPhone 17 on the desk...',
+  placeholder,
 }: PromptInputProps) {
+  const { t } = useTranslation()
   const [listening, setListening] = useState(false)
   const [supported, setSupported] = useState(true)
   const recognitionRef = useRef<any>(null)
@@ -68,7 +70,7 @@ export default function PromptInput({
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
+          placeholder={placeholder ?? t('promptInput.placeholder')}
           className="w-full h-[70px] bg-surface/80 border border-primary/30 rounded-xl p-3.5 pr-11 text-sm text-white placeholder:text-white/40 outline-none focus:border-primary resize-none"
         />
         {supported && (
@@ -87,7 +89,7 @@ export default function PromptInput({
       {listening && (
         <div className="flex items-center gap-1.5 text-primary-light text-xs mt-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse-dot" />
-          Listening...
+          {t('promptInput.listening')}
         </div>
       )}
       {quickPrompts.length > 0 && (

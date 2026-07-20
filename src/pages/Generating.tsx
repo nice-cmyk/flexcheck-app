@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import GeneratingScreen from '../components/generation/GeneratingScreen'
 import { useAuth } from '../hooks/useAuth'
 import { useGeneration, GenerationType, VideoDuration } from '../hooks/useGeneration'
@@ -14,6 +15,7 @@ interface LocationState {
 }
 
 export default function Generating() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
@@ -45,13 +47,13 @@ export default function Generating() {
   if (step === 'failed') {
     return (
       <div className="min-h-screen bg-bg flex flex-col items-center justify-center text-center px-6">
-        <div className="text-white text-xl font-semibold">Generation failed</div>
+        <div className="text-white text-xl font-semibold">{t('generating.failedTitle')}</div>
         <div className="text-white/50 text-sm mt-2 max-w-sm">{error}</div>
         <button
           onClick={() => navigate('/app')}
           className="mt-6 bg-primary text-white text-sm font-semibold px-6 py-3 rounded-xl"
         >
-          Back to dashboard
+          {t('common.backToDashboard')}
         </button>
       </div>
     )

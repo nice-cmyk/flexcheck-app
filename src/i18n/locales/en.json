@@ -1,0 +1,265 @@
+{
+  "common": {
+    "login": "Log in",
+    "logout": "Log out",
+    "startForFree": "Start for free",
+    "loading": "Loading...",
+    "credits": "credits",
+    "credit": "credit",
+    "backToDashboard": "Back to dashboard",
+    "save": "Save",
+    "buy": "Buy",
+    "vertical": "Vertical",
+    "square": "Square",
+    "verticalDesc": "Stories · Reels · Snap",
+    "squareDesc": "Instagram post",
+    "transformNow": "Transform now",
+    "yourPhotoHere": "Your photo will appear here",
+    "yourVideoHere": "Your video will appear here",
+    "preview": "Preview",
+    "format": "Format"
+  },
+  "nav": {
+    "features": "Features",
+    "examples": "Examples",
+    "contact": "Contact"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contact": "Contact"
+  },
+  "landing": {
+    "badge": "Powered by AI · Results in 60s",
+    "heroLine1": "Your life.",
+    "heroLine2": "Upgraded.",
+    "heroDesc": "Turn any photo into a luxury lifestyle photo or video, ready to post in 60 seconds.",
+    "seeExamples": "See examples →",
+    "liveCounterSuffix": "photos & videos generated today",
+    "demoTitle": "See it happen live.",
+    "demoDesc": "Your photo, your request, your result — one continuous flow.",
+    "demoYourPhoto": "Your photo",
+    "demoResult": "Result",
+    "demoDone": "✓ Done in 45s",
+    "demoPromptTyped": "Change the interior and exterior",
+    "snapTitle1": "Send insane snaps",
+    "snapTitle2": "straight from your camera roll.",
+    "snapDesc": "An ordinary photo becomes a dream lifestyle moment, ready to send — perfect for Snapchat, Instagram Stories, TikTok, or wherever you post.",
+    "snapBubble": "\"Change the seat back...\"",
+    "tryIt": "Try it →",
+    "igTitle1": "Post it straight",
+    "igTitle2": "to Instagram.",
+    "igDesc": "One photo, one request, and your everyday moment becomes scroll-stopping Stories, Reels or feed content — ready to post in seconds.",
+    "igCaption1": "Feeling like this today ✨",
+    "igCaption2": "No caption needed",
+    "howTitle1": "Pick your scene",
+    "howDesc1": "Ferrari, Tokyo penthouse, Paris suite — dozens of luxury scenes.",
+    "howTitle2": "Upload your photo",
+    "howDesc2": "Just one photo is enough. Your face, pose and style are preserved.",
+    "howTitle3": "Get your photo or video",
+    "howDesc3": "Ready in 60 seconds, perfect for Stories and Snapchat.",
+    "galleryTitle": "See the difference.",
+    "galleryDesc": "Drag each slider to compare before and after.",
+    "closingTitle": "Ready to flex?",
+    "closingDesc": "Your first photo is on us — try it now and see your life, upgraded.",
+    "notifJustNow": "Just now",
+    "chatTitle": "Live chat",
+    "chatOnline": "online",
+    "chatLoading": "Loading chat…",
+    "notifActions": [
+      "just generated a photo",
+      "just generated a video",
+      "just created a Ferrari scene",
+      "just posted a luxury photo",
+      "just tried the Tokyo penthouse scene",
+      "just generated a Monaco yacht photo"
+    ]
+  },
+  "dashboard": {
+    "title": "Create",
+    "subtitle": "Choose the format to transform.",
+    "photoTitle": "Photo",
+    "photoCost": "0.25 credit",
+    "photoDesc": "One call. Instant result, perfect for an Insta post or a story.",
+    "videoTitle": "Video",
+    "videoCost": "1.25 to 1.75 credits",
+    "videoDesc": "Two steps: first validate a reference image (0.25), then generate the video (+1 or +1.5).",
+    "note": "0.25 credit = image or edit · +1 credit = short video (≤ 5s) from a validated image · +1.5 credit = long video (6-8s). A full video costs between 1.25 and 1.75 credits total (reference image included), plus 0.25 credit per edit requested before validation."
+  },
+  "editPhoto": {
+    "title": "Edit a photo",
+    "whatChange": "What do you want to change?",
+    "keepSubject": "Keep subject exactly",
+    "preserveLighting": "Preserve lighting",
+    "hdRendering": "HD rendering (Pro)",
+    "usesCredit": "Uses 0.25 credit · ~45 seconds"
+  },
+  "editVideo": {
+    "title": "Edit a video",
+    "subtitle": "Premium lifestyle content, animated automatically",
+    "describeScene": "Describe the scene",
+    "duration": "Video duration",
+    "short": "Short (≤ 5s)",
+    "long": "Long (6-8s)",
+    "generateVideo": "Generate my video →",
+    "usesCredit": "Uses {{n}} credit · ~60 seconds"
+  },
+  "changeScene": {
+    "title": "Change the scene",
+    "subtitle": "Teleport anywhere in the world",
+    "chooseDestination": "Choose a destination",
+    "placeholder": "e.g. on a Dubai rooftop at sunset...",
+    "usesCredit": "Uses {{n}} credit · ~45 seconds"
+  },
+  "luxuryCar": {
+    "brands": "Brands",
+    "all": "All",
+    "coupe": "Coupe",
+    "suv": "SUV",
+    "interiorColor": "Interior color",
+    "yourPhoto": "Your photo",
+    "dropPhoto": "Drop a photo or browse",
+    "addDetails": "Add details (optional)",
+    "detailsPlaceholder": "e.g. at night, in the rain...",
+    "previewExpected": "preview expected",
+    "generateVideo": "Generate my video →",
+    "usesCredit": "Uses {{n}} credit · ~60 seconds"
+  },
+  "promptInput": {
+    "placeholder": "e.g. Put me in a luxury Tokyo apartment with a skyline view and an iPhone 17 on the desk...",
+    "listening": "Listening..."
+  },
+  "photoUpload": {
+    "drop": "Drop your photo here",
+    "browse": "or browse files",
+    "specs": "JPG, PNG · Max 20MB"
+  },
+  "generating": {
+    "failedTitle": "Generation failed"
+  },
+  "generatingScreen": {
+    "transforming": "Transforming...",
+    "note": "Usually 30 to 60 seconds · Don't close this window",
+    "steps": {
+      "analyzing": "Photo analyzed",
+      "uploading": "Uploading photo",
+      "composing": "Rendering scene...",
+      "rendering_video": "Rendering video...",
+      "finalizing": "Finalizing",
+      "complete": "Done",
+      "failed": "Failed"
+    }
+  },
+  "result": {
+    "ready": "Your flex is ready",
+    "sceneUsed": "Scene used",
+    "creditsUsed": "Credits used",
+    "genTime": "Generation time",
+    "save": "Save",
+    "instaStory": "Instagram Story",
+    "snapchat": "Snapchat",
+    "copyLink": "Copy link",
+    "youAsked": "You asked for:",
+    "creditsLeft": "You have {{n}} credit{{s}} left",
+    "topUp": "Top up →",
+    "before": "Before",
+    "after": "After"
+  },
+  "creations": {
+    "title": "History",
+    "subtitle": "Your generated photos and videos (available for 24h)",
+    "empty": "No creations yet. Get started from the dashboard!"
+  },
+  "credits": {
+    "choosePlan": "Choose your plan",
+    "subscriptions": "Subscriptions",
+    "creditPacks": "Credit packs",
+    "neverExpire": "Credits never expire",
+    "snapTutorial": "Includes a tutorial to send as a native Snapchat snap",
+    "paymentMethods": "Apple Pay · Google Pay · Credit card",
+    "perCredit": "/ credit · never expires",
+    "mostPopular": "Most popular",
+    "pro": "Pro",
+    "creditsPerMonth": "credits/month",
+    "extraCredits": "Extra credits",
+    "hdUnlocked": "HD rendering unlocked",
+    "choose": "Choose {{plan}}"
+  },
+  "affiliate": {
+    "title": "Referral program",
+    "subtitle": "Invite your friends, you both earn free credits.",
+    "yourLink": "Your referral link",
+    "everyFriend": "Every friend who signs up with your link and makes their first purchase earns you {{n}} free credit.",
+    "invited": "Invited",
+    "converted": "Converted",
+    "creditsEarned": "Credits earned",
+    "yourReferrals": "Your referrals",
+    "noOneYet": "No one yet — share your link to start earning credits.",
+    "pending": "Pending",
+    "user": "User"
+  },
+  "account": {
+    "currentBalance": "Current balance",
+    "active": "active",
+    "inactive": "inactive",
+    "subscription": "subscription",
+    "manageSubscription": "Manage subscription",
+    "manageSubscriptionDesc": "Plans, credit packs and billing",
+    "referralProgram": "Referral program",
+    "referralProgramDesc": "Invite your friends and earn credits",
+    "language": "Language",
+    "languageDesc": "Choose the language used across the app"
+  },
+  "login": {
+    "title": "Log in",
+    "email": "Email address",
+    "password": "Password",
+    "loggingIn": "Logging in...",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create an account",
+    "error": "Incorrect credentials."
+  },
+  "signup": {
+    "title": "Create an account",
+    "invited": "You were invited by a friend · code {{code}}",
+    "creating": "Creating...",
+    "haveAccount": "Already have an account?",
+    "error": "Unable to create account."
+  },
+  "sidebar": {
+    "home": "Home",
+    "editPhoto": "Edit a photo",
+    "editVideo": "Edit a video",
+    "luxuryCar": "Luxury car",
+    "changeScene": "Change scene",
+    "myCreations": "My creations",
+    "credits": "Credits",
+    "topUp": "Top up"
+  },
+  "bottomnav": {
+    "create": "Create",
+    "history": "History",
+    "subscription": "Subscription",
+    "referrals": "Referrals",
+    "account": "Account"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated:",
+    "p1": "By using FlexCheck, you agree to these terms. FlexCheck lets you transform photos into AI-generated lifestyle images and videos using the credits attached to your account.",
+    "p2": "You must own the rights to any photo you upload and confirm it depicts you or someone who has given you permission. You're responsible for how you use the generated content, and you agree not to use the service to create misleading, illegal, or harmful content.",
+    "p3": "Subscriptions and credit packs are billed through Stripe. Subscriptions renew automatically unless cancelled before the renewal date. Credit packs never expire; subscription credits reset each billing cycle.",
+    "p4": "Generated files are available for download for a limited time after creation. We recommend saving anything you want to keep.",
+    "p5": "We may update these terms from time to time. Continued use of the app after a change means you accept the updated terms. Questions? Reach us at contact@flexcheck.app."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated:",
+    "p1": "We collect the information you give us when you create an account (email), the photos you upload for generation, and basic usage data needed to run the service (like credit balance and generation history).",
+    "p2": "Uploaded photos and generated results are processed by our AI provider (fal.ai) solely to create your requested content, and are stored temporarily so you can download your results before they expire.",
+    "p3": "Payment details are handled entirely by Stripe — we never see or store your card information.",
+    "p4": "We don't sell your personal data. We only share it with the service providers strictly needed to operate FlexCheck (hosting, AI generation, payments).",
+    "p5": "You can request deletion of your account and associated data at any time by contacting us at contact@flexcheck.app."
+  }
+}

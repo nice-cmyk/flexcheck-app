@@ -1,0 +1,265 @@
+{
+  "common": {
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "startForFree": "Essayer gratuitement",
+    "loading": "Chargement...",
+    "credits": "crédits",
+    "credit": "crédit",
+    "backToDashboard": "Retour au tableau de bord",
+    "save": "Enregistrer",
+    "buy": "Acheter",
+    "vertical": "Vertical",
+    "square": "Carré",
+    "verticalDesc": "Stories · Reels · Snap",
+    "squareDesc": "Post Instagram",
+    "transformNow": "Transformer maintenant",
+    "yourPhotoHere": "Votre photo apparaîtra ici",
+    "yourVideoHere": "Votre vidéo apparaîtra ici",
+    "preview": "Aperçu",
+    "format": "Format"
+  },
+  "nav": {
+    "features": "Fonctionnalités",
+    "examples": "Exemples",
+    "contact": "Contact"
+  },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "contact": "Contact"
+  },
+  "landing": {
+    "badge": "Propulsé par l'IA · Résultats en 60s",
+    "heroLine1": "Ta vie.",
+    "heroLine2": "Améliorée.",
+    "heroDesc": "Transforme n'importe quelle photo en photo ou vidéo lifestyle de luxe, prête à poster en 60 secondes.",
+    "seeExamples": "Voir des exemples →",
+    "liveCounterSuffix": "photos et vidéos générées aujourd'hui",
+    "demoTitle": "Vois-le en direct.",
+    "demoDesc": "Ta photo, ta demande, ton résultat — un seul flux continu.",
+    "demoYourPhoto": "Ta photo",
+    "demoResult": "Résultat",
+    "demoDone": "✓ Terminé en 45s",
+    "demoPromptTyped": "Change l'intérieur et l'extérieur",
+    "snapTitle1": "Envoie des snaps de fou",
+    "snapTitle2": "directement depuis ta pellicule.",
+    "snapDesc": "Une photo ordinaire devient un moment lifestyle de rêve, prête à envoyer — parfait pour Snapchat, les Stories Instagram, TikTok, ou n'importe où.",
+    "snapBubble": "\"Change le siège arrière...\"",
+    "tryIt": "Essayer →",
+    "igTitle1": "Poste-la directement",
+    "igTitle2": "sur Instagram.",
+    "igDesc": "Une photo, une demande, et ton moment du quotidien devient un contenu Stories, Reels ou feed qui arrête le scroll — prêt à poster en quelques secondes.",
+    "igCaption1": "Ambiance du jour ✨",
+    "igCaption2": "Pas besoin de légende",
+    "howTitle1": "Choisis ta scène",
+    "howDesc1": "Ferrari, penthouse à Tokyo, suite à Paris — des dizaines de scènes de luxe.",
+    "howTitle2": "Upload ta photo",
+    "howDesc2": "Une seule photo suffit. Ton visage, ta pose et ton style sont préservés.",
+    "howTitle3": "Récupère ta photo ou vidéo",
+    "howDesc3": "Prête en 60 secondes, parfaite pour les Stories et Snapchat.",
+    "galleryTitle": "Vois la différence.",
+    "galleryDesc": "Fais glisser chaque curseur pour comparer avant et après.",
+    "closingTitle": "Prêt à flex ?",
+    "closingDesc": "Ta première photo est offerte — essaie maintenant et vois ta vie, améliorée.",
+    "notifJustNow": "À l'instant",
+    "chatTitle": "Chat en direct",
+    "chatOnline": "en ligne",
+    "chatLoading": "Chargement du chat…",
+    "notifActions": [
+      "vient de générer une photo",
+      "vient de générer une vidéo",
+      "vient de créer une scène Ferrari",
+      "vient de poster une photo de luxe",
+      "vient d'essayer la scène penthouse à Tokyo",
+      "vient de générer une photo yacht Monaco"
+    ]
+  },
+  "dashboard": {
+    "title": "Créer",
+    "subtitle": "Choisis le format à transformer.",
+    "photoTitle": "Photo",
+    "photoCost": "0,25 crédit",
+    "photoDesc": "Un seul appel. Résultat instantané, parfait pour un post Insta ou une story.",
+    "videoTitle": "Vidéo",
+    "videoCost": "1,25 à 1,75 crédit",
+    "videoDesc": "Deux étapes : valide d'abord une image de référence (0,25), puis génère la vidéo (+1 ou +1,5).",
+    "note": "0,25 crédit = image ou modification · +1 crédit = vidéo courte (≤ 5s) à partir d'une image validée · +1,5 crédit = vidéo longue (6-8s). Une vidéo complète coûte entre 1,25 et 1,75 crédit au total (image de référence incluse), plus 0,25 crédit par modification demandée avant validation."
+  },
+  "editPhoto": {
+    "title": "Modifier une photo",
+    "whatChange": "Que veux-tu changer ?",
+    "keepSubject": "Garder le sujet à l'identique",
+    "preserveLighting": "Préserver la lumière",
+    "hdRendering": "Rendu HD (Pro)",
+    "usesCredit": "Utilise 0,25 crédit · ~45 secondes"
+  },
+  "editVideo": {
+    "title": "Modifier une vidéo",
+    "subtitle": "Contenu lifestyle premium, animé automatiquement",
+    "describeScene": "Décris la scène",
+    "duration": "Durée de la vidéo",
+    "short": "Courte (≤ 5s)",
+    "long": "Longue (6-8s)",
+    "generateVideo": "Générer ma vidéo →",
+    "usesCredit": "Utilise {{n}} crédit · ~60 secondes"
+  },
+  "changeScene": {
+    "title": "Changer de scène",
+    "subtitle": "Téléporte-toi n'importe où dans le monde",
+    "chooseDestination": "Choisis une destination",
+    "placeholder": "ex. sur un rooftop à Dubaï au coucher du soleil...",
+    "usesCredit": "Utilise {{n}} crédit · ~45 secondes"
+  },
+  "luxuryCar": {
+    "brands": "Marques",
+    "all": "Toutes",
+    "coupe": "Coupé",
+    "suv": "SUV",
+    "interiorColor": "Couleur intérieure",
+    "yourPhoto": "Ta photo",
+    "dropPhoto": "Dépose une photo ou parcours",
+    "addDetails": "Ajouter des détails (optionnel)",
+    "detailsPlaceholder": "ex. de nuit, sous la pluie...",
+    "previewExpected": "aperçu attendu",
+    "generateVideo": "Générer ma vidéo →",
+    "usesCredit": "Utilise {{n}} crédit · ~60 secondes"
+  },
+  "promptInput": {
+    "placeholder": "ex. Mets-moi dans un appart de luxe à Tokyo avec vue sur la skyline et un iPhone 17 sur le bureau...",
+    "listening": "Écoute en cours..."
+  },
+  "photoUpload": {
+    "drop": "Dépose ta photo ici",
+    "browse": "ou parcours tes fichiers",
+    "specs": "JPG, PNG · Max 20MB"
+  },
+  "generating": {
+    "failedTitle": "La génération a échoué"
+  },
+  "generatingScreen": {
+    "transforming": "Transformation...",
+    "note": "Généralement 30 à 60 secondes · Ne ferme pas cette fenêtre",
+    "steps": {
+      "analyzing": "Photo analysée",
+      "uploading": "Envoi de la photo",
+      "composing": "Rendu de la scène...",
+      "rendering_video": "Rendu de la vidéo...",
+      "finalizing": "Finalisation",
+      "complete": "Terminé",
+      "failed": "Échec"
+    }
+  },
+  "result": {
+    "ready": "Ton flex est prêt",
+    "sceneUsed": "Scène utilisée",
+    "creditsUsed": "Crédits utilisés",
+    "genTime": "Temps de génération",
+    "save": "Enregistrer",
+    "instaStory": "Story Instagram",
+    "snapchat": "Snapchat",
+    "copyLink": "Copier le lien",
+    "youAsked": "Tu as demandé :",
+    "creditsLeft": "Il te reste {{n}} crédit{{s}}",
+    "topUp": "Recharger →",
+    "before": "Avant",
+    "after": "Après"
+  },
+  "creations": {
+    "title": "Historique",
+    "subtitle": "Tes photos et vidéos générées (disponibles pendant 24h)",
+    "empty": "Aucune création pour le moment. Commence depuis le tableau de bord !"
+  },
+  "credits": {
+    "choosePlan": "Choisis ton plan",
+    "subscriptions": "Abonnements",
+    "creditPacks": "Packs de crédits",
+    "neverExpire": "Les crédits n'expirent jamais",
+    "snapTutorial": "Inclut un tuto pour envoyer en snap natif Snapchat",
+    "paymentMethods": "Apple Pay · Google Pay · Carte bancaire",
+    "perCredit": "/ crédit · n'expire jamais",
+    "mostPopular": "Le plus populaire",
+    "pro": "Pro",
+    "creditsPerMonth": "crédits/mois",
+    "extraCredits": "Crédits supplémentaires",
+    "hdUnlocked": "Rendu HD débloqué",
+    "choose": "Choisir {{plan}}"
+  },
+  "affiliate": {
+    "title": "Programme de parrainage",
+    "subtitle": "Invite tes amis, vous gagnez tous les deux des crédits gratuits.",
+    "yourLink": "Ton lien de parrainage",
+    "everyFriend": "Chaque ami qui s'inscrit avec ton lien et fait son premier achat te rapporte {{n}} crédit gratuit.",
+    "invited": "Invités",
+    "converted": "Convertis",
+    "creditsEarned": "Crédits gagnés",
+    "yourReferrals": "Tes filleuls",
+    "noOneYet": "Personne pour l'instant — partage ton lien pour commencer à gagner des crédits.",
+    "pending": "En attente",
+    "user": "Utilisateur"
+  },
+  "account": {
+    "currentBalance": "Solde actuel",
+    "active": "actif",
+    "inactive": "inactif",
+    "subscription": "abonnement",
+    "manageSubscription": "Gérer l'abonnement",
+    "manageSubscriptionDesc": "Plans, packs de crédits et facturation",
+    "referralProgram": "Programme de parrainage",
+    "referralProgramDesc": "Invite tes amis et gagne des crédits",
+    "language": "Langue",
+    "languageDesc": "Choisis la langue utilisée dans l'application"
+  },
+  "login": {
+    "title": "Connexion",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "loggingIn": "Connexion...",
+    "noAccount": "Pas encore de compte ?",
+    "createAccount": "Créer un compte",
+    "error": "Identifiants incorrects."
+  },
+  "signup": {
+    "title": "Créer un compte",
+    "invited": "Tu as été invité par un ami · code {{code}}",
+    "creating": "Création...",
+    "haveAccount": "Déjà un compte ?",
+    "error": "Impossible de créer le compte."
+  },
+  "sidebar": {
+    "home": "Accueil",
+    "editPhoto": "Modifier une photo",
+    "editVideo": "Modifier une vidéo",
+    "luxuryCar": "Voiture de luxe",
+    "changeScene": "Changer de scène",
+    "myCreations": "Mes créations",
+    "credits": "Crédits",
+    "topUp": "Recharger"
+  },
+  "bottomnav": {
+    "create": "Créer",
+    "history": "Historique",
+    "subscription": "Abonnement",
+    "referrals": "Parrainage",
+    "account": "Compte"
+  },
+  "terms": {
+    "title": "Conditions d'utilisation",
+    "lastUpdated": "Dernière mise à jour :",
+    "p1": "En utilisant FlexCheck, tu acceptes ces conditions. FlexCheck te permet de transformer des photos en images et vidéos lifestyle générées par IA en utilisant les crédits associés à ton compte.",
+    "p2": "Tu dois détenir les droits sur toute photo que tu télécharges et confirmer qu'elle te représente ou représente une personne t'ayant donné son autorisation. Tu es responsable de l'utilisation du contenu généré, et tu t'engages à ne pas utiliser le service pour créer du contenu trompeur, illégal ou nuisible.",
+    "p3": "Les abonnements et packs de crédits sont facturés via Stripe. Les abonnements se renouvellent automatiquement sauf annulation avant la date de renouvellement. Les packs de crédits n'expirent jamais ; les crédits d'abonnement se réinitialisent à chaque cycle de facturation.",
+    "p4": "Les fichiers générés sont disponibles au téléchargement pendant une durée limitée après leur création. Nous te recommandons de sauvegarder tout ce que tu veux conserver.",
+    "p5": "Nous pouvons mettre à jour ces conditions de temps à autre. Continuer à utiliser l'application après un changement signifie que tu acceptes les conditions mises à jour. Des questions ? Contacte-nous à contact@flexcheck.app."
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "lastUpdated": "Dernière mise à jour :",
+    "p1": "Nous collectons les informations que tu nous fournis lors de la création d'un compte (e-mail), les photos que tu télécharges pour la génération, et les données d'usage de base nécessaires au fonctionnement du service (comme le solde de crédits et l'historique de génération).",
+    "p2": "Les photos téléchargées et les résultats générés sont traités par notre fournisseur d'IA (fal.ai) uniquement pour créer le contenu demandé, et sont stockés temporairement pour te permettre de télécharger tes résultats avant leur expiration.",
+    "p3": "Les informations de paiement sont entièrement gérées par Stripe — nous ne voyons ni ne stockons jamais tes informations de carte bancaire.",
+    "p4": "Nous ne vendons pas tes données personnelles. Nous les partageons uniquement avec les prestataires strictement nécessaires au fonctionnement de FlexCheck (hébergement, génération IA, paiements).",
+    "p5": "Tu peux demander la suppression de ton compte et des données associées à tout moment en nous contactant à contact@flexcheck.app."
+  }
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import AppLayout from '../components/layout/AppLayout'
 import PhotoUpload from '../components/generation/PhotoUpload'
 import PromptInput from '../components/generation/PromptInput'
@@ -12,6 +13,7 @@ import type { OutputFormat } from '../lib/fal'
 const quickPrompts = ['Ferrari 488 cockpit', 'Monaco yacht', 'Dubai rooftop', 'Private jet']
 
 export default function EditVideo() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const navigate = useNavigate()
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
@@ -28,19 +30,19 @@ export default function EditVideo() {
     <AppLayout>
       <div className="flex-1 flex flex-col lg:flex-row lg:overflow-hidden">
         <div className="flex-none lg:w-[500px] p-4 sm:p-6 lg:p-8 box-border lg:border-r border-white/[0.06] lg:overflow-y-auto">
-          <div className="text-white text-xl font-semibold">Edit a video</div>
-          <div className="text-white/45 text-sm mt-1.5">Premium lifestyle content, animated automatically</div>
+          <div className="text-white text-xl font-semibold">{t('editVideo.title')}</div>
+          <div className="text-white/45 text-sm mt-1.5">{t('editVideo.subtitle')}</div>
 
           <div className="mt-5">
             <PhotoUpload onFileSelected={(_f, url) => setPhotoUrl(url)} />
           </div>
 
-          <div className="text-white/70 text-sm font-semibold mt-6">Describe the scene</div>
+          <div className="text-white/70 text-sm font-semibold mt-6">{t('editVideo.describeScene')}</div>
           <div className="mt-2.5">
             <PromptInput value={prompt} onChange={setPrompt} quickPrompts={quickPrompts} />
           </div>
 
-          <div className="text-white/70 text-sm font-semibold mt-6">Video duration</div>
+          <div className="text-white/70 text-sm font-semibold mt-6">{t('editVideo.duration')}</div>
           <div className="flex gap-2.5 mt-2.5">
             <button
               type="button"
@@ -49,8 +51,8 @@ export default function EditVideo() {
                 duration === 'short' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
               }`}
             >
-              Short (≤ 5s)
-              <div className="text-xs mt-0.5 opacity-70">+{formatCredits(1)} credit</div>
+              {t('editVideo.short')}
+              <div className="text-xs mt-0.5 opacity-70">+{formatCredits(1)} {t('common.credit')}</div>
             </button>
             <button
               type="button"
@@ -59,12 +61,12 @@ export default function EditVideo() {
                 duration === 'long' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
               }`}
             >
-              Long (6-8s)
-              <div className="text-xs mt-0.5 opacity-70">+{formatCredits(1.5)} credit</div>
+              {t('editVideo.long')}
+              <div className="text-xs mt-0.5 opacity-70">+{formatCredits(1.5)} {t('common.credit')}</div>
             </button>
           </div>
 
-          <div className="text-white/70 text-sm font-semibold mt-6">Format</div>
+          <div className="text-white/70 text-sm font-semibold mt-6">{t('common.format')}</div>
           <div className="flex gap-2.5 mt-2.5">
             <button
               type="button"
@@ -73,8 +75,8 @@ export default function EditVideo() {
                 format === 'vertical' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
               }`}
             >
-              Vertical
-              <div className="text-xs mt-0.5 opacity-70">Stories · Reels · Snap</div>
+              {t('common.vertical')}
+              <div className="text-xs mt-0.5 opacity-70">{t('common.verticalDesc')}</div>
             </button>
             <button
               type="button"
@@ -83,16 +85,16 @@ export default function EditVideo() {
                 format === 'square' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
               }`}
             >
-              Square
-              <div className="text-xs mt-0.5 opacity-70">Instagram post</div>
+              {t('common.square')}
+              <div className="text-xs mt-0.5 opacity-70">{t('common.squareDesc')}</div>
             </button>
           </div>
 
           <Button fullWidth className="mt-6" onClick={handleSubmit}>
-            Generate my video →
+            {t('editVideo.generateVideo')}
           </Button>
           <div className="text-center text-white/40 text-xs mt-2">
-            Uses {formatCredits(videoTotalCost(duration))} credit · ~60 seconds
+            {t('editVideo.usesCredit', { n: formatCredits(videoTotalCost(duration)) })}
           </div>
         </div>
 
@@ -101,7 +103,7 @@ export default function EditVideo() {
             {photoUrl ? (
               <img src={photoUrl} alt="Preview" className="max-h-full max-w-full rounded-2xl object-contain" />
             ) : (
-              'Your video will appear here'
+              t('common.yourVideoHere')
             )}
           </div>
         </div>

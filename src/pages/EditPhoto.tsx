@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import AppLayout from '../components/layout/AppLayout'
 import PhotoUpload from '../components/generation/PhotoUpload'
 import PromptInput from '../components/generation/PromptInput'
@@ -10,6 +11,7 @@ import type { OutputFormat } from '../lib/fal'
 const quickPrompts = ['Tokyo Penthouse', 'Paris Suite', 'Maldives Resort', 'NYC Loft']
 
 export default function EditPhoto() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const navigate = useNavigate()
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
@@ -27,24 +29,24 @@ export default function EditPhoto() {
     <AppLayout>
       <div className="flex-1 flex flex-col lg:flex-row lg:overflow-hidden">
         <div className="flex-none lg:w-[500px] p-4 sm:p-6 lg:p-8 box-border lg:border-r border-white/[0.06] lg:overflow-y-auto">
-          <div className="text-white text-xl font-semibold">Edit a photo</div>
+          <div className="text-white text-xl font-semibold">{t('editPhoto.title')}</div>
 
           <div className="mt-5">
             <PhotoUpload onFileSelected={(_f, url) => setPhotoUrl(url)} />
           </div>
 
-          <div className="text-white/70 text-sm font-semibold mt-6">What do you want to change?</div>
+          <div className="text-white/70 text-sm font-semibold mt-6">{t('editPhoto.whatChange')}</div>
           <div className="mt-2.5">
             <PromptInput value={prompt} onChange={setPrompt} quickPrompts={quickPrompts} />
           </div>
 
           <div className="mt-6 flex flex-col gap-3">
-            <Toggle label="Keep subject exactly" checked={keepSubject} onChange={setKeepSubject} />
-            <Toggle label="Preserve lighting" checked={preserveLighting} onChange={setPreserveLighting} />
-            <Toggle label="HD rendering (Pro)" checked={false} disabled />
+            <Toggle label={t('editPhoto.keepSubject')} checked={keepSubject} onChange={setKeepSubject} />
+            <Toggle label={t('editPhoto.preserveLighting')} checked={preserveLighting} onChange={setPreserveLighting} />
+            <Toggle label={t('editPhoto.hdRendering')} checked={false} disabled />
           </div>
 
-          <div className="text-white/70 text-sm font-semibold mt-6">Format</div>
+          <div className="text-white/70 text-sm font-semibold mt-6">{t('common.format')}</div>
           <div className="flex gap-2.5 mt-2.5">
             <button
               type="button"
@@ -53,8 +55,8 @@ export default function EditPhoto() {
                 format === 'vertical' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
               }`}
             >
-              Vertical
-              <div className="text-xs mt-0.5 opacity-70">Stories · Reels · Snap</div>
+              {t('common.vertical')}
+              <div className="text-xs mt-0.5 opacity-70">{t('common.verticalDesc')}</div>
             </button>
             <button
               type="button"
@@ -63,15 +65,15 @@ export default function EditPhoto() {
                 format === 'square' ? 'border-primary bg-primary/15 text-white' : 'border-white/15 text-white/50'
               }`}
             >
-              Square
-              <div className="text-xs mt-0.5 opacity-70">Instagram post</div>
+              {t('common.square')}
+              <div className="text-xs mt-0.5 opacity-70">{t('common.squareDesc')}</div>
             </button>
           </div>
 
           <Button fullWidth className="mt-6" onClick={handleSubmit}>
-            Transform now
+            {t('common.transformNow')}
           </Button>
-          <div className="text-center text-white/40 text-xs mt-2">Uses 0.25 credit · ~45 seconds</div>
+          <div className="text-center text-white/40 text-xs mt-2">{t('editPhoto.usesCredit')}</div>
         </div>
 
         <div className="flex-1 p-4 sm:p-6 lg:p-8 flex items-center justify-center min-h-[240px] sm:min-h-[280px]">
@@ -79,7 +81,7 @@ export default function EditPhoto() {
             {photoUrl ? (
               <img src={photoUrl} alt="Preview" className="max-h-full max-w-full rounded-2xl object-contain" />
             ) : (
-              'Your photo will appear here'
+              t('common.yourPhotoHere')
             )}
           </div>
         </div>

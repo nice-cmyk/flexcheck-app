@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import AppLayout from '../components/layout/AppLayout'
 import PricingPlans from '../components/credits/PricingPlans'
 import CreditPacks from '../components/credits/CreditPacks'
 import { useAuth } from '../hooks/useAuth'
 
 export default function Credits() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const [tab, setTab] = useState<'plans' | 'packs'>('plans')
 
@@ -12,7 +14,7 @@ export default function Credits() {
     <AppLayout>
       <div className="flex-1 px-4 sm:px-6 lg:px-14 py-8 sm:py-11 overflow-y-auto">
         <div className="text-center">
-          <div className="text-white text-[28px] font-semibold font-display">Choose your plan</div>
+          <div className="text-white text-[28px] font-semibold font-display">{t('credits.choosePlan')}</div>
           <div className="inline-flex gap-1 bg-surface/80 border border-primary/15 rounded-full p-1 mt-4.5">
             <button
               onClick={() => setTab('plans')}
@@ -20,7 +22,7 @@ export default function Credits() {
                 tab === 'plans' ? 'bg-primary text-white' : 'text-white/50'
               }`}
             >
-              Subscriptions
+              {t('credits.subscriptions')}
             </button>
             <button
               onClick={() => setTab('packs')}
@@ -28,7 +30,7 @@ export default function Credits() {
                 tab === 'packs' ? 'bg-primary text-white' : 'text-white/50'
               }`}
             >
-              Credit packs
+              {t('credits.creditPacks')}
             </button>
           </div>
         </div>
@@ -37,12 +39,12 @@ export default function Credits() {
 
         <div className="flex justify-center flex-wrap gap-4 mt-8">
           <div className="bg-success/15 text-success text-xs font-semibold px-3.5 py-2 rounded-full">
-            Credits never expire
+            {t('credits.neverExpire')}
           </div>
           <div className="bg-primary/15 text-primary-light text-xs font-semibold px-3.5 py-2 rounded-full">
-            Includes a tutorial to send as a native Snapchat snap
+            {t('credits.snapTutorial')}
           </div>
-          <div className="text-white/40 text-xs px-3.5 py-2">Apple Pay · Google Pay · Credit card</div>
+          <div className="text-white/40 text-xs px-3.5 py-2">{t('credits.paymentMethods')}</div>
         </div>
       </div>
     </AppLayout>

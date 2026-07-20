@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import AppLayout from '../components/layout/AppLayout'
 import { useAuth } from '../hooks/useAuth'
 import { supabase, Generation } from '../lib/supabase'
 
 export default function Creations() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const [items, setItems] = useState<Generation[]>([])
   const [loading, setLoading] = useState(true)
@@ -24,14 +26,14 @@ export default function Creations() {
   return (
     <AppLayout>
       <div className="flex-1 p-4 sm:p-6 lg:p-11">
-        <div className="text-white text-2xl font-semibold">History</div>
-        <div className="text-white/45 text-sm mt-1.5">Your generated photos and videos (available for 24h)</div>
+        <div className="text-white text-2xl font-semibold">{t('creations.title')}</div>
+        <div className="text-white/45 text-sm mt-1.5">{t('creations.subtitle')}</div>
 
-        {loading && <div className="text-white/40 text-sm mt-8">Loading...</div>}
+        {loading && <div className="text-white/40 text-sm mt-8">{t('common.loading')}</div>}
 
         {!loading && items.length === 0 && (
           <div className="text-white/40 text-sm mt-8">
-            No creations yet. Get started from the dashboard!
+            {t('creations.empty')}
           </div>
         )}
 

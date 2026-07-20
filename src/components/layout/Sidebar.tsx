@@ -1,22 +1,24 @@
 import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import CreditsBar from './CreditsBar'
 import { useAuth } from '../../hooks/useAuth'
 import { useCredits } from '../../hooks/useCredits'
 
-const links = [
-  { to: '/app', label: 'Home', end: true },
-  { to: '/app/edit-photo', label: 'Edit a photo' },
-  { to: '/app/edit-video', label: 'Edit a video' },
-  { to: '/app/luxury-car', label: 'Luxury car' },
-  { to: '/app/change-scene', label: 'Change scene' },
-  { to: '/app/creations', label: 'My creations' },
-  { to: '/app/credits', label: 'Credits' },
-]
-
 export default function Sidebar() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const { credits } = useCredits(user?.id)
   const displayName = user?.email?.split('@')[0] ?? 'User'
+
+  const links = [
+    { to: '/app', label: t('sidebar.home'), end: true },
+    { to: '/app/edit-photo', label: t('sidebar.editPhoto') },
+    { to: '/app/edit-video', label: t('sidebar.editVideo') },
+    { to: '/app/luxury-car', label: t('sidebar.luxuryCar') },
+    { to: '/app/change-scene', label: t('sidebar.changeScene') },
+    { to: '/app/creations', label: t('sidebar.myCreations') },
+    { to: '/app/credits', label: t('sidebar.credits') },
+  ]
 
   return (
     <div className="flex-none w-60 bg-sidebar border-r border-white/[0.06] flex flex-col p-4 box-border">

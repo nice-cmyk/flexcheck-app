@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GenerationStep } from '../../hooks/useGeneration'
-
-const stepLabels: Record<GenerationStep, string> = {
-  idle: '',
-  analyzing: 'Photo analyzed',
-  uploading: 'Uploading photo',
-  composing: 'Rendering scene...',
-  rendering_video: 'Rendering video...',
-  finalizing: 'Finalizing',
-  complete: 'Done',
-  failed: 'Failed',
-}
 
 const order: GenerationStep[] = ['analyzing', 'uploading', 'composing', 'rendering_video', 'finalizing']
 
 export default function GeneratingScreen({ step, progress }: { step: GenerationStep; progress: number }) {
+  const { t } = useTranslation()
+  const stepLabels: Record<GenerationStep, string> = {
+    idle: '',
+    analyzing: t('generatingScreen.steps.analyzing'),
+    uploading: t('generatingScreen.steps.uploading'),
+    composing: t('generatingScreen.steps.composing'),
+    rendering_video: t('generatingScreen.steps.rendering_video'),
+    finalizing: t('generatingScreen.steps.finalizing'),
+    complete: t('generatingScreen.steps.complete'),
+    failed: t('generatingScreen.steps.failed'),
+  }
   const currentIndex = order.indexOf(step)
 
   // The real `progress` value jumps in big steps (10 -> 25 -> 55 -> 80 -> 95 -> 100)
@@ -55,7 +56,7 @@ export default function GeneratingScreen({ step, progress }: { step: GenerationS
         </div>
       </div>
 
-      <div className="text-white text-xl mt-8">Transforming...</div>
+      <div className="text-white text-xl mt-8">{t('generatingScreen.transforming')}</div>
       <div className="font-display font-bold text-4xl bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent mt-2">
         {shownProgress}%
       </div>
@@ -81,7 +82,7 @@ export default function GeneratingScreen({ step, progress }: { step: GenerationS
       <div className="w-full max-w-[340px] h-1 bg-primary/15 rounded-full mt-7 overflow-hidden">
         <div className="h-full bg-gradient-to-r from-primary to-primary-light" style={{ width: `${shownProgress}%` }} />
       </div>
-      <div className="text-white/35 text-xs mt-3.5">Usually 30 to 60 seconds · Don't close this window</div>
+      <div className="text-white/35 text-xs mt-3.5">{t('generatingScreen.note')}</div>
     </div>
   )
 }

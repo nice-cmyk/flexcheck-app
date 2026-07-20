@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Heart, Send, MessageCircle, X } from 'lucide-react'
 import TopNav from '../components/layout/TopNav'
 import Footer from '../components/layout/Footer'
@@ -7,36 +8,9 @@ import BeforeAfterSlider from '../components/ui/BeforeAfterSlider'
 
 const marqueeItems = ['Ferrari 488 GTB', 'Tokyo Penthouse', 'Paris Suite', 'Monaco Yacht', 'Maldives Resort', 'NYC Loft']
 
-const steps = [
-  {
-    n: '01',
-    title: 'Pick your scene',
-    desc: 'Ferrari, Tokyo penthouse, Paris suite — dozens of luxury scenes.',
-  },
-  {
-    n: '02',
-    title: 'Upload your photo',
-    desc: 'Just one photo is enough. Your face, pose and style are preserved.',
-  },
-  {
-    n: '03',
-    title: 'Get your photo or video',
-    desc: 'Ready in 60 seconds, perfect for Stories and Snapchat.',
-  },
-]
-
 const channels = ['Snapchat', 'Instagram', 'TikTok', 'iMessage']
 
 const notifNames = ['Sophie', 'Lucas', 'Emma', 'Nathan', 'Chloé', 'Maxime', 'Léa', 'Hugo', 'Sarah', 'Yanis', 'Camille', 'Adam', 'Zoé', 'Malik']
-const notifActions = [
-  'just generated a photo',
-  'just generated a video',
-  'just created a Ferrari scene',
-  'just posted a luxury photo',
-  'just tried the Tokyo penthouse scene',
-  'just generated a Monaco yacht photo',
-]
-
 const chatNames = ['Yanis_', 'kenzaa', 'bilal.mp4', 'ines__', 'raywan', 'lina.x', 'zack__', 'nawel_', 'sofiane', 'sarah.jpg', 'medox', 'jjade__']
 const chatMessages = [
   "wesh c'est trop stylé ce truc jsp comment ils font 🔥🔥",
@@ -62,8 +36,15 @@ const chatMessages = [
 ]
 
 export default function Landing() {
+  const { t } = useTranslation()
   const demoSectionRef = useRef<HTMLDivElement>(null)
   const [notifEnabled, setNotifEnabled] = useState(false)
+
+  const steps = [
+    { n: '01', title: t('landing.howTitle1'), desc: t('landing.howDesc1') },
+    { n: '02', title: t('landing.howTitle2'), desc: t('landing.howDesc2') },
+    { n: '03', title: t('landing.howTitle3'), desc: t('landing.howDesc3') },
+  ]
 
   useEffect(() => {
     const el = demoSectionRef.current
@@ -111,23 +92,23 @@ export default function Landing() {
 
         <div className="relative z-10 max-w-2xl">
           <div className="inline-block bg-white/[0.06] text-white text-xs font-medium px-3.5 py-1.5 rounded-full">
-            Powered by AI · Results in 60s
+            {t('landing.badge')}
           </div>
           <div className="font-display font-extrabold text-5xl sm:text-6xl lg:text-8xl text-white leading-none mt-5 -tracking-wide">
-            Your life.
+            {t('landing.heroLine1')}
           </div>
           <div className="font-display font-extrabold italic text-5xl sm:text-6xl lg:text-8xl text-primary leading-none -tracking-wide">
-            Upgraded.
+            {t('landing.heroLine2')}
           </div>
           <div className="text-white/60 font-light text-base lg:text-lg leading-relaxed mt-6 max-w-md mx-auto">
-            Turn any photo into a luxury lifestyle photo or video, ready to post in 60 seconds.
+            {t('landing.heroDesc')}
           </div>
           <div className="flex flex-wrap gap-4 sm:gap-6 items-center justify-center mt-8">
             <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-4 shadow-[0_0_35px_rgba(124,58,237,0.55)] hover:shadow-[0_0_50px_rgba(124,58,237,0.75)] transition-shadow">
-              Start for free →
+              {t('common.startForFree')} →
             </Link>
             <a href="#examples" className="text-accent font-medium text-sm">
-              See examples →
+              {t('landing.seeExamples')}
             </a>
           </div>
           <LiveCounter />
@@ -144,14 +125,14 @@ export default function Landing() {
           style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', filter: 'blur(50px)' }}
         />
         <div className="relative">
-          <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">See it happen live.</div>
+          <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">{t('landing.demoTitle')}</div>
           <div className="text-white/45 font-light text-sm mt-2 max-w-md mx-auto">
-            Your photo, your request, your result — one continuous flow.
+            {t('landing.demoDesc')}
           </div>
         </div>
         <DemoMotion />
         <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
-          Start for free →
+          {t('common.startForFree')} →
         </Link>
       </Reveal>
 
@@ -174,14 +155,13 @@ export default function Landing() {
         />
         <div className="flex-1 w-full relative">
           <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
-            Send insane snaps
+            {t('landing.snapTitle1')}
           </div>
           <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight">
-            straight from your camera roll.
+            {t('landing.snapTitle2')}
           </div>
           <div className="text-white/45 font-light text-base mt-5 max-w-md">
-            An ordinary photo becomes a dream lifestyle moment, ready to send — perfect for Snapchat,
-            Instagram Stories, TikTok, or wherever you post.
+            {t('landing.snapDesc')}
           </div>
           <div className="flex flex-wrap gap-2 mt-4">
             {channels.map((c) => (
@@ -192,10 +172,10 @@ export default function Landing() {
           </div>
           <div className="flex flex-wrap items-center gap-5 mt-6">
             <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
-              Start for free →
+              {t('common.startForFree')} →
             </Link>
             <a href="#examples" className="text-accent font-medium text-sm">
-              Try it →
+              {t('landing.tryIt')}
             </a>
           </div>
         </div>
@@ -207,7 +187,7 @@ export default function Landing() {
             <img src="/avant.jpg" alt="Luxury result" className="w-full h-full object-cover" />
           </div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-bg/90 border border-primary/30 rounded-full text-white/70 text-[11px] sm:text-xs px-3.5 py-2 shadow-[0_0_20px_rgba(0,0,0,0.4)] whitespace-nowrap">
-            "Change the seat back..."
+            {t('landing.snapBubble')}
           </div>
         </div>
       </Reveal>
@@ -220,22 +200,21 @@ export default function Landing() {
         />
         <div className="flex-1 relative flex justify-center gap-4 sm:gap-6 w-full">
           <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.1s' }}>
-            <InstagramMockup src="/lux9.png" caption="Feeling like this today ✨" />
+            <InstagramMockup src="/lux9.png" caption={t('landing.igCaption1')} />
           </div>
           <div className="w-[38vw] max-w-[220px] aspect-[220/390] rounded-2xl sm:rounded-[26px] -rotate-3 overflow-hidden animate-float" style={{ animationDelay: '0.4s' }}>
-            <InstagramMockup src="/lux8.png" caption="No caption needed" />
+            <InstagramMockup src="/lux8.png" caption={t('landing.igCaption2')} />
           </div>
         </div>
         <div className="flex-1 w-full">
           <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
-            Post it straight
+            {t('landing.igTitle1')}
           </div>
           <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight">
-            to Instagram.
+            {t('landing.igTitle2')}
           </div>
           <div className="text-white/45 font-light text-base mt-5 max-w-md">
-            One photo, one request, and your everyday moment becomes scroll-stopping
-            Stories, Reels or feed content — ready to post in seconds.
+            {t('landing.igDesc')}
           </div>
           <div className="flex flex-wrap gap-2 mt-4">
             {['Stories', 'Reels', 'Feed post', 'Close friends'].map((c) => (
@@ -246,10 +225,10 @@ export default function Landing() {
           </div>
           <div className="flex flex-wrap items-center gap-5 mt-6">
             <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
-              Start for free →
+              {t('common.startForFree')} →
             </Link>
             <a href="#examples" className="text-accent font-medium text-sm">
-              Try it →
+              {t('landing.tryIt')}
             </a>
           </div>
         </div>
@@ -286,7 +265,7 @@ export default function Landing() {
         ))}
         <Reveal className="flex justify-center px-4 sm:px-6 lg:px-14">
           <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
-            Start for free →
+            {t('common.startForFree')} →
           </Link>
         </Reveal>
       </div>
@@ -298,21 +277,21 @@ export default function Landing() {
           style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.15), transparent 70%)', filter: 'blur(50px)' }}
         />
         <div id="examples" className="relative">
-        <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">See the difference.</div>
-        <div className="text-white/45 font-light text-sm mt-2">Drag each slider to compare before and after.</div>
+        <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">{t('landing.galleryTitle')}</div>
+        <div className="text-white/45 font-light text-sm mt-2">{t('landing.galleryDesc')}</div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-8">
           <div className="h-[340px] sm:h-[420px] rounded-2xl overflow-hidden">
             <BeforeAfterSlider
-              beforeLabel="Before"
-              afterLabel="After"
+              beforeLabel={t('result.before')}
+              afterLabel={t('result.after')}
               beforeSlot={<img src="/gallery-left-after.jpg" alt="Raw photo" className="w-full h-full object-cover" />}
               afterSlot={<img src="/gallery-left-before.jpg" alt="Luxury result" className="w-full h-full object-cover" />}
             />
           </div>
           <div className="h-[340px] sm:h-[420px] rounded-2xl overflow-hidden">
             <BeforeAfterSlider
-              beforeLabel="Before"
-              afterLabel="After"
+              beforeLabel={t('result.before')}
+              afterLabel={t('result.after')}
               beforeSlot={<img src="/gallery-avant1.jpg" alt="Raw photo" className="w-full h-full object-cover" />}
               afterSlot={<img src="/gallery-avant2.jpg" alt="Luxury result" className="w-full h-full object-cover" />}
             />
@@ -320,7 +299,7 @@ export default function Landing() {
         </div>
         <div className="flex justify-center mt-10">
           <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
-            Start for free →
+            {t('common.startForFree')} →
           </Link>
         </div>
         </div>
@@ -334,14 +313,14 @@ export default function Landing() {
         />
         <div className="relative z-10 text-center max-w-lg mx-auto">
           <div className="font-display font-extrabold text-3xl sm:text-5xl text-white leading-tight">
-            Ready to flex?
+            {t('landing.closingTitle')}
           </div>
           <div className="text-white/45 font-light text-base mt-4">
-            Your first photo is on us — try it now and see your life, upgraded.
+            {t('landing.closingDesc')}
           </div>
           <div className="flex flex-wrap gap-4 justify-center items-center mt-8">
             <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-7 py-4 shadow-[0_0_40px_rgba(124,58,237,0.6)] hover:shadow-[0_0_55px_rgba(124,58,237,0.8)] transition-shadow">
-              Start for free →
+              {t('common.startForFree')} →
             </Link>
           </div>
         </div>
@@ -353,6 +332,7 @@ export default function Landing() {
 }
 
 function LiveCounter() {
+  const { t } = useTranslation()
   const [count, setCount] = useState(32586)
 
   useEffect(() => {
@@ -372,14 +352,15 @@ function LiveCounter() {
         <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
       </span>
       <span>
-        <span className="text-white font-semibold">{count.toLocaleString('en-US')}</span> photos & videos generated
-        today
+        <span className="text-white font-semibold">{count.toLocaleString('en-US')}</span> {t('landing.liveCounterSuffix')}
       </span>
     </div>
   )
 }
 
 function LiveNotifications({ enabled }: { enabled: boolean }) {
+  const { t } = useTranslation()
+  const actions = t('landing.notifActions', { returnObjects: true }) as string[]
   const [current, setCurrent] = useState<{ name: string; action: string } | null>(null)
   const [visible, setVisible] = useState(false)
 
@@ -388,7 +369,7 @@ function LiveNotifications({ enabled }: { enabled: boolean }) {
     let timeout: ReturnType<typeof setTimeout>
     function showNext() {
       const name = notifNames[Math.floor(Math.random() * notifNames.length)]
-      const action = notifActions[Math.floor(Math.random() * notifActions.length)]
+      const action = actions[Math.floor(Math.random() * actions.length)]
       setCurrent({ name, action })
       setVisible(true)
       timeout = setTimeout(() => {
@@ -398,7 +379,7 @@ function LiveNotifications({ enabled }: { enabled: boolean }) {
     }
     timeout = setTimeout(showNext, 800)
     return () => clearTimeout(timeout)
-  }, [enabled])
+  }, [enabled, actions])
 
   if (!current) return null
 
@@ -415,7 +396,7 @@ function LiveNotifications({ enabled }: { enabled: boolean }) {
         <div className="text-white/80 text-[11px] font-semibold leading-snug">
           {current.name} {current.action}
         </div>
-        <div className="text-white/35 text-[10px] mt-0.5">Just now</div>
+        <div className="text-white/35 text-[10px] mt-0.5">{t('landing.notifJustNow')}</div>
       </div>
     </div>
   )
@@ -424,6 +405,7 @@ function LiveNotifications({ enabled }: { enabled: boolean }) {
 type ChatMsg = { id: number; name: string; text: string }
 
 function PublicChatWidget() {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<ChatMsg[]>([])
   const [unread, setUnread] = useState(0)
@@ -469,15 +451,15 @@ function PublicChatWidget() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
               </span>
-              <span className="text-white text-xs font-semibold">Live chat</span>
-              <span className="text-white/40 text-[11px]">· {online} online</span>
+              <span className="text-white text-xs font-semibold">{t('landing.chatTitle')}</span>
+              <span className="text-white/40 text-[11px]">· {online} {t('landing.chatOnline')}</span>
             </div>
             <button onClick={() => setOpen(false)} className="text-white/50 hover:text-white">
               <X size={16} />
             </button>
           </div>
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-3.5 py-3 flex flex-col gap-3">
-            {messages.length === 0 && <div className="text-white/30 text-xs text-center mt-6">Loading chat…</div>}
+            {messages.length === 0 && <div className="text-white/30 text-xs text-center mt-6">{t('landing.chatLoading')}</div>}
             {messages.map((m) => (
               <div key={m.id} className="flex items-start gap-2">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-[10px] font-bold flex-none">
@@ -645,7 +627,6 @@ function DemoVideo({ src, className }: { src: string; className?: string }) {
   )
 }
 
-const DEMO_PROMPT = 'Change the interior and exterior'
 const DEMO_PHOTO_MS = 2200
 const DEMO_TYPE_MS = 2600
 const DEMO_TRANSITION_MS = 500
@@ -653,7 +634,9 @@ const DEMO_RESULT_MS = 2600
 const DEMO_TOTAL_MS = DEMO_PHOTO_MS + DEMO_TYPE_MS + DEMO_TRANSITION_MS + DEMO_RESULT_MS
 
 function DemoMotion() {
+  const { t } = useTranslation()
   const [elapsed, setElapsed] = useState(0)
+  const demoPrompt = t('landing.demoPromptTyped')
 
   useEffect(() => {
     const start = Date.now()
@@ -671,8 +654,8 @@ function DemoMotion() {
   const isResult = elapsed >= transitionStart
 
   const typingElapsed = Math.min(DEMO_TYPE_MS, Math.max(0, elapsed - typingStart))
-  const typedChars = Math.min(DEMO_PROMPT.length, Math.round((typingElapsed / (DEMO_TYPE_MS * 0.7)) * DEMO_PROMPT.length))
-  const typedText = DEMO_PROMPT.slice(0, typedChars)
+  const typedChars = Math.min(demoPrompt.length, Math.round((typingElapsed / (DEMO_TYPE_MS * 0.7)) * demoPrompt.length))
+  const typedText = demoPrompt.slice(0, typedChars)
 
   return (
     <div className="relative w-[220px] sm:w-[240px] aspect-[220/390] rounded-[28px] overflow-hidden mx-auto shadow-[0_0_60px_rgba(124,58,237,0.25)] border border-white/10">
@@ -687,7 +670,7 @@ function DemoMotion() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
       <div className="absolute top-3 left-3 bg-white/10 text-white/80 text-[10px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">
-        {isResult ? 'Result' : 'Your photo'}
+        {isResult ? t('landing.demoResult') : t('landing.demoYourPhoto')}
       </div>
 
       {(isTyping || (elapsed >= transitionStart && elapsed < resultStart)) && (
@@ -699,7 +682,7 @@ function DemoMotion() {
 
       {elapsed >= resultStart && (
         <div className="absolute bottom-4 left-3 right-3 bg-primary/20 border border-primary/40 rounded-2xl px-3.5 py-2.5 text-primary-light text-[11px] font-semibold text-center">
-          ✓ Done in 45s
+          {t('landing.demoDone')}
         </div>
       )}
     </div>
