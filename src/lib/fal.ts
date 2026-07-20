@@ -64,6 +64,8 @@ export type KlingVideoInput = {
   compositeImageUrl: string
   sceneDescription: string
   format?: OutputFormat
+  /** Called each time we poll the job so the UI can keep the progress bar moving. */
+  onTick?: () => void
 }
 
 export type KlingVideoResult = {
@@ -71,10 +73,36 @@ export type KlingVideoResult = {
   videoUrl: string
 }
 
-export async function generateVideo({ compositeImageUrl, sceneDescription, format }: KlingVideoInput): Promise<KlingVideoResult> {
-  return postJson<KlingVideoResult>('/api/fal-video', {
+/**
+ * Video generation can take well over a minute on Kling, which was blowing
+ * past Vercel's platform gateway timeout when we waited on a single request
+ * (client saw a 504). We now submit the job (fast) and poll a separate
+ * status endpoint every few seconds until it's done, so no single request
+ * is ever long-lived.
+ */
+export async function generateVideo({ compositeImageUrl, sceneDescription, format, onTick }: KlingVideoInput): Promise<KlingVideoResult> {
+  const { requestId } = await postJson<{ requestId: string }>('/api/fal-video', {
     compositeImageUrl,
     sceneDescription,
     aspectRatio: toAspectRatio(format),
   })
+
+  const maxAttempts = 90 // ~90 * 4s = 6 minutes ceiling
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    await new Promise((r) => setTimeout(r, 4000))
+    onTick?.()
+
+    const res = await fetch(`/api/fal-video-status?requestId=${encodeURIComponent(requestId)}`)
+    const data = await res.json().catch(() => ({}))
+
+    if (!res.ok || data.status === 'FAILED') {
+      throw new Error(data?.error ?? 'Video generation failed')
+    }
+    if (data.status === 'COMPLETED') {
+      return { requestId, videoUrl: data.videoUrl }
+    }
+    // IN_QUEUE / IN_PROGRESS -> keep polling
+  }
+
+  throw new Error('Video generation is taking longer than expected. Please try again.')
 }

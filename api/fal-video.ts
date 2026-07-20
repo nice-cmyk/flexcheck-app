@@ -1,26 +1,35 @@
-// Vercel Serverless Function — runs the Kling 2.5 Pro image-to-video step
-// server-side, keeping the fal.ai API key off the client.
+// Vercel Serverless Function — SUBMITS the Kling 2.5 Pro image-to-video job
+// to fal.ai's async queue and returns immediately with a requestId.
 // Required env var (Vercel Project Settings > Environment Variables): FAL_API_KEY
-// Note: this is the higher-cost step; the client controls when it's called.
+//
+// IMPORTANT: this used to call fal.subscribe(), which blocks the whole
+// function until the video is fully rendered (Kling can take well over a
+// minute). That single long-running request was hitting Vercel's platform
+// gateway timeout and coming back as a 504 to the client, independent of
+// this function's own `maxDuration` setting. Submitting to the queue here
+// and polling from api/fal-video-status.ts instead keeps every individual
+// request short, so it can't time out no matter how long Kling takes.
 
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { fal } from '@fal-ai/client'
 
 export const config = {
-  maxDuration: 120,
+  maxDuration: 30,
 }
 
 fal.config({ credentials: process.env.FAL_API_KEY })
 
-// Step 1 (new): auto-expand the user's short, often vague description into a
-// detailed, 10+ line cinematic motion prompt via an LLM (fal-ai/any-llm, same
-// FAL_API_KEY - no extra account/key needed). This fixes two recurring issues:
-// the old hardcoded template gave Kling too little detail to work with, and
-// vehicle speed looked arbitrary/wrong because nothing told the model how
-// fast a car should realistically move in a given context (parking garage vs
-// street vs highway). If this step fails or times out for any reason, we
-// silently fall back to the previous deterministic template so video
-// generation never breaks because of it.
+export const KLING_ENDPOINT = 'fal-ai/kling-video/v2.5-turbo/pro/image-to-video'
+
+// Auto-expand the user's short, often vague description into a detailed
+// 10+ line cinematic motion prompt via an LLM (fal-ai/any-llm, same
+// FAL_API_KEY - no extra account/key needed). This fixes two recurring
+// issues: the old hardcoded template gave Kling too little detail to work
+// with, and vehicle speed looked arbitrary/wrong because nothing told the
+// model how fast a car should realistically move in a given context
+// (parking garage vs street vs highway). If this step fails or times out
+// for any reason, we silently fall back to the previous deterministic
+// template so video generation never breaks because of it.
 async function expandPrompt(sceneDescription: string, isDrivingScene: boolean): Promise<string | null> {
   try {
     const systemPrompt = isDrivingScene
@@ -105,7 +114,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Note: 'fal-ai/kling-video/v2.5/pro/image-to-video' (without "-turbo")
     // does not exist on fal.ai and was returning a 404 "Not Found" error on
     // every video generation - the turbo variant is the real v2.5 Pro endpoint.
-    const result = await fal.subscribe('fal-ai/kling-video/v2.5-turbo/pro/image-to-video', {
+    const { request_id } = await fal.queue.submit(KLING_ENDPOINT, {
       input: {
         image_url: compositeImageUrl,
         prompt,
@@ -120,14 +129,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
     })
 
-    const videoUrl = (result.data as any)?.video?.url
-    if (!videoUrl) {
-      return res.status(502).json({ error: 'Video generation returned no video' })
-    }
-
-    return res.status(200).json({ requestId: result.requestId, videoUrl })
+    return res.status(200).json({ requestId: request_id })
   } catch (err: any) {
-    console.error('fal-video error', err)
+    console.error('fal-video submit error', err)
     return res.status(500).json({ error: err.message ?? 'Server error' })
   }
 }

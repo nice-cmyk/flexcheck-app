@@ -65,7 +65,15 @@ export function useGeneration(userId: string | undefined) {
         if (type === 'video') {
           setStep('rendering_video')
           setProgress(80)
-          const video = await generateVideo({ compositeImageUrl: compositeUrl, sceneDescription: prompt, format })
+          // Video rendering is now polled (can take over a minute) - nudge
+          // the progress bar forward on each poll tick so it doesn't look
+          // stuck, capping below 95 (reserved for the finalizing step).
+          const video = await generateVideo({
+            compositeImageUrl: compositeUrl,
+            sceneDescription: prompt,
+            format,
+            onTick: () => setProgress((p) => Math.min(p + 1, 94)),
+          })
           finalUrl = video.videoUrl
         }
 
