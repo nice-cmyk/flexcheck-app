@@ -176,6 +176,9 @@ export default function Landing() {
             </a>
           </div>
           <LiveCounter />
+          <div className="inline-block bg-gold/10 text-gold text-xs font-medium px-3.5 py-1.5 rounded-full mt-4">
+            {t('landing.videoBetaNotice')}
+          </div>
         </div>
       </Reveal>
 
