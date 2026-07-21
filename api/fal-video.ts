@@ -49,8 +49,10 @@ Mandatory rules:
 - Follow every detail in the user's request faithfully.
 - Describe ultra realistic subtle human motion: natural micro-movements, gentle visible breathing, natural eye blinks, small involuntary head movements.
 - Describe the ambient motion of the scene itself (light, background elements, fabric, hair) matching the context described.
+- The camera stays completely fixed in the exact same physical position and framing as the original photo for the entire clip. Explicitly state that the video must NEVER cut, transition, zoom into, or fly into any screen, window, mirror, or reflection visible in the photo (for example a phone screen or plane window) - whatever is shown on that screen/window must stay small and in the background exactly as in the photo, never take over the frame.
+- If the person is holding an object (phone, glass, etc.), state explicitly that the object, hand position and hand count must stay exactly as in the original photo.
 - Mention cinematic 24fps film grain, photorealistic lighting, ultra realistic detail.
-- End with smooth and continuous motion, no teleporting, no freezing, no jerky or unnatural movement.
+- End with smooth and continuous motion, no teleporting, no freezing, no jerky or unnatural movement, no scene cuts, no location change.
 Reply with ONLY the final prompt in English, no preamble, no quotes, no markdown, no explanations.`
 
     const result = await fal.subscribe('fal-ai/any-llm', {
@@ -105,7 +107,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // reduces that.
     const fallbackPrompt = isDrivingScene
       ? `POV from inside the car: the car is actually moving and driving through the scene exactly as described - ${sceneDescription}. Show real forward motion, the environment (walls, pillars, other cars, road markings) passing by and receding realistically, the steering wheel turning in sync with any turn described, hands adjusting on the wheel, subtle body sway from acceleration and steering. Keep the driver's hand position and grip exactly as in the original photo - do not add a second hand or change hand count. Keep every other vehicle, object and surface exactly as they appear in the original photo, only their position/perspective should change naturally with the camera motion. Cinematic 24fps film grain, photorealistic, ultra realistic motion, smooth and continuous, no teleporting or static freeze.`
-      : `ultra realistic subtle human motion, natural micro-movements, gentle chest breathing visible, eyes blink naturally, small involuntary head micro-movements, ${sceneDescription} ambient motion, cinematic 24fps film grain, photorealistic. Keep everything else exactly as in the original photo.`
+      : `ultra realistic subtle human motion, natural micro-movements, gentle chest breathing visible, eyes blink naturally, small involuntary head micro-movements, ${sceneDescription} ambient motion, cinematic 24fps film grain, photorealistic. Camera stays completely fixed in the same position and framing as the original photo. Do not cut, zoom into, or transition into any screen, window, or reflection visible in the photo - keep it small and in the background exactly as shown. Keep everything else, including any object held in hand, exactly as in the original photo.`
 
     const expanded = await expandPrompt(sceneDescription, isDrivingScene)
     const prompt = expanded ?? fallbackPrompt
@@ -117,14 +119,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       input: {
         image_url: compositeImageUrl,
         prompt,
-        negative_prompt: 'jerky motion, unnatural movement, distorted face, morphing, glitching, artifacts, static image, no movement, frozen, unrealistic speed, inconsistent speed, extra hand, extra limb, additional hand appearing, changing number of hands, warped vehicle, melting car, deformed car, morphing car, car changing shape, invented vehicle not in original photo, inconsistent objects between frames, hallucinated details, flickering geometry',
+        negative_prompt: 'jerky motion, unnatural movement, distorted face, morphing, glitching, artifacts, static image, no movement, frozen, unrealistic speed, inconsistent speed, extra hand, extra limb, additional hand appearing, changing number of hands, warped vehicle, melting car, deformed car, morphing car, car changing shape, invented vehicle not in original photo, inconsistent objects between frames, hallucinated details, flickering geometry, scene transition, scene cut, jump cut, zooming into screen, camera flying into phone or window, screen takeover, location change, teleporting to a different location, camera leaving the original scene, changing environment mid-clip',
         duration: '5',
         aspect_ratio: ratio,
-        // Lowered from 0.8: at 0.8 the model was hallucinating extra content
-        // (see negative_prompt additions above) to fill the amount of motion
-        // requested. 0.6 still reads as clearly moving/driving but gives the
-        // model less "unseen space" to invent and warp.
-        motion_strength: isDrivingScene ? 0.6 : 0.35,
+        // Lowered from 0.8/0.35: at higher values the model was not just
+        // hallucinating small details but sometimes fully cutting away from
+        // the original scene (e.g. "zooming into" a phone screen visible in
+        // the photo and replacing the whole frame with invented content).
+        // Lower values keep the camera anchored to the actual photo.
+        motion_strength: isDrivingScene ? 0.6 : 0.25,
       },
     })
 
