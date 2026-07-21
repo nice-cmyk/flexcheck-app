@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Button from '../ui/Button'
 import { formatCredits } from '../../lib/credits'
@@ -17,6 +18,57 @@ export default function ResultView({
   beforeUrl, afterUrl, sceneUsed, creditsUsed, generationTimeSec, prompt, creditsLeft, isVideo,
 }: ResultViewProps) {
   const { t } = useTranslation()
+  const [saving, setSaving] = useState(false)
+
+  // The result file lives on fal.ai's CDN, not our own domain. A plain
+  // <a href download> either gets blocked cross-origin or (especially on
+  // mobile Safari/Chrome) just opens the video/photo in a new tab instead of
+  // saving it - which is exactly the "je peux pas enregistrer" bug reported.
+  // Fetching the bytes ourselves and handing them off as a same-origin blob
+  // (or through the native share sheet on mobile, which is the only reliable
+  // way to get a video into the Photos app) actually triggers a real save.
+  async function handleSave() {
+    if (saving) return
+    setSaving(true)
+    try {
+      const res = await fetch(afterUrl)
+      if (!res.ok) throw new Error('download fetch failed')
+      const blob = await res.blob()
+      const filename = `flexcheck-${Date.now()}.${isVideo ? 'mp4' : 'jpg'}`
+
+      const nav = navigator as Navigator & {
+        canShare?: (data?: ShareData) => boolean
+        share?: (data: ShareData) => Promise<void>
+      }
+      if (nav.canShare && nav.share) {
+        const file = new File([blob], filename, { type: blob.type || (isVideo ? 'video/mp4' : 'image/jpeg') })
+        if (nav.canShare({ files: [file] })) {
+          try {
+            await nav.share({ files: [file] })
+            return
+          } catch (shareErr: any) {
+            if (shareErr?.name === 'AbortError') return // user cancelled the share sheet, not a real error
+            // fall through to the blob-download path below
+          }
+        }
+      }
+
+      const blobUrl = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = blobUrl
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(blobUrl)
+    } catch (err) {
+      console.error('save failed, falling back to opening the file directly', err)
+      // Last resort: open it so the user can long-press / right-click save it manually.
+      window.open(afterUrl, '_blank')
+    } finally {
+      setSaving(false)
+    }
+  }
   return (
     <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
       <div className="flex-none w-full lg:w-[700px] p-4 sm:p-8 box-border">
@@ -45,7 +97,9 @@ export default function ResultView({
         </div>
 
         <div className="flex flex-col gap-2.5 mt-4">
-          <Button>{t('result.save')}</Button>
+          <Button onClick={handleSave} disabled={saving}>
+            {saving ? t('result.saving', { defaultValue: 'Enregistrement...' }) : t('result.save')}
+          </Button>
           <Button variant="ghost">{t('result.instaStory')}</Button>
           <button className="border border-[#F5CB0A]/40 rounded-xl text-center text-[#FDE047] text-sm py-3">
             {t('result.snapchat')}
