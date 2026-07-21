@@ -38,6 +38,21 @@ export async function useCredits(userId: string, amount: number): Promise<boolea
   return data === true
 }
 
+/**
+ * Gives credits back after they were charged up front but the generation
+ * failed before producing a result (upload/compose/render error, timeout,
+ * etc). Best-effort: failures here are logged but not thrown, since a
+ * refund issue shouldn't turn into a second error on top of the one the
+ * user already hit.
+ */
+export async function refundCredits(userId: string, amount: number): Promise<void> {
+  const { error } = await supabase.rpc('refund_credits', {
+    p_user_id: userId,
+    p_amount: amount,
+  })
+  if (error) console.error('refundCredits failed', error)
+}
+
 export function totalCredits(profile: {
   subscription_credits_remaining: number
   pack_credits: number

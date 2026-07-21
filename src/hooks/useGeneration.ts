@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { composeImage, generateVideo, uploadToFalStorage, OutputFormat } from '../lib/fal'
-import { useCredits as useCreditsLib, COSTS, videoTotalCost } from '../lib/credits'
+import { useCredits as useCreditsLib, refundCredits, COSTS, videoTotalCost } from '../lib/credits'
 
 export type GenerationType = 'photo' | 'video'
 export type VideoDuration = 'short' | 'long'
@@ -39,6 +39,12 @@ export function useGeneration(userId: string | undefined) {
       setStep('analyzing')
       setProgress(10)
       setError(null)
+      // Tracks whether consume_credits actually succeeded, so the catch
+      // block below knows whether there's anything to refund. Credits are
+      // charged up front (before we know the generation will succeed) so we
+      // don't let someone start a generation they can't afford - but that
+      // means every failure path after this point needs to give them back.
+      let creditsCharged = false
 
       try {
         const ok = await useCreditsLib(userId, creditsNeeded)
@@ -47,6 +53,7 @@ export function useGeneration(userId: string | undefined) {
           setStep('failed')
           return
         }
+        creditsCharged = true
 
         // The photo the user picked lives as a local blob: URL in the browser.
         // fal.ai's servers can't reach that, so upload it to fal storage first
@@ -105,6 +112,13 @@ export function useGeneration(userId: string | undefined) {
         setProgress(100)
         setStep('complete')
       } catch (e: any) {
+        // Credits were already deducted (creditsCharged) but something after
+        // that point failed - upload, compose, video render/timeout, etc.
+        // Give them back instead of leaving the user out the credits for a
+        // generation that never produced anything.
+        if (creditsCharged) {
+          await refundCredits(userId, creditsNeeded)
+        }
         setError(e?.message ?? 'An error occurred during generation.')
         setStep('failed')
       }
