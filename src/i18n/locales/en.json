@@ -75,6 +75,17 @@
       "just posted a luxury photo",
       "just tried the Tokyo penthouse scene",
       "just generated a Monaco yacht photo"
+    ],
+    "faqTitle": "Frequently asked questions",
+    "faqSubtitle": "Everything you need to know before you start.",
+    "faq": [
+      { "q": "How does it work?", "a": "Upload a photo, describe the scene you want (car, penthouse, yacht...), and the AI generates a realistic photo or video in 30 to 90 seconds, ready to post." },
+      { "q": "Are my photos used for anything else?", "a": "No. Your photos are only used to generate your result - they're never shared or used to train models." },
+      { "q": "Is video generation 100% reliable?", "a": "Photo generation is very reliable. Video is still under continuous improvement, so results can vary slightly from one try to the next." },
+      { "q": "Do credits expire?", "a": "Pack credits never expire. Credits included in a subscription renew every month." },
+      { "q": "Can I cancel my subscription anytime?", "a": "Yes, no commitment. You can cancel anytime from the Account page." },
+      { "q": "What platforms does it work with?", "a": "Compatible with Snapchat, Instagram Stories, TikTok and iMessage - it's a standard photo/video export usable anywhere." },
+      { "q": "What happens if a generation fails?", "a": "Your credits are automatically refunded if a generation fails." }
     ]
   },
   "dashboard": {

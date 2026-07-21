@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Heart, Send, MessageCircle, X } from 'lucide-react'
+import { Heart, Send, MessageCircle, X, ChevronDown } from 'lucide-react'
 import TopNav from '../components/layout/TopNav'
 import Footer from '../components/layout/Footer'
 import BeforeAfterSlider from '../components/ui/BeforeAfterSlider'
@@ -109,6 +109,8 @@ export default function Landing() {
     { n: '02', title: t('landing.howTitle2'), desc: t('landing.howDesc2') },
     { n: '03', title: t('landing.howTitle3'), desc: t('landing.howDesc3') },
   ]
+
+  const faqItems = t('landing.faq', { returnObjects: true }) as { q: string; a: string }[]
 
   useEffect(() => {
     const el = demoSectionRef.current
@@ -372,6 +374,25 @@ export default function Landing() {
         </div>
       </Reveal>
 
+      {/* FAQ */}
+      <Reveal className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20 overflow-hidden">
+        <div
+          className="absolute top-0 right-1/4 w-[50vw] max-w-[400px] h-[35vw] max-h-[300px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.12), transparent 70%)', filter: 'blur(50px)' }}
+        />
+        <div className="relative max-w-2xl mx-auto">
+          <div className="text-center">
+            <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">{t('landing.faqTitle')}</div>
+            <div className="text-white/45 font-light text-sm mt-2">{t('landing.faqSubtitle')}</div>
+          </div>
+          <div className="flex flex-col gap-3 mt-8">
+            {faqItems.map((item, i) => (
+              <FaqItem key={i} q={item.q} a={item.a} />
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
       {/* CLOSING CTA */}
       <Reveal className="relative px-4 sm:px-6 lg:px-14 py-20 lg:py-28 pb-24 overflow-hidden">
         <div
@@ -597,6 +618,31 @@ function Reveal({
       style={{ transitionDelay: `${delayMs}ms` }}
     >
       {children}
+    </div>
+  )
+}
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="bg-surface/60 border border-white/[0.06] rounded-2xl overflow-hidden">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between gap-4 text-left px-5 py-4"
+      >
+        <span className="text-white font-medium text-sm sm:text-base">{q}</span>
+        <ChevronDown
+          size={18}
+          className={`flex-none text-white/40 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+      <div
+        className={`grid transition-all duration-300 ease-out ${open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 pb-4 text-white/50 font-light text-sm leading-relaxed">{a}</div>
+        </div>
+      </div>
     </div>
   )
 }

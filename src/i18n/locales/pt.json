@@ -75,6 +75,17 @@
       "acabou de postar uma foto de luxo",
       "acabou de testar a cena da cobertura em Tóquio",
       "acabou de gerar uma foto de iate em Mônaco"
+    ],
+    "faqTitle": "Perguntas frequentes",
+    "faqSubtitle": "Tudo o que você precisa saber antes de começar.",
+    "faq": [
+      { "q": "Como funciona?", "a": "Você envia uma foto, descreve a cena que quer (carro, cobertura, iate...), e a IA gera uma foto ou vídeo realista em 30 a 90 segundos, pronto para postar." },
+      { "q": "Minhas fotos são usadas para outra coisa?", "a": "Não. Suas fotos são usadas apenas para gerar seu resultado, nunca são compartilhadas nem usadas para treinar modelos." },
+      { "q": "A geração de vídeo é 100% confiável?", "a": "A geração de fotos é muito confiável. O vídeo ainda está em melhoria contínua, então o resultado pode variar um pouco entre tentativas." },
+      { "q": "Os créditos expiram?", "a": "Os créditos dos pacotes nunca expiram. Os créditos incluídos numa assinatura são renovados todo mês." },
+      { "q": "Posso cancelar minha assinatura a qualquer momento?", "a": "Sim, sem fidelidade. Você pode cancelar quando quiser na página Conta." },
+      { "q": "Funciona em quais redes?", "a": "Compatível com Snapchat, Instagram Stories, TikTok e iMessage - é uma exportação padrão de foto/vídeo que funciona em qualquer lugar." },
+      { "q": "O que acontece se uma geração falhar?", "a": "Seus créditos são reembolsados automaticamente se uma geração falhar." }
     ]
   },
   "dashboard": {

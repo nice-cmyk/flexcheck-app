@@ -75,6 +75,17 @@
       "acaba de publicar una foto de lujo",
       "acaba de probar la escena del ático en Tokio",
       "acaba de generar una foto de yate en Mónaco"
+    ],
+    "faqTitle": "Preguntas frecuentes",
+    "faqSubtitle": "Todo lo que necesitas saber antes de empezar.",
+    "faq": [
+      { "q": "¿Cómo funciona?", "a": "Subes una foto, describes la escena que quieres (coche, ático, yate...), y la IA genera una foto o video realista en 30 a 90 segundos, lista para publicar." },
+      { "q": "¿Mis fotos se usan para algo más?", "a": "No. Tus fotos solo se usan para generar tu resultado, nunca se comparten ni se usan para entrenar modelos." },
+      { "q": "¿La generación de video es 100% fiable?", "a": "La generación de fotos es muy fiable. El video sigue en mejora continua, así que el resultado puede variar un poco entre intentos." },
+      { "q": "¿Los créditos caducan?", "a": "Los créditos de los packs nunca caducan. Los créditos incluidos en una suscripción se renuevan cada mes." },
+      { "q": "¿Puedo cancelar mi suscripción en cualquier momento?", "a": "Sí, sin compromiso. Puedes cancelar cuando quieras desde la página de Cuenta." },
+      { "q": "¿Con qué redes funciona?", "a": "Compatible con Snapchat, Instagram Stories, TikTok e iMessage - es una exportación estándar de foto/video que puedes usar en cualquier lugar." },
+      { "q": "¿Qué pasa si una generación falla?", "a": "Tus créditos se reembolsan automáticamente si una generación falla." }
     ]
   },
   "dashboard": {
