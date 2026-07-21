@@ -33,8 +33,13 @@ incomplete, generic, or empty. All objects and materials described (seats, dashb
 furniture, architecture, etc.) must be fully rendered with correct proportions and realistic detail
 from edge to edge of the image.
 
-Make it photorealistic, ${formatLabel}, cinematic lighting, ultra realistic, high detail, no artifacts,
-no distortions.`
+Make it photorealistic and ${formatLabel}, but shot like a casual photo taken on a normal smartphone
+(the kind of camera a regular person actually owns) - NOT a professional camera, NOT cinematic, NOT a
+studio shoot. Natural phone-camera dynamic range and color processing, ordinary everyday lighting
+handling (not dramatic or moody), a touch of natural sensor noise/grain in darker areas, slightly
+imperfect focus/sharpness like a quick phone snapshot rather than a crisp professional lens. It should
+look like something a person actually pulled out of their pocket and shot themselves, not a
+commercial/advertising photograph. No artifacts, no distortions, no missing or blank areas.`
 
     // Explicit pixel dimensions instead of a named preset: the model is more
     // reliable at actually respecting a concrete {width, height} than the
