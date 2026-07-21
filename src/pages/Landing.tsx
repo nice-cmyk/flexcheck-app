@@ -708,38 +708,6 @@ function PhotoRow({ images, className }: { images: string[]; className?: string 
   )
 }
 
-function DemoVideo({ src, className }: { src: string; className?: string }) {
-  const ref = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    el.muted = true
-    el.defaultMuted = true
-    const tryPlay = () => el.play().catch(() => {})
-    tryPlay()
-    document.addEventListener('touchstart', tryPlay, { once: true })
-    document.addEventListener('click', tryPlay, { once: true })
-    return () => {
-      document.removeEventListener('touchstart', tryPlay)
-      document.removeEventListener('click', tryPlay)
-    }
-  }, [])
-
-  return (
-    <video
-      ref={ref}
-      src={src}
-      className={className}
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="auto"
-    />
-  )
-}
-
 const DEMO_PHOTO_MS = 2200
 const DEMO_TYPE_MS = 2600
 const DEMO_TRANSITION_MS = 500
@@ -750,6 +718,8 @@ function DemoMotion() {
   const { t } = useTranslation()
   const [elapsed, setElapsed] = useState(0)
   const demoPrompt = t('landing.demoPromptTyped')
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const activeSrcRef = useRef<string | null>(null)
 
   useEffect(() => {
     const start = Date.now()
@@ -770,15 +740,37 @@ function DemoMotion() {
   const typedChars = Math.min(demoPrompt.length, Math.round((typingElapsed / (DEMO_TYPE_MS * 0.7)) * demoPrompt.length))
   const typedText = demoPrompt.slice(0, typedChars)
 
+  // Two simultaneously autoplaying <video> elements crossfaded via CSS opacity
+  // is what this used to be - on mobile (iOS Safari especially) having two
+  // muted/inline/autoplay videos decoding at once is unreliable: one of them
+  // frequently gets kicked out of inline playback into the native fullscreen
+  // player, so instead of a smooth crossfade the two clips visibly "open" and
+  // play one after another. Using a single <video> element and swapping its
+  // src when the state flips avoids that entirely - only one video is ever
+  // actually playing.
+  const activeSrc = isResult ? '/hero-before.mp4' : '/hero-after.mp4'
+
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el || activeSrcRef.current === activeSrc) return
+    activeSrcRef.current = activeSrc
+    el.muted = true
+    el.defaultMuted = true
+    el.load()
+    el.play().catch(() => {})
+  }, [activeSrc])
+
   return (
     <div className="relative w-[220px] sm:w-[240px] aspect-[220/390] rounded-[28px] overflow-hidden mx-auto shadow-[0_0_60px_rgba(124,58,237,0.25)] border border-white/10">
-      <DemoVideo
-        src="/hero-after.mp4"
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isResult ? 'opacity-0' : 'opacity-100'}`}
-      />
-      <DemoVideo
-        src="/hero-before.mp4"
-        className={`absolute inset-0 w-full h-full object-cover scale-125 transition-opacity duration-700 ${isResult ? 'opacity-100' : 'opacity-0'}`}
+      <video
+        ref={videoRef}
+        src={activeSrc}
+        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${isResult ? 'scale-125' : ''}`}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
