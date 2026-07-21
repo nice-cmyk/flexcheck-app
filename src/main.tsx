@@ -1,8 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import './i18n'
+import { initAnalytics } from './lib/analytics'
+import RouteTracker from './components/layout/RouteTracker'
+
+initAnalytics()
 
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -27,6 +32,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthProvider>
       <BrowserRouter>
+        <RouteTracker />
+        <Analytics />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />

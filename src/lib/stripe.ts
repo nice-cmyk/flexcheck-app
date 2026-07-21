@@ -1,4 +1,5 @@
 import { loadStripe, Stripe } from '@stripe/stripe-js'
+import { trackEvent } from './analytics'
 
 let stripePromise: Promise<Stripe | null>
 
@@ -41,6 +42,7 @@ export const PACKS: Record<PackId, { label: string; priceLabel: string; credits:
  * the payment session server-side with the Stripe secret key.
  */
 export async function startSubscriptionCheckout(planId: PlanId, userId: string) {
+  trackEvent('begin_checkout', { mode: 'subscription', plan: planId })
   const res = await fetch('/api/create-checkout-session', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -54,6 +56,7 @@ export async function startSubscriptionCheckout(planId: PlanId, userId: string) 
  * Purchases a one-time credit pack.
  */
 export async function startPackCheckout(packId: PackId, userId: string) {
+  trackEvent('begin_checkout', { mode: 'payment', pack: packId })
   const res = await fetch('/api/create-checkout-session', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

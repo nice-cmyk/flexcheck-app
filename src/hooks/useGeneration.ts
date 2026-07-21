@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { composeImage, generateVideo, uploadToFalStorage, OutputFormat } from '../lib/fal'
 import { useCredits as useCreditsLib, refundCredits, COSTS, videoTotalCost } from '../lib/credits'
+import { trackEvent } from '../lib/analytics'
 
 export type GenerationType = 'photo' | 'video'
 export type VideoDuration = 'short' | 'long'
@@ -111,6 +112,7 @@ export function useGeneration(userId: string | undefined) {
         setResultUrl(finalUrl)
         setProgress(100)
         setStep('complete')
+        trackEvent('generation_complete', { type, credits_used: creditsNeeded })
       } catch (e: any) {
         // Credits were already deducted (creditsCharged) but something after
         // that point failed - upload, compose, video render/timeout, etc.
