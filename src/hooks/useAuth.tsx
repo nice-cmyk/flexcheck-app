@@ -2,6 +2,14 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 import { Session, User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 import { identifyUser, trackEvent } from '../lib/analytics'
+import { registerReferral } from '../lib/referrals'
+
+// Google OAuth leaves the page entirely, so a referral code picked up from
+// ?ref= on /signup can't just live in component state - it has to survive
+// the round trip through Google. Signup.tsx stashes it here before
+// redirecting; onAuthStateChange below consumes and clears it exactly once
+// after a real SIGNED_IN event.
+const PENDING_REFERRAL_KEY = 'flexcheck_pending_referral'
 
 interface AuthContextValue {
   user: User | null
@@ -9,6 +17,7 @@ interface AuthContextValue {
   loading: boolean
   signInWithPassword: (email: string, password: string) => ReturnType<typeof supabase.auth.signInWithPassword>
   signUp: (email: string, password: string) => ReturnType<typeof supabase.auth.signUp>
+  signInWithGoogle: () => ReturnType<typeof supabase.auth.signInWithOAuth>
   signOut: () => ReturnType<typeof supabase.auth.signOut>
 }
 
@@ -40,10 +49,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (data.session?.user) identifyUser(data.session.user.id, { email: data.session.user.email })
     })
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, newSession) => {
       setSession(newSession)
       setUser(newSession?.user ?? null)
       if (newSession?.user) identifyUser(newSession.user.id, { email: newSession.user.email })
+
+      if (event === 'SIGNED_IN' && newSession?.user) {
+        const code = localStorage.getItem(PENDING_REFERRAL_KEY)
+        if (code) {
+          localStorage.removeItem(PENDING_REFERRAL_KEY)
+          registerReferral(newSession.user.id, newSession.user.email ?? null, code).catch(() => {})
+        }
+      }
     })
 
     return () => listener.subscription.unsubscribe()
@@ -61,12 +78,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return result
   }
 
+  // Redirects to Google, then back to /app once Supabase has exchanged the
+  // OAuth code for a session (handled automatically by supabase-js via
+  // detectSessionInUrl - no separate callback page needed).
+  async function signInWithGoogle() {
+    trackEvent('begin_google_signin')
+    return supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/app` },
+    })
+  }
+
   async function signOut() {
     return supabase.auth.signOut()
   }
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signInWithPassword, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, signInWithPassword, signUp, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   )

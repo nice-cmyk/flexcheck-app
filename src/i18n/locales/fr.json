@@ -264,7 +264,9 @@
     "loggingIn": "Connexion...",
     "noAccount": "Pas encore de compte ?",
     "createAccount": "Créer un compte",
-    "error": "Identifiants incorrects."
+    "error": "Identifiants incorrects.",
+    "continueWithGoogle": "Continuer avec Google",
+    "or": "ou"
   },
   "signup": {
     "title": "Créer un compte",

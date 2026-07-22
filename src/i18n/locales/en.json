@@ -264,7 +264,9 @@
     "loggingIn": "Logging in...",
     "noAccount": "Don't have an account?",
     "createAccount": "Create an account",
-    "error": "Incorrect credentials."
+    "error": "Incorrect credentials.",
+    "continueWithGoogle": "Continue with Google",
+    "or": "or"
   },
   "signup": {
     "title": "Create an account",

@@ -264,7 +264,9 @@
     "loggingIn": "Entrando...",
     "noAccount": "Não tem uma conta?",
     "createAccount": "Criar uma conta",
-    "error": "Credenciais incorretas."
+    "error": "Credenciais incorretas.",
+    "continueWithGoogle": "Continuar com o Google",
+    "or": "ou"
   },
   "signup": {
     "title": "Criar uma conta",
