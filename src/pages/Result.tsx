@@ -31,7 +31,6 @@ export default function Result() {
   return (
     <AppLayout>
       <ResultView
-        beforeUrl={state.photoUrl}
         afterUrl={state.resultUrl}
         sceneUsed={state.prompt}
         creditsUsed={creditsUsed}
