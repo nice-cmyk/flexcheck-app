@@ -15,15 +15,34 @@ export type PackId = 'pack5' | 'pack15' | 'pack40'
 
 export const PLANS: Record<
   PlanId,
-  { label: string; priceLabel: string; credits: number; extraCreditPrice: string; snapTutorial: boolean }
+  {
+    label: string
+    priceLabel: string
+    credits: number
+    extraCreditPrice: string
+    snapTutorial: boolean
+    /** If set, the plan card shows "N photos to generate/mo" instead of the
+     * raw credit count - only valid for plans where video is locked out
+     * (video is gated to flex/pro, see EditVideo.tsx/LuxuryCar.tsx), so
+     * "credits" and "photos" are actually interchangeable for the user. */
+    photosPerMonth?: number
+  }
 > = {
-  // Pricing/credits below are set so that even in the worst case (a user who
-  // spends every credit on photo edits only - the most expensive generation
-  // type per credit) the plan still nets at least ~$9-10 margin after the
-  // real fal.ai API cost and Stripe fees (~2.9% + $0.30). See margin notes.
-  starter: { label: 'Starter', priceLabel: '13.99/mo', credits: 4, extraCreditPrice: '$1.60/video', snapTutorial: false },
-  flex: { label: 'Flex', priceLabel: '22.99/mo', credits: 15, extraCreditPrice: '$1.25/video', snapTutorial: true },
-  pro: { label: 'Pro', priceLabel: '39.99/mo', credits: 35, extraCreditPrice: '$0.99/video', snapTutorial: true },
+  // Pricing/credits set from the real fal.ai cost of a photo edit
+  // (openai/gpt-image-2/edit, quality "high": ~$0.178-$0.234 per portrait
+  // image depending on exact size, ~$0.20 working estimate - see
+  // https://fal.ai/models/openai/gpt-image-2/edit for the official grid) and
+  // of a short/long Kling video (fal-ai/kling-video/v2.5-turbo/pro:
+  // $0.35 for 5s + $0.07/extra second, ~$0.55-$0.76 incl. the reference
+  // photo edit step). Worst case per plan = every credit spent on photos
+  // only (the most expensive generation type per credit: ~$0.80/credit vs
+  // ~$0.43-0.44/credit for video), after Stripe's ~2.9%+$0.30 fee:
+  //   starter: 30 photos (7.5cr) -> ~$6.00 cost, $11.99 -> ~$5.04 margin (42%)
+  //   flex:    15cr              -> ~$12.00 cost, $19.99 -> ~$7.11 margin (36%)
+  //   pro:     35cr              -> ~$28.00 cost, $37.99 -> ~$8.60 margin (23%)
+  starter: { label: 'Starter', priceLabel: '11.99/mo', credits: 7.5, extraCreditPrice: '$1.60/video', snapTutorial: false, photosPerMonth: 30 },
+  flex: { label: 'Flex', priceLabel: '19.99/mo', credits: 15, extraCreditPrice: '$1.25/video', snapTutorial: true },
+  pro: { label: 'Pro', priceLabel: '37.99/mo', credits: 35, extraCreditPrice: '$0.99/video', snapTutorial: true },
 }
 
 // Same >=$9 worst-case margin floor as PLANS (all credits spent on photos,

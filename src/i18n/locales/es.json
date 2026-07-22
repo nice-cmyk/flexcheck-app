@@ -234,7 +234,8 @@
     "creditsPerMonth": "créditos/mes",
     "extraCredits": "Créditos extra",
     "hdUnlocked": "Renderizado HD desbloqueado",
-    "choose": "Elegir {{plan}}"
+    "choose": "Elegir {{plan}}",
+    "photosPerMonth": "fotos a generar/mes"
   },
   "affiliate": {
     "title": "Programa de referidos",

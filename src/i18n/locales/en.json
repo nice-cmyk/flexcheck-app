@@ -234,7 +234,8 @@
     "creditsPerMonth": "credits/month",
     "extraCredits": "Extra credits",
     "hdUnlocked": "HD rendering unlocked",
-    "choose": "Choose {{plan}}"
+    "choose": "Choose {{plan}}",
+    "photosPerMonth": "photos to generate/mo"
   },
   "affiliate": {
     "title": "Referral program",

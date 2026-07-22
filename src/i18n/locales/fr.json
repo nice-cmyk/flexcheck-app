@@ -234,7 +234,8 @@
     "creditsPerMonth": "crédits/mois",
     "extraCredits": "Crédits supplémentaires",
     "hdUnlocked": "Rendu HD débloqué",
-    "choose": "Choisir {{plan}}"
+    "choose": "Choisir {{plan}}",
+    "photosPerMonth": "photos à générer/mois"
   },
   "affiliate": {
     "title": "Programme de parrainage",

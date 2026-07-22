@@ -17,7 +17,7 @@ const supabase = createClient(
 )
 
 // Alignés avec PLANS dans src/lib/stripe.ts (source de vérité pour les crédits/prix affichés).
-const PLAN_CREDITS: Record<string, number> = { starter: 4, flex: 15, pro: 35 }
+const PLAN_CREDITS: Record<string, number> = { starter: 7.5, flex: 15, pro: 35 }
 const PACK_CREDITS: Record<string, number> = { pack5: 5, pack15: 15, pack40: 40 }
 
 /**

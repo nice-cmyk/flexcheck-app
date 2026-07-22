@@ -175,7 +175,7 @@ export default function Landing() {
             {t('landing.demoDesc')}
           </div>
         </div>
-        <div className="relative w-[220px] sm:w-[260px] aspect-[220/390] rounded-[28px] overflow-hidden mx-auto shadow-[0_0_60px_rgba(124,58,237,0.25)] border border-white/10">
+        <div className="relative w-full max-w-[720px] aspect-[960/450] rounded-2xl overflow-hidden mx-auto shadow-[0_0_60px_rgba(124,58,237,0.25)] border border-white/10">
           <video
             src="/demo-app.mp4"
             className="absolute inset-0 w-full h-full object-cover"

@@ -34,7 +34,9 @@ export default function PricingPlans({ userId }: { userId?: string }) {
               ${plan.priceLabel.split('/')[0]}
               <span className="text-sm text-white/40 font-normal">/mo</span>
             </div>
-            <div className="text-white/45 text-sm mt-3.5">✓ {plan.credits} {t('credits.creditsPerMonth')}</div>
+            <div className="text-white/45 text-sm mt-3.5">
+              ✓ {plan.photosPerMonth ?? plan.credits} {plan.photosPerMonth ? t('credits.photosPerMonth') : t('credits.creditsPerMonth')}
+            </div>
             <div className="text-white/45 text-sm mt-1.5">✓ {t('credits.extraCredits')} {plan.extraCreditPrice}</div>
             {plan.snapTutorial && (
               <Link to="/app/snap-tuto" className="text-primary-light text-sm mt-1.5 underline underline-offset-2 block w-fit">
