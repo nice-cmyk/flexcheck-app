@@ -46,6 +46,9 @@ export default function Dashboard() {
             <div className="relative text-white/50 text-sm mt-2 leading-relaxed">
               {t('dashboard.videoDesc')}
             </div>
+            <div className="relative inline-block bg-gold/10 text-gold text-xs font-medium px-3 py-1.5 rounded-full mt-4">
+              {t('landing.videoBetaNotice')}
+            </div>
           </Link>
         </div>
 

@@ -10,7 +10,6 @@ const marqueeItems = ['Ferrari 488 GTB', 'Tokyo Penthouse', 'Paris Suite', 'Mona
 
 const channels = ['Snapchat', 'Instagram', 'TikTok', 'iMessage']
 
-const notifNames = ['Sophie', 'Lucas', 'Emma', 'Nathan', 'Chloé', 'Maxime', 'Léa', 'Hugo', 'Sarah', 'Yanis', 'Camille', 'Adam', 'Zoé', 'Malik']
 const chatNames = ['Yanis_', 'kenzaa', 'bilal.mp4', 'ines__', 'raywan', 'lina.x', 'zack__', 'nawel_', 'sofiane', 'sarah.jpg', 'medox', 'jjade__']
 const chatMessages = [
   // French
@@ -101,8 +100,6 @@ const chatMessages = [
 
 export default function Landing() {
   const { t } = useTranslation()
-  const demoSectionRef = useRef<HTMLDivElement>(null)
-  const [notifEnabled, setNotifEnabled] = useState(false)
 
   const steps = [
     { n: '01', title: t('landing.howTitle1'), desc: t('landing.howDesc1') },
@@ -112,31 +109,13 @@ export default function Landing() {
 
   const faqItems = t('landing.faq', { returnObjects: true }) as { q: string; a: string }[]
 
-  useEffect(() => {
-    const el = demoSectionRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setNotifEnabled(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -20% 0px' }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <div className="bg-bg min-h-screen overflow-x-hidden">
       <TopNav />
-      <LiveNotifications enabled={notifEnabled} />
       <PublicChatWidget />
 
       {/* HERO */}
       <Reveal
-        refProp={demoSectionRef}
         className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-14 py-20 lg:py-28 min-h-[560px] lg:min-h-[680px] overflow-hidden text-center"
       >
         <div className="absolute inset-0 flex flex-col justify-center gap-3 sm:gap-4 opacity-50">
@@ -181,9 +160,6 @@ export default function Landing() {
             </a>
           </div>
           <LiveCounter />
-          <div className="inline-block bg-gold/10 text-gold text-xs font-medium px-3.5 py-1.5 rounded-full mt-4">
-            {t('landing.videoBetaNotice')}
-          </div>
         </div>
       </Reveal>
 
@@ -424,50 +400,6 @@ function LiveCounter() {
       <span>
         <span className="text-white font-semibold">{count.toLocaleString('en-US')}</span> {t('landing.liveCounterSuffix')}
       </span>
-    </div>
-  )
-}
-
-function LiveNotifications({ enabled }: { enabled: boolean }) {
-  const { t } = useTranslation()
-  const actions = t('landing.notifActions', { returnObjects: true }) as string[]
-  const [current, setCurrent] = useState<{ name: string; action: string } | null>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    if (!enabled) return
-    let timeout: ReturnType<typeof setTimeout>
-    function showNext() {
-      const name = notifNames[Math.floor(Math.random() * notifNames.length)]
-      const action = actions[Math.floor(Math.random() * actions.length)]
-      setCurrent({ name, action })
-      setVisible(true)
-      timeout = setTimeout(() => {
-        setVisible(false)
-        timeout = setTimeout(showNext, 4000 + Math.random() * 4000)
-      }, 4200)
-    }
-    timeout = setTimeout(showNext, 800)
-    return () => clearTimeout(timeout)
-  }, [enabled, actions])
-
-  if (!current) return null
-
-  return (
-    <div
-      className={`fixed bottom-5 left-4 sm:left-5 z-10 flex items-center gap-2.5 bg-surface/70 backdrop-blur-sm border border-white/5 rounded-xl px-3 py-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.4)] max-w-[190px] transition-all duration-500 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
-      }`}
-    >
-      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-bold flex-none">
-        {current.name[0]}
-      </div>
-      <div className="text-left min-w-0">
-        <div className="text-white/80 text-[11px] font-semibold leading-snug">
-          {current.name} {current.action}
-        </div>
-        <div className="text-white/35 text-[10px] mt-0.5">{t('landing.notifJustNow')}</div>
-      </div>
     </div>
   )
 }
