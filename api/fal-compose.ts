@@ -5,6 +5,7 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { fal } from '@fal-ai/client'
+import { isModerationError } from './_moderation.js'
 
 fal.config({ credentials: process.env.FAL_API_KEY })
 
@@ -64,6 +65,9 @@ commercial/advertising photograph. No artifacts, no distortions, no missing or b
     return res.status(200).json({ url })
   } catch (err: any) {
     console.error('fal-compose error', err)
+    if (isModerationError(err)) {
+      return res.status(422).json({ error: 'MODERATION_BLOCKED' })
+    }
     return res.status(500).json({ error: err.message ?? 'Server error' })
   }
 }

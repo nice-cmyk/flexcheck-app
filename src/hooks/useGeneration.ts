@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { supabase } from '../lib/supabase'
 import { composeImage, generateVideo, uploadToFalStorage, OutputFormat } from '../lib/fal'
 import { useCredits as useCreditsLib, refundCredits, COSTS, videoTotalCost } from '../lib/credits'
@@ -18,6 +19,7 @@ export type GenerationStep =
   | 'failed'
 
 export function useGeneration(userId: string | undefined) {
+  const { t } = useTranslation()
   const [step, setStep] = useState<GenerationStep>('idle')
   const [progress, setProgress] = useState(0)
   const [resultUrl, setResultUrl] = useState<string | null>(null)
@@ -121,11 +123,15 @@ export function useGeneration(userId: string | undefined) {
         if (creditsCharged) {
           await refundCredits(userId, creditsNeeded)
         }
-        setError(e?.message ?? 'An error occurred during generation.')
+        const message =
+          e?.message === 'MODERATION_BLOCKED'
+            ? t('generating.moderationBlocked')
+            : e?.message ?? t('generating.genericError')
+        setError(message)
         setStep('failed')
       }
     },
-    [userId]
+    [userId, t]
   )
 
   return { step, progress, resultUrl, error, run }

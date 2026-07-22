@@ -6,6 +6,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { fal } from '@fal-ai/client'
 import { KLING_ENDPOINT, extractErrorMessage } from './_kling.js'
+import { isModerationError } from './_moderation.js'
 
 export const config = {
   maxDuration: 30,
@@ -33,6 +34,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const statusError = (status as any)?.error
     if (statusError) {
       console.error('fal-video-status: job completed with error', statusError, (status as any)?.error_type)
+      if (isModerationError(statusError)) {
+        return res.status(200).json({ status: 'FAILED', error: 'MODERATION_BLOCKED' })
+      }
       return res.status(200).json({ status: 'FAILED', error: extractErrorMessage(statusError) })
     }
 
@@ -57,6 +61,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ status: 'FAILED', error: `Unexpected status: ${JSON.stringify(status)}` })
   } catch (err: any) {
     console.error('fal-video-status error', err)
+    if (isModerationError(err)) {
+      return res.status(500).json({ status: 'FAILED', error: 'MODERATION_BLOCKED' })
+    }
     return res.status(500).json({ status: 'FAILED', error: extractErrorMessage(err) })
   }
 }

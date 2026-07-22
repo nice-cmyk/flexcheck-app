@@ -173,7 +173,9 @@
     "specs": "JPG, PNG · Max 20MB"
   },
   "generating": {
-    "failedTitle": "La génération a échoué"
+    "failedTitle": "La génération a échoué",
+    "moderationBlocked": "Cette demande a été refusée par le filtre de sécurité du modèle d'IA (souvent déclenché par des tenues dénudées ou des mots ambigus sur l'âge). Essaie une formulation différente.",
+    "genericError": "Une erreur est survenue pendant la génération."
   },
   "generatingScreen": {
     "transforming": "Transformation...",

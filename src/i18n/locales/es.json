@@ -173,7 +173,9 @@
     "specs": "JPG, PNG · Máx 20MB"
   },
   "generating": {
-    "failedTitle": "La generación falló"
+    "failedTitle": "La generación falló",
+    "moderationBlocked": "Esta solicitud fue rechazada por el filtro de seguridad del modelo de IA (a menudo activado por prendas reveladoras o palabras ambiguas sobre la edad). Prueba con otra formulación.",
+    "genericError": "Ocurrió un error durante la generación."
   },
   "generatingScreen": {
     "transforming": "Transformando...",

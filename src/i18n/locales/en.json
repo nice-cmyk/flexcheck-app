@@ -173,7 +173,9 @@
     "specs": "JPG, PNG · Max 20MB"
   },
   "generating": {
-    "failedTitle": "Generation failed"
+    "failedTitle": "Generation failed",
+    "moderationBlocked": "This request was rejected by the AI model's safety filter (often triggered by revealing outfits or words that are ambiguous about age). Try a different wording.",
+    "genericError": "Something went wrong during generation."
   },
   "generatingScreen": {
     "transforming": "Transforming...",
