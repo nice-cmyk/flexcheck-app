@@ -79,13 +79,34 @@
     "faqTitle": "Preguntas frecuentes",
     "faqSubtitle": "Todo lo que necesitas saber antes de empezar.",
     "faq": [
-      { "q": "¿Cómo funciona?", "a": "Subes una foto, describes la escena que quieres (coche, ático, yate...), y la IA genera una foto o video realista en 30 a 90 segundos, lista para publicar." },
-      { "q": "¿Mis fotos se usan para algo más?", "a": "No. Tus fotos solo se usan para generar tu resultado, nunca se comparten ni se usan para entrenar modelos." },
-      { "q": "¿La generación de video es 100% fiable?", "a": "La generación de fotos es muy fiable. El video sigue en mejora continua, así que el resultado puede variar un poco entre intentos." },
-      { "q": "¿Los créditos caducan?", "a": "Los créditos de los packs nunca caducan. Los créditos incluidos en una suscripción se renuevan cada mes." },
-      { "q": "¿Puedo cancelar mi suscripción en cualquier momento?", "a": "Sí, sin compromiso. Puedes cancelar cuando quieras desde la página de Cuenta." },
-      { "q": "¿Con qué redes funciona?", "a": "Compatible con Snapchat, Instagram Stories, TikTok e iMessage - es una exportación estándar de foto/video que puedes usar en cualquier lugar." },
-      { "q": "¿Qué pasa si una generación falla?", "a": "Tus créditos se reembolsan automáticamente si una generación falla." }
+      {
+        "q": "¿Cómo funciona?",
+        "a": "Subes una foto, describes la escena que quieres (coche, ático, yate...), y la IA genera una foto o video realista en 30 a 90 segundos, lista para publicar."
+      },
+      {
+        "q": "¿Mis fotos se usan para algo más?",
+        "a": "No. Tus fotos solo se usan para generar tu resultado, nunca se comparten ni se usan para entrenar modelos."
+      },
+      {
+        "q": "¿La generación de video es 100% fiable?",
+        "a": "La generación de fotos es muy fiable. El video sigue en mejora continua, así que el resultado puede variar un poco entre intentos."
+      },
+      {
+        "q": "¿Los créditos caducan?",
+        "a": "Los créditos de los packs nunca caducan. Los créditos incluidos en una suscripción se renuevan cada mes."
+      },
+      {
+        "q": "¿Puedo cancelar mi suscripción en cualquier momento?",
+        "a": "Sí, sin compromiso. Puedes cancelar cuando quieras desde la página de Cuenta."
+      },
+      {
+        "q": "¿Con qué redes funciona?",
+        "a": "Compatible con Snapchat, Instagram Stories, TikTok e iMessage - es una exportación estándar de foto/video que puedes usar en cualquier lugar."
+      },
+      {
+        "q": "¿Qué pasa si una generación falla?",
+        "a": "Tus créditos se reembolsan automáticamente si una generación falla."
+      }
     ]
   },
   "dashboard": {
@@ -201,7 +222,7 @@
     "subscriptions": "Suscripciones",
     "creditPacks": "Paquetes de créditos",
     "neverExpire": "Los créditos nunca caducan",
-    "snapTutorial": "Incluye un tutorial para enviar como snap nativo de Snapchat",
+    "snapTutorial": "Tutorial Snap Rojo",
     "paymentMethods": "Apple Pay · Google Pay · Tarjeta de crédito",
     "perCredit": "/ crédito · nunca caduca",
     "mostPopular": "Más popular",
@@ -288,5 +309,21 @@
     "p3": "Los datos de pago son gestionados completamente por Stripe — nunca vemos ni almacenamos la información de tu tarjeta.",
     "p4": "No vendemos tus datos personales. Solo los compartimos con los proveedores de servicios estrictamente necesarios para operar FlexCheck (hosting, generación de IA, pagos).",
     "p5": "Puedes solicitar la eliminación de tu cuenta y los datos asociados en cualquier momento contactándonos en contact@flexcheck.app."
+  },
+  "snapTuto": {
+    "badge": "Truco viral",
+    "title": "Tutorial Snap Rojo",
+    "subtitle": "El tutorial real (no un fake) para enviar una foto desde tu galería sin que Snapchat muestre \"contenido multimedia subido\".",
+    "lockedIntro": "Desbloquea el tutorial completo en vídeo, paso a paso.",
+    "stepsTitle": "Los pasos",
+    "step1": "Abre la cámara de Snapchat y toca el icono de búsqueda (lupa).",
+    "step2": "Busca el Lens comunitario \"media upload by karam\".",
+    "step3": "Selecciona el Lens \"Upload Media\" en los resultados.",
+    "step4": "Elige tu foto o vídeo de FlexCheck desde tu galería a través del Lens.",
+    "step5": "Envíalo normalmente: no aparece ninguna etiqueta de \"contenido subido\" para el destinatario.",
+    "oneTime": "Compra única, de por vida",
+    "unlockCta": "Desbloquear el tutorial — 9€",
+    "includedNote": "Incluido automáticamente con los planes Flex y Pro.",
+    "upgradeLink": "Ver planes"
   }
 }

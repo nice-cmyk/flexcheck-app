@@ -27,6 +27,7 @@ export type Profile = {
   subscription_credits_remaining: number
   pack_credits: number
   unlimited_credits: boolean
+  snap_tuto_purchased: boolean
   created_at: string
 }
 

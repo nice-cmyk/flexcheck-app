@@ -79,13 +79,34 @@
     "faqTitle": "Questions fréquentes",
     "faqSubtitle": "Tout ce qu'il faut savoir avant de commencer.",
     "faq": [
-      { "q": "Comment ça marche ?", "a": "Tu uploades une photo, tu décris la scène que tu veux (voiture, penthouse, yacht...), et l'IA génère une photo ou vidéo réaliste en 30 à 90 secondes, prête à poster." },
-      { "q": "Est-ce que mes photos sont utilisées pour autre chose ?", "a": "Non. Tes photos servent uniquement à générer ton résultat, elles ne sont ni partagées ni utilisées pour entraîner des modèles." },
-      { "q": "La génération vidéo est-elle fiable à 100% ?", "a": "La génération photo est très fiable. La vidéo est encore en amélioration continue : le résultat peut légèrement varier d'un essai à l'autre." },
-      { "q": "Les crédits expirent-ils ?", "a": "Les crédits des packs n'expirent jamais. Les crédits inclus dans un abonnement se renouvellent chaque mois." },
-      { "q": "Puis-je annuler mon abonnement à tout moment ?", "a": "Oui, sans engagement. Tu peux annuler à tout moment depuis la page Compte." },
-      { "q": "Ça marche sur quels réseaux ?", "a": "Compatible avec Snapchat, Instagram Stories, TikTok et iMessage - c'est un export photo/vidéo standard utilisable partout." },
-      { "q": "Que se passe-t-il si une génération échoue ?", "a": "Tes crédits te sont automatiquement remboursés si une génération échoue." }
+      {
+        "q": "Comment ça marche ?",
+        "a": "Tu uploades une photo, tu décris la scène que tu veux (voiture, penthouse, yacht...), et l'IA génère une photo ou vidéo réaliste en 30 à 90 secondes, prête à poster."
+      },
+      {
+        "q": "Est-ce que mes photos sont utilisées pour autre chose ?",
+        "a": "Non. Tes photos servent uniquement à générer ton résultat, elles ne sont ni partagées ni utilisées pour entraîner des modèles."
+      },
+      {
+        "q": "La génération vidéo est-elle fiable à 100% ?",
+        "a": "La génération photo est très fiable. La vidéo est encore en amélioration continue : le résultat peut légèrement varier d'un essai à l'autre."
+      },
+      {
+        "q": "Les crédits expirent-ils ?",
+        "a": "Les crédits des packs n'expirent jamais. Les crédits inclus dans un abonnement se renouvellent chaque mois."
+      },
+      {
+        "q": "Puis-je annuler mon abonnement à tout moment ?",
+        "a": "Oui, sans engagement. Tu peux annuler à tout moment depuis la page Compte."
+      },
+      {
+        "q": "Ça marche sur quels réseaux ?",
+        "a": "Compatible avec Snapchat, Instagram Stories, TikTok et iMessage - c'est un export photo/vidéo standard utilisable partout."
+      },
+      {
+        "q": "Que se passe-t-il si une génération échoue ?",
+        "a": "Tes crédits te sont automatiquement remboursés si une génération échoue."
+      }
     ]
   },
   "dashboard": {
@@ -201,7 +222,7 @@
     "subscriptions": "Abonnements",
     "creditPacks": "Packs de crédits",
     "neverExpire": "Les crédits n'expirent jamais",
-    "snapTutorial": "Inclut un tuto pour envoyer en snap natif Snapchat",
+    "snapTutorial": "Tuto Snap Rouge",
     "paymentMethods": "Apple Pay · Google Pay · Carte bancaire",
     "perCredit": "/ crédit · n'expire jamais",
     "mostPopular": "Le plus populaire",
@@ -288,5 +309,21 @@
     "p3": "Les informations de paiement sont entièrement gérées par Stripe — nous ne voyons ni ne stockons jamais tes informations de carte bancaire.",
     "p4": "Nous ne vendons pas tes données personnelles. Nous les partageons uniquement avec les prestataires strictement nécessaires au fonctionnement de FlexCheck (hébergement, génération IA, paiements).",
     "p5": "Tu peux demander la suppression de ton compte et des données associées à tout moment en nous contactant à contact@flexcheck.app."
+  },
+  "snapTuto": {
+    "badge": "Astuce virale",
+    "title": "Tuto Snap Rouge",
+    "subtitle": "Le vrai tuto (pas un fake) pour envoyer une photo depuis ta galerie sans que ça affiche \"média chargé\" sur Snapchat.",
+    "lockedIntro": "Débloque le tuto complet en vidéo, étape par étape.",
+    "stepsTitle": "Les étapes",
+    "step1": "Ouvre l'appareil photo Snapchat et appuie sur l'icône de recherche (loupe).",
+    "step2": "Recherche le Lens communautaire \"media upload by karam\".",
+    "step3": "Sélectionne le Lens \"Upload Media\" dans les résultats.",
+    "step4": "Choisis ta photo ou vidéo FlexCheck depuis ta galerie via le Lens.",
+    "step5": "Envoie normalement : aucun tag \"média chargé\" n'apparaît chez le destinataire.",
+    "oneTime": "Achat unique, à vie",
+    "unlockCta": "Débloquer le tuto — 9€",
+    "includedNote": "Inclus automatiquement avec les plans Flex et Pro.",
+    "upgradeLink": "Voir les plans"
   }
 }

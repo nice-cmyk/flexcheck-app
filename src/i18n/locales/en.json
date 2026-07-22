@@ -79,13 +79,34 @@
     "faqTitle": "Frequently asked questions",
     "faqSubtitle": "Everything you need to know before you start.",
     "faq": [
-      { "q": "How does it work?", "a": "Upload a photo, describe the scene you want (car, penthouse, yacht...), and the AI generates a realistic photo or video in 30 to 90 seconds, ready to post." },
-      { "q": "Are my photos used for anything else?", "a": "No. Your photos are only used to generate your result - they're never shared or used to train models." },
-      { "q": "Is video generation 100% reliable?", "a": "Photo generation is very reliable. Video is still under continuous improvement, so results can vary slightly from one try to the next." },
-      { "q": "Do credits expire?", "a": "Pack credits never expire. Credits included in a subscription renew every month." },
-      { "q": "Can I cancel my subscription anytime?", "a": "Yes, no commitment. You can cancel anytime from the Account page." },
-      { "q": "What platforms does it work with?", "a": "Compatible with Snapchat, Instagram Stories, TikTok and iMessage - it's a standard photo/video export usable anywhere." },
-      { "q": "What happens if a generation fails?", "a": "Your credits are automatically refunded if a generation fails." }
+      {
+        "q": "How does it work?",
+        "a": "Upload a photo, describe the scene you want (car, penthouse, yacht...), and the AI generates a realistic photo or video in 30 to 90 seconds, ready to post."
+      },
+      {
+        "q": "Are my photos used for anything else?",
+        "a": "No. Your photos are only used to generate your result - they're never shared or used to train models."
+      },
+      {
+        "q": "Is video generation 100% reliable?",
+        "a": "Photo generation is very reliable. Video is still under continuous improvement, so results can vary slightly from one try to the next."
+      },
+      {
+        "q": "Do credits expire?",
+        "a": "Pack credits never expire. Credits included in a subscription renew every month."
+      },
+      {
+        "q": "Can I cancel my subscription anytime?",
+        "a": "Yes, no commitment. You can cancel anytime from the Account page."
+      },
+      {
+        "q": "What platforms does it work with?",
+        "a": "Compatible with Snapchat, Instagram Stories, TikTok and iMessage - it's a standard photo/video export usable anywhere."
+      },
+      {
+        "q": "What happens if a generation fails?",
+        "a": "Your credits are automatically refunded if a generation fails."
+      }
     ]
   },
   "dashboard": {
@@ -201,7 +222,7 @@
     "subscriptions": "Subscriptions",
     "creditPacks": "Credit packs",
     "neverExpire": "Credits never expire",
-    "snapTutorial": "Includes a tutorial to send as a native Snapchat snap",
+    "snapTutorial": "Red Snap tutorial",
     "paymentMethods": "Apple Pay · Google Pay · Credit card",
     "perCredit": "/ credit · never expires",
     "mostPopular": "Most popular",
@@ -288,5 +309,21 @@
     "p3": "Payment details are handled entirely by Stripe — we never see or store your card information.",
     "p4": "We don't sell your personal data. We only share it with the service providers strictly needed to operate FlexCheck (hosting, AI generation, payments).",
     "p5": "You can request deletion of your account and associated data at any time by contacting us at contact@flexcheck.app."
+  },
+  "snapTuto": {
+    "badge": "Viral trick",
+    "title": "Red Snap Tutorial",
+    "subtitle": "The real tutorial (not a fake) for sending a photo from your gallery without Snapchat showing \"media uploaded\".",
+    "lockedIntro": "Unlock the full step-by-step video tutorial.",
+    "stepsTitle": "The steps",
+    "step1": "Open the Snapchat camera and tap the search icon (magnifying glass).",
+    "step2": "Search for the community Lens \"media upload by karam\".",
+    "step3": "Select the \"Upload Media\" Lens from the results.",
+    "step4": "Pick your FlexCheck photo or video from your gallery via the Lens.",
+    "step5": "Send it normally: no \"media uploaded\" tag shows up for the recipient.",
+    "oneTime": "One-time purchase, forever",
+    "unlockCta": "Unlock the tutorial — 9€",
+    "includedNote": "Automatically included with the Flex and Pro plans.",
+    "upgradeLink": "See plans"
   }
 }

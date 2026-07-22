@@ -82,7 +82,19 @@ serve(async (req) => {
       const userId = session.client_reference_id || session.metadata?.userId
       if (!userId) break
 
-      if (session.mode === 'subscription') {
+      if (session.metadata?.itemId === 'snap_tuto') {
+        await supabase
+          .from('profiles')
+          .update({ snap_tuto_purchased: true })
+          .eq('id', userId)
+        await supabase.from('credit_transactions').insert({
+          user_id: userId,
+          amount: 0,
+          type: 'tuto_purchase',
+          stripe_payment_intent_id: session.payment_intent as string,
+          description: 'Achat du tuto Snap Rouge',
+        })
+      } else if (session.mode === 'subscription') {
         const planId = session.metadata?.planId ?? 'starter'
         const credits = PLAN_CREDITS[planId] ?? 0
         await supabase

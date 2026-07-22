@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { PLANS, PlanId, startSubscriptionCheckout } from '../../lib/stripe'
 import Card from '../ui/Card'
 
@@ -35,7 +36,11 @@ export default function PricingPlans({ userId }: { userId?: string }) {
             </div>
             <div className="text-white/45 text-sm mt-3.5">✓ {plan.credits} {t('credits.creditsPerMonth')}</div>
             <div className="text-white/45 text-sm mt-1.5">✓ {t('credits.extraCredits')} {plan.extraCreditPrice}</div>
-            {plan.snapTutorial && <div className="text-primary-light text-sm mt-1.5">✓ {t('credits.snapTutorial')}</div>}
+            {plan.snapTutorial && (
+              <Link to="/app/snap-tuto" className="text-primary-light text-sm mt-1.5 underline underline-offset-2 block w-fit">
+                ✓ {t('credits.snapTutorial')}
+              </Link>
+            )}
             {isPro && <div className="text-gold text-sm mt-1.5">✓ {t('credits.hdUnlocked')}</div>}
             <button
               onClick={() => userId && startSubscriptionCheckout(id, userId)}

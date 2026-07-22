@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import AppLayout from '../components/layout/AppLayout'
 import PricingPlans from '../components/credits/PricingPlans'
 import CreditPacks from '../components/credits/CreditPacks'
@@ -42,6 +43,15 @@ export default function Credits() {
             {t('credits.neverExpire')}
           </div>
           <div className="text-white/40 text-xs px-3.5 py-2">{t('credits.paymentMethods')}</div>
+        </div>
+
+        <div className="flex justify-center mt-4">
+          <Link
+            to="/app/snap-tuto"
+            className="border border-[#FF3B30]/30 text-[#FDE047] text-xs font-semibold px-4 py-2.5 rounded-full"
+          >
+            {t('credits.snapTutorial')} →
+          </Link>
         </div>
       </div>
     </AppLayout>

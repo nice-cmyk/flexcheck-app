@@ -36,6 +36,11 @@ export const PACKS: Record<PackId, { label: string; priceLabel: string; credits:
   pack40: { label: '40 credits', priceLabel: '$44.99', credits: 40, perCredit: '$1.12' },
 }
 
+// Achat unique du tuto "Snap Rouge" (déjà inclus gratuitement dans les plans
+// Flex/Pro, voir PLANS.snapTutorial ci-dessus). Vendu séparément pour les
+// abonnés Starter ou les gens qui ne veulent pas d'abonnement du tout.
+export const SNAP_TUTO_PRICE_LABEL = '9€'
+
 /**
  * Starts a hosted Stripe subscription checkout.
  * Requires a backend function (e.g. Supabase Edge Function) that creates
@@ -61,6 +66,21 @@ export async function startPackCheckout(packId: PackId, userId: string) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ mode: 'payment', packId, userId }),
+  })
+  const { url } = await res.json()
+  window.location.href = url
+}
+
+/**
+ * Purchases the standalone Snap Rouge tutorial (one-time, 9€), independent
+ * of any subscription plan.
+ */
+export async function startSnapTutoCheckout(userId: string) {
+  trackEvent('begin_checkout', { mode: 'payment', item: 'snap_tuto' })
+  const res = await fetch('/api/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ mode: 'payment', itemId: 'snap_tuto', userId }),
   })
   const { url } = await res.json()
   window.location.href = url

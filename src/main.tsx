@@ -19,6 +19,7 @@ import LuxuryCar from './pages/LuxuryCar'
 import ChangeScene from './pages/ChangeScene'
 import Creations from './pages/Creations'
 import Credits from './pages/Credits'
+import SnapTuto from './pages/SnapTuto'
 import Account from './pages/Account'
 import Affiliate from './pages/Affiliate'
 import Generating from './pages/Generating'
@@ -47,6 +48,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/app/change-scene" element={<AuthGuard><ChangeScene /></AuthGuard>} />
           <Route path="/app/creations" element={<AuthGuard><Creations /></AuthGuard>} />
           <Route path="/app/credits" element={<AuthGuard><Credits /></AuthGuard>} />
+          <Route path="/app/snap-tuto" element={<AuthGuard><SnapTuto /></AuthGuard>} />
           <Route path="/app/account" element={<AuthGuard><Account /></AuthGuard>} />
           <Route path="/app/affiliate" element={<AuthGuard><Affiliate /></AuthGuard>} />
           <Route path="/app/generating/:id" element={<AuthGuard><Generating /></AuthGuard>} />
