@@ -24,7 +24,11 @@ export default function Signup() {
     const { data, error } = await signUp(email, password)
     setLoading(false)
     if (error) {
-      setError(t('signup.error'))
+      console.error('signUp failed', error)
+      // Surface Supabase's actual reason (email already used, rate limit,
+      // weak/leaked password, etc.) instead of a blanket generic message -
+      // otherwise real signup failures are impossible to diagnose remotely.
+      setError(error.message || t('signup.error'))
       return
     }
     const code = referralCode.trim()
