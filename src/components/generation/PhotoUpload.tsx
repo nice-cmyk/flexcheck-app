@@ -43,7 +43,7 @@ export default function PhotoUpload({ onFileSelected }: PhotoUploadProps) {
         onChange={(e) => handleFile(e.target.files?.[0])}
       />
       {previewUrl ? (
-        <img src={previewUrl} alt="Selected photo" className="max-h-48 mx-auto rounded-lg" />
+        <img src={previewUrl} alt="Selected photo" className="max-h-[420px] w-full mx-auto rounded-lg object-contain" />
       ) : (
         <>
           <div className="text-white text-sm font-medium">{t('photoUpload.drop')}</div>
