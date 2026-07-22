@@ -172,6 +172,18 @@
     "saving": "Enregistrement...",
     "instaStory": "Story Instagram",
     "snapchat": "Snapchat",
+    "snapRouge": {
+      "title": "Snap Rouge",
+      "subtitle": "Transforme ton résultat en capture Snapchat authentique, prête à partager.",
+      "namePlaceholder": "Nom du contact (ex : Sarah)",
+      "defaultName": "Toi",
+      "timestamp": "À l'instant",
+      "chatPlaceholder": "Envoyer un chat",
+      "building": "Génération de l'aperçu...",
+      "error": "Impossible de générer l'aperçu. Réessaie.",
+      "download": "Télécharger",
+      "downloading": "Téléchargement..."
+    },
     "copyLink": "Copier le lien",
     "youAsked": "Tu as demandé :",
     "creditsLeft": "Il te reste {{n}} crédit{{s}}",

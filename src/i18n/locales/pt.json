@@ -172,6 +172,18 @@
     "saving": "Salvando...",
     "instaStory": "Story do Instagram",
     "snapchat": "Snapchat",
+    "snapRouge": {
+      "title": "Snap Vermelho",
+      "subtitle": "Transforme seu resultado numa captura autêntica do Snapchat, pronta para compartilhar.",
+      "namePlaceholder": "Nome do contato (ex: Sarah)",
+      "defaultName": "Você",
+      "timestamp": "Agora mesmo",
+      "chatPlaceholder": "Enviar um chat",
+      "building": "Gerando pré-visualização...",
+      "error": "Não foi possível gerar a pré-visualização. Tente novamente.",
+      "download": "Baixar",
+      "downloading": "Baixando..."
+    },
     "copyLink": "Copiar link",
     "youAsked": "Você pediu:",
     "creditsLeft": "Você tem {{n}} crédito{{s}} restante(s)",

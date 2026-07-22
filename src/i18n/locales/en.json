@@ -172,6 +172,18 @@
     "saving": "Saving...",
     "instaStory": "Instagram Story",
     "snapchat": "Snapchat",
+    "snapRouge": {
+      "title": "Snap Rouge",
+      "subtitle": "Turn your result into an authentic-looking Snapchat capture, ready to share.",
+      "namePlaceholder": "Contact name (e.g. Sarah)",
+      "defaultName": "You",
+      "timestamp": "Just now",
+      "chatPlaceholder": "Send a chat",
+      "building": "Building preview...",
+      "error": "Couldn't build the preview. Try again.",
+      "download": "Download",
+      "downloading": "Downloading..."
+    },
     "copyLink": "Copy link",
     "youAsked": "You asked for:",
     "creditsLeft": "You have {{n}} credit{{s}} left",

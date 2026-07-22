@@ -172,6 +172,18 @@
     "saving": "Guardando...",
     "instaStory": "Historia de Instagram",
     "snapchat": "Snapchat",
+    "snapRouge": {
+      "title": "Snap Rojo",
+      "subtitle": "Convierte tu resultado en una captura de Snapchat auténtica, lista para compartir.",
+      "namePlaceholder": "Nombre del contacto (ej: Sarah)",
+      "defaultName": "Tú",
+      "timestamp": "Ahora mismo",
+      "chatPlaceholder": "Enviar un chat",
+      "building": "Generando vista previa...",
+      "error": "No se pudo generar la vista previa. Inténtalo de nuevo.",
+      "download": "Descargar",
+      "downloading": "Descargando..."
+    },
     "copyLink": "Copiar enlace",
     "youAsked": "Pediste:",
     "creditsLeft": "Te quedan {{n}} crédito{{s}}",

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Button from '../ui/Button'
+import SnapRougeModal from './SnapRougeModal'
 import { formatCredits } from '../../lib/credits'
 
 interface ResultViewProps {
@@ -19,6 +20,7 @@ export default function ResultView({
 }: ResultViewProps) {
   const { t } = useTranslation()
   const [saving, setSaving] = useState(false)
+  const [showSnapRouge, setShowSnapRouge] = useState(false)
 
   // The result file lives on fal.ai's CDN, not our own domain. A plain
   // <a href download> either gets blocked cross-origin or (especially on
@@ -101,11 +103,18 @@ export default function ResultView({
             {saving ? t('result.saving', { defaultValue: 'Enregistrement...' }) : t('result.save')}
           </Button>
           <Button variant="ghost">{t('result.instaStory')}</Button>
-          <button className="border border-[#F5CB0A]/40 rounded-xl text-center text-[#FDE047] text-sm py-3">
+          <button
+            onClick={() => setShowSnapRouge(true)}
+            className="border border-[#FF3B30]/40 rounded-xl text-center text-[#FDE047] text-sm py-3"
+          >
             {t('result.snapchat')}
           </button>
           <Button variant="ghost">{t('result.copyLink')}</Button>
         </div>
+
+        {showSnapRouge && (
+          <SnapRougeModal mediaUrl={afterUrl} isVideo={isVideo} onClose={() => setShowSnapRouge(false)} />
+        )}
 
         <div className="text-white/40 text-xs mt-4">{t('result.youAsked')}</div>
         <div className="text-white/55 text-xs italic mt-1">"{prompt}"</div>
