@@ -1,13 +1,13 @@
 // Supabase Edge Function — webhook Stripe
 // Déploiement : supabase functions deploy stripe-webhook
-// Variables requises (Supabase secrets) : STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET,
+// Variables requises (Supabase secrets) : STRIPEAPI_KEY (déjà présent), STRIPE_WEBHOOK_SECRET,
 // SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 
 import { serve } from 'https://deno.land/std@0.224.0/http/server.ts'
 import Stripe from 'https://esm.sh/stripe@16?target=deno'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY')!, {
+const stripe = new Stripe(Deno.env.get('STRIPEAPI_KEY')!, {
   apiVersion: '2024-06-20',
 })
 
@@ -16,7 +16,8 @@ const supabase = createClient(
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 )
 
-const PLAN_CREDITS: Record<string, number> = { starter: 7, flex: 20, pro: 50 }
+// Alignés avec PLANS dans src/lib/stripe.ts (source de vérité pour les crédits/prix affichés).
+const PLAN_CREDITS: Record<string, number> = { starter: 4, flex: 15, pro: 35 }
 const PACK_CREDITS: Record<string, number> = { pack5: 5, pack15: 15, pack40: 40 }
 
 /**

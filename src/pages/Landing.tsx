@@ -135,7 +135,10 @@ export default function Landing() {
       <PublicChatWidget />
 
       {/* HERO */}
-      <Reveal className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-14 py-20 lg:py-28 min-h-[560px] lg:min-h-[680px] overflow-hidden text-center">
+      <Reveal
+        refProp={demoSectionRef}
+        className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-14 py-20 lg:py-28 min-h-[560px] lg:min-h-[680px] overflow-hidden text-center"
+      >
         <div className="absolute inset-0 flex flex-col justify-center gap-3 sm:gap-4 opacity-50">
           <PhotoRow
             images={['/lux1.png', '/lux2.png', '/lux4.png', '/lux6.png', '/lux8.png']}
@@ -182,27 +185,6 @@ export default function Landing() {
             {t('landing.videoBetaNotice')}
           </div>
         </div>
-      </Reveal>
-
-      {/* LIVE DEMO */}
-      <Reveal
-        refProp={demoSectionRef}
-        className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20 flex flex-col items-center text-center gap-7 overflow-hidden"
-      >
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[460px] h-[60vw] max-h-[460px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', filter: 'blur(50px)' }}
-        />
-        <div className="relative">
-          <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">{t('landing.demoTitle')}</div>
-          <div className="text-white/45 font-light text-sm mt-2 max-w-md mx-auto">
-            {t('landing.demoDesc')}
-          </div>
-        </div>
-        <DemoMotion />
-        <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
-          {t('common.startForFree')} →
-        </Link>
       </Reveal>
 
       {/* MARQUEE */}
@@ -704,92 +686,6 @@ function PhotoRow({ images, className }: { images: string[]; className?: string 
           </div>
         ))}
       </div>
-    </div>
-  )
-}
-
-const DEMO_PHOTO_MS = 2200
-const DEMO_TYPE_MS = 2600
-const DEMO_TRANSITION_MS = 500
-const DEMO_RESULT_MS = 2600
-const DEMO_TOTAL_MS = DEMO_PHOTO_MS + DEMO_TYPE_MS + DEMO_TRANSITION_MS + DEMO_RESULT_MS
-
-function DemoMotion() {
-  const { t } = useTranslation()
-  const [elapsed, setElapsed] = useState(0)
-  const demoPrompt = t('landing.demoPromptTyped')
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const activeSrcRef = useRef<string | null>(null)
-
-  useEffect(() => {
-    const start = Date.now()
-    const id = setInterval(() => {
-      setElapsed((Date.now() - start) % DEMO_TOTAL_MS)
-    }, 80)
-    return () => clearInterval(id)
-  }, [])
-
-  const typingStart = DEMO_PHOTO_MS
-  const transitionStart = typingStart + DEMO_TYPE_MS
-  const resultStart = transitionStart + DEMO_TRANSITION_MS
-
-  const isTyping = elapsed >= typingStart && elapsed < transitionStart
-  const isResult = elapsed >= transitionStart
-
-  const typingElapsed = Math.min(DEMO_TYPE_MS, Math.max(0, elapsed - typingStart))
-  const typedChars = Math.min(demoPrompt.length, Math.round((typingElapsed / (DEMO_TYPE_MS * 0.7)) * demoPrompt.length))
-  const typedText = demoPrompt.slice(0, typedChars)
-
-  // Two simultaneously autoplaying <video> elements crossfaded via CSS opacity
-  // is what this used to be - on mobile (iOS Safari especially) having two
-  // muted/inline/autoplay videos decoding at once is unreliable: one of them
-  // frequently gets kicked out of inline playback into the native fullscreen
-  // player, so instead of a smooth crossfade the two clips visibly "open" and
-  // play one after another. Using a single <video> element and swapping its
-  // src when the state flips avoids that entirely - only one video is ever
-  // actually playing.
-  const activeSrc = isResult ? '/hero-before.mp4' : '/hero-after.mp4'
-
-  useEffect(() => {
-    const el = videoRef.current
-    if (!el || activeSrcRef.current === activeSrc) return
-    activeSrcRef.current = activeSrc
-    el.muted = true
-    el.defaultMuted = true
-    el.load()
-    el.play().catch(() => {})
-  }, [activeSrc])
-
-  return (
-    <div className="relative w-[220px] sm:w-[240px] aspect-[220/390] rounded-[28px] overflow-hidden mx-auto shadow-[0_0_60px_rgba(124,58,237,0.25)] border border-white/10">
-      <video
-        ref={videoRef}
-        src={activeSrc}
-        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${isResult ? 'scale-125' : ''}`}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-      <div className="absolute top-3 left-3 bg-white/10 text-white/80 text-[10px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">
-        {isResult ? t('landing.demoResult') : t('landing.demoYourPhoto')}
-      </div>
-
-      {(isTyping || (elapsed >= transitionStart && elapsed < resultStart)) && (
-        <div className="absolute bottom-4 left-3 right-3 bg-bg/90 border border-primary/30 rounded-2xl px-3.5 py-2.5 text-white/80 text-[11px] min-h-[38px] flex items-center">
-          {typedText}
-          <span className="inline-block w-[2px] h-3 bg-primary-light ml-0.5 animate-pulse-dot" />
-        </div>
-      )}
-
-      {elapsed >= resultStart && (
-        <div className="absolute bottom-4 left-3 right-3 bg-primary/20 border border-primary/40 rounded-2xl px-3.5 py-2.5 text-primary-light text-[11px] font-semibold text-center">
-          {t('landing.demoDone')}
-        </div>
-      )}
     </div>
   )
 }

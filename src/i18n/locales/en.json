@@ -236,6 +236,8 @@
   "signup": {
     "title": "Create an account",
     "invited": "You were invited by a friend · code {{code}}",
+    "referralCodeLabel": "Referral code (optional)",
+    "referralCodePlaceholder": "e.g. HAMZA23",
     "creating": "Creating...",
     "haveAccount": "Already have an account?",
     "error": "Unable to create account."

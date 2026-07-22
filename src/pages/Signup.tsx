@@ -10,9 +10,10 @@ export default function Signup() {
   const { signUp } = useAuth()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const refCode = searchParams.get('ref')
+  const refCodeFromLink = searchParams.get('ref')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [referralCode, setReferralCode] = useState(refCodeFromLink ?? '')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -26,8 +27,9 @@ export default function Signup() {
       setError(t('signup.error'))
       return
     }
-    if (refCode && data.user) {
-      registerReferral(data.user.id, data.user.email ?? email, refCode).catch(() => {})
+    const code = referralCode.trim()
+    if (code && data.user) {
+      registerReferral(data.user.id, data.user.email ?? email, code).catch(() => {})
     }
     navigate('/app')
   }
@@ -39,9 +41,9 @@ export default function Signup() {
           FlexCheck
         </Link>
         <div className="text-white text-2xl font-display font-bold mt-6">{t('signup.title')}</div>
-        {refCode && (
+        {refCodeFromLink && (
           <div className="bg-primary/15 border border-primary/30 text-primary-light text-xs rounded-xl px-3.5 py-2.5 mt-4">
-            {t('signup.invited', { code: refCode.toUpperCase() })}
+            {t('signup.invited', { code: refCodeFromLink.toUpperCase() })}
           </div>
         )}
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
@@ -62,6 +64,16 @@ export default function Signup() {
             onChange={(e) => setPassword(e.target.value)}
             className="bg-surface border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary"
           />
+          <div>
+            <label className="text-white/50 text-xs px-0.5">{t('signup.referralCodeLabel')}</label>
+            <input
+              type="text"
+              placeholder={t('signup.referralCodePlaceholder')}
+              value={referralCode}
+              onChange={(e) => setReferralCode(e.target.value)}
+              className="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary mt-1.5 uppercase placeholder:normal-case"
+            />
+          </div>
           {error && <div className="text-red-400 text-sm">{error}</div>}
           <Button type="submit" fullWidth disabled={loading}>
             {loading ? t('signup.creating') : t('common.startForFree')}

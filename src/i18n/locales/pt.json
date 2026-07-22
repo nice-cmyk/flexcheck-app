@@ -236,6 +236,8 @@
   "signup": {
     "title": "Criar uma conta",
     "invited": "Você foi convidado por um amigo · código {{code}}",
+    "referralCodeLabel": "Código de indicação (opcional)",
+    "referralCodePlaceholder": "Ex: HAMZA23",
     "creating": "Criando...",
     "haveAccount": "Já tem uma conta?",
     "error": "Não foi possível criar a conta."
