@@ -163,6 +163,34 @@ export default function Landing() {
         </div>
       </Reveal>
 
+      {/* APP DEMO */}
+      <Reveal className="relative px-4 sm:px-6 lg:px-14 py-16 lg:py-20 flex flex-col items-center text-center gap-7 overflow-hidden">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[460px] h-[60vw] max-h-[460px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', filter: 'blur(50px)' }}
+        />
+        <div className="relative">
+          <div className="font-display font-extrabold text-2xl sm:text-3xl text-white">{t('landing.demoTitle')}</div>
+          <div className="text-white/45 font-light text-sm mt-2 max-w-md mx-auto">
+            {t('landing.demoDesc')}
+          </div>
+        </div>
+        <div className="relative w-[220px] sm:w-[260px] aspect-[220/390] rounded-[28px] overflow-hidden mx-auto shadow-[0_0_60px_rgba(124,58,237,0.25)] border border-white/10">
+          <video
+            src="/demo-app.mp4"
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+          />
+        </div>
+        <Link to="/signup" className="bg-primary rounded-lg text-white font-semibold text-sm px-6 py-3.5 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_45px_rgba(124,58,237,0.7)] transition-shadow">
+          {t('common.startForFree')} →
+        </Link>
+      </Reveal>
+
       {/* MARQUEE */}
       <div className="relative border-y border-white/[0.06] py-4 overflow-hidden whitespace-nowrap">
         <div className="inline-flex gap-3.5 text-white/40 text-sm font-light pl-4 sm:pl-14 animate-marquee">

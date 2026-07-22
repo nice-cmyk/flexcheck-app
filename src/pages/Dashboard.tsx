@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Camera, Video } from 'lucide-react'
+import { Camera, Video, Lock } from 'lucide-react'
 import AppLayout from '../components/layout/AppLayout'
+import { useAuth } from '../hooks/useAuth'
+import { useCredits } from '../hooks/useCredits'
 
 export default function Dashboard() {
   const { t } = useTranslation()
+  const { user } = useAuth()
+  const { profile } = useCredits(user?.id)
+  const isFlexOrPro = profile?.subscription_plan === 'flex' || profile?.subscription_plan === 'pro'
+  const videoUnlocked = isFlexOrPro && profile?.subscription_status === 'active'
   return (
     <AppLayout>
       <div className="flex-1 px-4 sm:px-6 lg:px-10 py-8 sm:py-10 max-w-3xl w-full mx-auto">
@@ -46,9 +52,16 @@ export default function Dashboard() {
             <div className="relative text-white/50 text-sm mt-2 leading-relaxed">
               {t('dashboard.videoDesc')}
             </div>
-            <div className="relative inline-block bg-gold/10 text-gold text-xs font-medium px-3 py-1.5 rounded-full mt-4">
-              {t('landing.videoBetaNotice')}
-            </div>
+            {videoUnlocked ? (
+              <div className="relative inline-block bg-gold/10 text-gold text-xs font-medium px-3 py-1.5 rounded-full mt-4">
+                {t('landing.videoBetaNotice')}
+              </div>
+            ) : (
+              <div className="relative inline-flex items-center gap-1.5 bg-white/[0.06] text-white/50 text-xs font-medium px-3 py-1.5 rounded-full mt-4">
+                <Lock size={11} />
+                {t('dashboard.videoLockedBadge')}
+              </div>
+            )}
           </Link>
         </div>
 

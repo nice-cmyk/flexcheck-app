@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import AppLayout from '../components/layout/AppLayout'
 import Button from '../components/ui/Button'
+import Card from '../components/ui/Card'
 import { useAuth } from '../hooks/useAuth'
+import { useCredits } from '../hooks/useCredits'
 import { formatCredits, videoTotalCost } from '../lib/credits'
 import type { OutputFormat } from '../lib/fal'
 
@@ -35,6 +37,7 @@ const colors = [
 export default function LuxuryCar() {
   const { t } = useTranslation()
   const { user } = useAuth()
+  const { profile, loading } = useCredits(user?.id)
   const navigate = useNavigate()
   const [brand, setBrand] = useState('Ferrari')
   const [car, setCar] = useState('Ferrari 488 GTB')
@@ -54,6 +57,38 @@ export default function LuxuryCar() {
         format,
       },
     })
+  }
+
+  const isFlexOrPro = profile?.subscription_plan === 'flex' || profile?.subscription_plan === 'pro'
+  const unlocked = isFlexOrPro && profile?.subscription_status === 'active'
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="flex-1 flex items-center justify-center text-white/40 text-sm">
+          {t('common.loading', { defaultValue: 'Chargement...' })}
+        </div>
+      </AppLayout>
+    )
+  }
+
+  if (!unlocked) {
+    return (
+      <AppLayout>
+        <div className="flex-1 px-4 sm:px-6 lg:px-14 py-10 flex items-center justify-center">
+          <Card className="p-6 sm:p-8 text-center max-w-md w-full">
+            <div className="text-white font-semibold text-lg">{t('editVideo.lockedTitle')}</div>
+            <div className="text-white/50 text-sm mt-2.5">{t('editVideo.lockedDesc')}</div>
+            <Link
+              to="/app/credits"
+              className="inline-block mt-6 bg-primary rounded-xl text-white font-semibold text-sm px-6 py-3"
+            >
+              {t('editVideo.lockedCta')}
+            </Link>
+          </Card>
+        </div>
+      </AppLayout>
+    )
   }
 
   return (

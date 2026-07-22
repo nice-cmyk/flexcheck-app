@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import AppLayout from '../components/layout/AppLayout'
 import PhotoUpload from '../components/generation/PhotoUpload'
 import PromptInput from '../components/generation/PromptInput'
 import Button from '../components/ui/Button'
+import Card from '../components/ui/Card'
 import { useAuth } from '../hooks/useAuth'
+import { useCredits } from '../hooks/useCredits'
 import { videoTotalCost, formatCredits } from '../lib/credits'
 import type { VideoDuration } from '../hooks/useGeneration'
 import type { OutputFormat } from '../lib/fal'
@@ -15,6 +17,7 @@ const quickPrompts = ['Ferrari 488 cockpit', 'Monaco yacht', 'Dubai rooftop', 'P
 export default function EditVideo() {
   const { t } = useTranslation()
   const { user } = useAuth()
+  const { profile, loading } = useCredits(user?.id)
   const navigate = useNavigate()
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [prompt, setPrompt] = useState('')
@@ -24,6 +27,41 @@ export default function EditVideo() {
   function handleSubmit() {
     if (!user || !photoUrl || !prompt) return
     navigate('/app/generating/new', { state: { type: 'video', photoUrl, prompt, duration, format } })
+  }
+
+  // Video generation is the expensive/beta path - only opened up to the two
+  // paid subscription tiers (flex, pro), not starter or unsubscribed users.
+  const isFlexOrPro = profile?.subscription_plan === 'flex' || profile?.subscription_plan === 'pro'
+  const isSubActive = profile?.subscription_status === 'active'
+  const unlocked = isFlexOrPro && isSubActive
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="flex-1 flex items-center justify-center text-white/40 text-sm">
+          {t('common.loading', { defaultValue: 'Chargement...' })}
+        </div>
+      </AppLayout>
+    )
+  }
+
+  if (!unlocked) {
+    return (
+      <AppLayout>
+        <div className="flex-1 px-4 sm:px-6 lg:px-14 py-10 flex items-center justify-center">
+          <Card className="p-6 sm:p-8 text-center max-w-md w-full">
+            <div className="text-white font-semibold text-lg">{t('editVideo.lockedTitle')}</div>
+            <div className="text-white/50 text-sm mt-2.5">{t('editVideo.lockedDesc')}</div>
+            <Link
+              to="/app/credits"
+              className="inline-block mt-6 bg-primary rounded-xl text-white font-semibold text-sm px-6 py-3"
+            >
+              {t('editVideo.lockedCta')}
+            </Link>
+          </Card>
+        </div>
+      </AppLayout>
+    )
   }
 
   return (

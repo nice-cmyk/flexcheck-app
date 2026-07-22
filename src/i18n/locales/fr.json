@@ -118,7 +118,8 @@
     "videoTitle": "Vidéo",
     "videoCost": "1,25 à 1,75 crédit",
     "videoDesc": "Deux étapes : valide d'abord une image de référence (0,25), puis génère la vidéo (+1 ou +1,5).",
-    "note": "0,25 crédit = image ou modification · +1 crédit = vidéo courte (≤ 5s) à partir d'une image validée · +1,5 crédit = vidéo longue (6-8s). Une vidéo complète coûte entre 1,25 et 1,75 crédit au total (image de référence incluse), plus 0,25 crédit par modification demandée avant validation."
+    "note": "0,25 crédit = image ou modification · +1 crédit = vidéo courte (≤ 5s) à partir d'une image validée · +1,5 crédit = vidéo longue (6-8s). Une vidéo complète coûte entre 1,25 et 1,75 crédit au total (image de référence incluse), plus 0,25 crédit par modification demandée avant validation.",
+    "videoLockedBadge": "Flex & Pro"
   },
   "editPhoto": {
     "title": "Modifier une photo",
@@ -136,7 +137,10 @@
     "short": "Courte (≤ 5s)",
     "long": "Longue (6-8s)",
     "generateVideo": "Générer ma vidéo →",
-    "usesCredit": "Utilise {{n}} crédit · ~60 secondes"
+    "usesCredit": "Utilise {{n}} crédit · ~60 secondes",
+    "lockedTitle": "La vidéo est réservée aux plans Flex et Pro",
+    "lockedDesc": "Passe sur un de ces deux plans pour débloquer la génération vidéo.",
+    "lockedCta": "Voir les plans"
   },
   "changeScene": {
     "title": "Changer de scène",
