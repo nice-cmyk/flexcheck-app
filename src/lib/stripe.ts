@@ -37,10 +37,10 @@ export const PLANS: Record<
   // photo edit step). Worst case per plan = every credit spent on photos
   // only (the most expensive generation type per credit: ~$0.80/credit vs
   // ~$0.43-0.44/credit for video), after Stripe's ~2.9%+$0.30 fee:
-  //   starter: 18 photos (4.5cr) -> ~$3.60 cost, $11.99 -> ~$7.74 margin (68%)
+  //   starter: 18 photos (4.5cr) -> ~$3.60 cost, $9.90 -> ~$5.71 margin (58%)
   //   flex:    15cr              -> ~$12.00 cost, $19.99 -> ~$7.11 margin (36%)
   //   pro:     35cr              -> ~$28.00 cost, $37.99 -> ~$8.60 margin (23%)
-  starter: { label: 'Starter', priceLabel: '11.99/mo', credits: 4.5, extraCreditPrice: '$1.60/video', snapTutorial: false, photosPerMonth: 18 },
+  starter: { label: 'Starter', priceLabel: '9.90/mo', credits: 4.5, extraCreditPrice: '$1.60/video', snapTutorial: false, photosPerMonth: 18 },
   flex: { label: 'Flex', priceLabel: '19.99/mo', credits: 15, extraCreditPrice: '$1.25/video', snapTutorial: true },
   pro: { label: 'Pro', priceLabel: '37.99/mo', credits: 35, extraCreditPrice: '$0.99/video', snapTutorial: true },
 }
