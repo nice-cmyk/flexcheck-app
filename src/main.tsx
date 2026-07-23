@@ -6,6 +6,7 @@ import './index.css'
 import './i18n'
 import { initAnalytics } from './lib/analytics'
 import RouteTracker from './components/layout/RouteTracker'
+import WhatsAppButton from './components/ui/WhatsAppButton'
 
 initAnalytics()
 
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <RouteTracker />
         <Analytics />
+        <WhatsAppButton />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
