@@ -119,7 +119,9 @@
     "videoCost": "1,25 à 1,75 crédit",
     "videoDesc": "Deux étapes : valide d'abord une image de référence (0,25), puis génère la vidéo (+1 ou +1,5).",
     "note": "0,25 crédit = image ou modification · +1 crédit = vidéo courte (≤ 5s) à partir d'une image validée · +1,5 crédit = vidéo longue (6-8s). Une vidéo complète coûte entre 1,25 et 1,75 crédit au total (image de référence incluse), plus 0,25 crédit par modification demandée avant validation.",
-    "videoLockedBadge": "Flex & Pro"
+    "videoLockedBadge": "Flex & Pro",
+    "noCreditsTitle": "Tu n'as pas encore de crédits",
+    "noCreditsDesc": "Choisis un abonnement pour commencer à générer des photos et vidéos."
   },
   "editPhoto": {
     "title": "Modifier une photo",
@@ -176,11 +178,6 @@
     "failedTitle": "La génération a échoué",
     "moderationBlocked": "Cette demande a été refusée par le filtre de sécurité du modèle d'IA (souvent déclenché par des tenues dénudées ou des mots ambigus sur l'âge). Essaie une formulation différente.",
     "genericError": "Une erreur est survenue pendant la génération."
-  },
-  "welcomeBonus": {
-    "title": "Vous avez gagné 4 images gratuites !",
-    "warning": "Attention : si vous recréez un compte, cela sera automatiquement détecté et nous supprimerons définitivement vos comptes.",
-    "cta": "C'est parti"
   },
   "generatingScreen": {
     "transforming": "Transformation...",

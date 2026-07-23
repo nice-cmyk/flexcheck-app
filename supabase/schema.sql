@@ -94,11 +94,12 @@ create trigger trg_set_referral_code
   before insert on profiles
   for each row execute function set_referral_code();
 
--- Crée automatiquement un profil (avec 1 crédit gratuit) à chaque inscription
+-- Crée automatiquement un profil à chaque inscription, sans crédit gratuit :
+-- l'utilisateur doit s'abonner avant de pouvoir générer quoi que ce soit.
 create or replace function handle_new_user() returns trigger as $$
 begin
   insert into public.profiles (id, email, pack_credits)
-  values (new.id, new.email, 1)
+  values (new.id, new.email, 0)
   on conflict (id) do nothing;
   return new;
 end;

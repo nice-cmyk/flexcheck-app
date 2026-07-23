@@ -1,52 +1,44 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
 import { Camera, Video, Lock } from 'lucide-react'
 import AppLayout from '../components/layout/AppLayout'
-import WelcomeBonusModal from '../components/ui/WelcomeBonusModal'
 import { useAuth } from '../hooks/useAuth'
 import { useCredits } from '../hooks/useCredits'
-
-const WELCOME_SEEN_KEY = 'flexcheck_welcome_seen'
 
 export default function Dashboard() {
   const { t } = useTranslation()
   const { user } = useAuth()
-  const { profile } = useCredits(user?.id)
+  const { profile, credits } = useCredits(user?.id)
   const isFlexOrPro = profile?.subscription_plan === 'flex' || profile?.subscription_plan === 'pro'
   const videoUnlocked = isFlexOrPro && profile?.subscription_status === 'active'
-
-  // Every new signup gets 1 free credit = 4 photos automatically (see
-  // handle_new_user() in supabase/schema.sql) - this just surfaces that with
-  // a one-time celebratory popup the first time they land on the dashboard,
-  // stored per-account so it never shows again after being dismissed.
-  const [showWelcome, setShowWelcome] = useState(false)
-  useEffect(() => {
-    if (!user) return
-    const seen = JSON.parse(localStorage.getItem(WELCOME_SEEN_KEY) ?? '[]') as string[]
-    if (!seen.includes(user.id)) {
-      setShowWelcome(true)
-    }
-  }, [user])
-
-  function dismissWelcome() {
-    if (user) {
-      const seen = JSON.parse(localStorage.getItem(WELCOME_SEEN_KEY) ?? '[]') as string[]
-      localStorage.setItem(WELCOME_SEEN_KEY, JSON.stringify([...seen, user.id]))
-    }
-    setShowWelcome(false)
-  }
+  // No free credits are granted on signup anymore - everyone must subscribe
+  // before generating anything (see handle_new_user() in supabase/schema.sql).
+  const hasCredits = credits > 0
 
   return (
     <AppLayout>
-      {showWelcome && <WelcomeBonusModal onClose={dismissWelcome} />}
       <div className="flex-1 px-4 sm:px-6 lg:px-10 py-8 sm:py-10 max-w-3xl w-full mx-auto">
         <div className="font-display font-extrabold text-3xl sm:text-4xl text-white">{t('dashboard.title')}</div>
         <div className="text-white/50 text-base mt-2">{t('dashboard.subtitle')}</div>
 
+        {!hasCredits && (
+          <Link
+            to="/app/credits"
+            className="mt-6 flex items-center gap-3 bg-primary/10 border border-primary/30 rounded-2xl px-5 py-4 hover:border-primary/50 transition-colors"
+          >
+            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+              <Lock size={16} className="text-primary-light" />
+            </div>
+            <div>
+              <div className="text-white font-semibold text-sm">{t('dashboard.noCreditsTitle')}</div>
+              <div className="text-white/50 text-xs mt-0.5">{t('dashboard.noCreditsDesc')}</div>
+            </div>
+          </Link>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
           <Link
-            to="/app/edit-photo"
+            to={hasCredits ? '/app/edit-photo' : '/app/credits'}
             className="relative overflow-hidden bg-surface/80 border border-primary/25 rounded-2xl p-6 hover:border-primary/50 transition-colors"
           >
             <div
@@ -66,7 +58,7 @@ export default function Dashboard() {
           </Link>
 
           <Link
-            to="/app/edit-video"
+            to={hasCredits && videoUnlocked ? '/app/edit-video' : '/app/credits'}
             className="relative overflow-hidden bg-surface/60 border border-white/10 rounded-2xl p-6 hover:border-white/25 transition-colors"
           >
             <div className="relative flex items-start justify-between">

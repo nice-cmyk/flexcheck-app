@@ -119,7 +119,9 @@
     "videoCost": "1.25 a 1.75 créditos",
     "videoDesc": "Dos pasos: primero valida una imagen de referencia (0.25), luego genera el video (+1 o +1.5).",
     "note": "0.25 crédito = imagen o edición · +1 crédito = video corto (≤ 5s) a partir de una imagen validada · +1.5 crédito = video largo (6-8s). Un video completo cuesta entre 1.25 y 1.75 créditos en total (imagen de referencia incluida), más 0.25 crédito por cada edición solicitada antes de la validación.",
-    "videoLockedBadge": "Flex y Pro"
+    "videoLockedBadge": "Flex y Pro",
+    "noCreditsTitle": "Todavía no tienes créditos",
+    "noCreditsDesc": "Elige un plan para empezar a generar fotos y vídeos."
   },
   "editPhoto": {
     "title": "Editar una foto",
@@ -176,11 +178,6 @@
     "failedTitle": "La generación falló",
     "moderationBlocked": "Esta solicitud fue rechazada por el filtro de seguridad del modelo de IA (a menudo activado por prendas reveladoras o palabras ambiguas sobre la edad). Prueba con otra formulación.",
     "genericError": "Ocurrió un error durante la generación."
-  },
-  "welcomeBonus": {
-    "title": "¡Has ganado 4 imágenes gratis!",
-    "warning": "Atención: si creas otra cuenta, se detectará automáticamente y eliminaremos tus cuentas de forma permanente.",
-    "cta": "Empezar"
   },
   "generatingScreen": {
     "transforming": "Transformando...",
