@@ -177,6 +177,11 @@
     "moderationBlocked": "Cette demande a été refusée par le filtre de sécurité du modèle d'IA (souvent déclenché par des tenues dénudées ou des mots ambigus sur l'âge). Essaie une formulation différente.",
     "genericError": "Une erreur est survenue pendant la génération."
   },
+  "welcomeBonus": {
+    "title": "Vous avez gagné 4 images gratuites !",
+    "warning": "Attention : si vous recréez un compte, cela sera automatiquement détecté et nous supprimerons définitivement vos comptes.",
+    "cta": "C'est parti"
+  },
   "generatingScreen": {
     "transforming": "Transformation...",
     "note": "Généralement 30 à 60 secondes · Ne ferme pas cette fenêtre",

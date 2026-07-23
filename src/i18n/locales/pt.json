@@ -177,6 +177,11 @@
     "moderationBlocked": "Este pedido foi recusado pelo filtro de segurança do modelo de IA (geralmente causado por roupas reveladoras ou palavras ambíguas sobre a idade). Tenta uma formulação diferente.",
     "genericError": "Ocorreu um erro durante a geração."
   },
+  "welcomeBonus": {
+    "title": "Ganhaste 4 imagens grátis!",
+    "warning": "Atenção: se criares outra conta, isso será detetado automaticamente e apagaremos as tuas contas de forma permanente.",
+    "cta": "Vamos lá"
+  },
   "generatingScreen": {
     "transforming": "Transformando...",
     "note": "Geralmente 30 a 60 segundos · Não feche esta janela",

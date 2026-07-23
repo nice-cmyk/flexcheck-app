@@ -177,6 +177,11 @@
     "moderationBlocked": "This request was rejected by the AI model's safety filter (often triggered by revealing outfits or words that are ambiguous about age). Try a different wording.",
     "genericError": "Something went wrong during generation."
   },
+  "welcomeBonus": {
+    "title": "You just won 4 free images!",
+    "warning": "Heads up: if you create another account, it will be automatically detected and we will permanently delete your accounts.",
+    "cta": "Let's go"
+  },
   "generatingScreen": {
     "transforming": "Transforming...",
     "note": "Usually 30 to 60 seconds · Don't close this window",

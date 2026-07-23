@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 import { Camera, Video, Lock } from 'lucide-react'
 import AppLayout from '../components/layout/AppLayout'
+import WelcomeBonusModal from '../components/ui/WelcomeBonusModal'
 import { useAuth } from '../hooks/useAuth'
 import { useCredits } from '../hooks/useCredits'
+
+const WELCOME_SEEN_KEY = 'flexcheck_welcome_seen'
 
 export default function Dashboard() {
   const { t } = useTranslation()
@@ -11,8 +15,31 @@ export default function Dashboard() {
   const { profile } = useCredits(user?.id)
   const isFlexOrPro = profile?.subscription_plan === 'flex' || profile?.subscription_plan === 'pro'
   const videoUnlocked = isFlexOrPro && profile?.subscription_status === 'active'
+
+  // Every new signup gets 1 free credit = 4 photos automatically (see
+  // handle_new_user() in supabase/schema.sql) - this just surfaces that with
+  // a one-time celebratory popup the first time they land on the dashboard,
+  // stored per-account so it never shows again after being dismissed.
+  const [showWelcome, setShowWelcome] = useState(false)
+  useEffect(() => {
+    if (!user) return
+    const seen = JSON.parse(localStorage.getItem(WELCOME_SEEN_KEY) ?? '[]') as string[]
+    if (!seen.includes(user.id)) {
+      setShowWelcome(true)
+    }
+  }, [user])
+
+  function dismissWelcome() {
+    if (user) {
+      const seen = JSON.parse(localStorage.getItem(WELCOME_SEEN_KEY) ?? '[]') as string[]
+      localStorage.setItem(WELCOME_SEEN_KEY, JSON.stringify([...seen, user.id]))
+    }
+    setShowWelcome(false)
+  }
+
   return (
     <AppLayout>
+      {showWelcome && <WelcomeBonusModal onClose={dismissWelcome} />}
       <div className="flex-1 px-4 sm:px-6 lg:px-10 py-8 sm:py-10 max-w-3xl w-full mx-auto">
         <div className="font-display font-extrabold text-3xl sm:text-4xl text-white">{t('dashboard.title')}</div>
         <div className="text-white/50 text-base mt-2">{t('dashboard.subtitle')}</div>
