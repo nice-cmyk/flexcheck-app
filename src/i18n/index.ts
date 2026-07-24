@@ -24,14 +24,16 @@ i18n
       es: { translation: es },
       pt: { translation: pt },
     },
-    fallbackLng: 'en',
+    fallbackLng: 'fr',
+    lng: 'fr',
     supportedLngs: ['en', 'fr', 'es', 'pt'],
-    // The browser's language (which follows the user's OS/region settings) is
-    // used to auto-adapt the site to the visitor's likely location on first
-    // visit. Their explicit choice (from the language switcher) is then
-    // cached in localStorage and takes priority on future visits.
+    // Le français est la langue principale par défaut pour tout le monde,
+    // peu importe la langue du navigateur/région du visiteur. On ne détecte
+    // plus la langue automatiquement - seul le choix explicite de l'utilisateur
+    // via le sélecteur de langue est mémorisé (localStorage) et respecté au
+    // prochain passage.
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
+      order: ['localStorage'],
       caches: ['localStorage'],
       lookupLocalStorage: 'flexcheck_lang',
     },
